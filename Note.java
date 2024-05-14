@@ -1,5 +1,3 @@
-package com.musicgenreclassifier;
-
 class Note {
     int noteName;
     int pitch;
