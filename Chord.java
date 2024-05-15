@@ -88,7 +88,6 @@ class Chord{
         this.pitch = pitch;
     }
     public ArrayList<Integer> get_maj7(){
-        int pitch = 3;
         ArrayList<Integer> maj7 = new ArrayList<>();
         maj7.add(noteName);
         maj7.add(noteName + 4);
@@ -102,7 +101,6 @@ class Chord{
         return maj7;
     }
     public ArrayList<Integer> get_7(){
-        int pitch = 3;
         ArrayList<Integer> _7 = new ArrayList<>();
         _7.add(noteName);
         _7.add(noteName + 4);
@@ -116,7 +114,7 @@ class Chord{
         return _7;
     }
     public ArrayList<Integer> get_min7(){
-        int pitch = 3;
+        
         ArrayList<Integer> C_min7 = new ArrayList<>();
         C_min7.add(noteName);
         C_min7.add(noteName + 3);
@@ -130,7 +128,7 @@ class Chord{
         return C_min7;
     }
     public ArrayList<Integer> get_O7(){
-        int pitch = 3;
+        
         ArrayList<Integer> C_O7 = new ArrayList<>();
         C_O7.add(noteName);
         C_O7.add(noteName + 3);
@@ -144,7 +142,7 @@ class Chord{
         return C_O7;
     }
     public ArrayList<Integer> get_maj(){
-        int pitch = 3;
+        
         ArrayList<Integer> C_maj = new ArrayList<>();
         C_maj.add(noteName);
         C_maj.add(noteName + 4);
@@ -157,7 +155,6 @@ class Chord{
         return C_maj;
     }
     public ArrayList<Integer> get_min(){
-        int pitch = 3;
         ArrayList<Integer> C_min = new ArrayList<>();
         C_min.add(noteName);
         C_min.add(noteName + 3);
@@ -170,7 +167,6 @@ class Chord{
         return C_min;
     }
     public ArrayList<Integer> get_O(){
-        int pitch = 3;
         ArrayList<Integer> C_O = new ArrayList<>();
         C_O.add(noteName);
         C_O.add(noteName + 3);
