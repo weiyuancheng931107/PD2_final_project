@@ -95,7 +95,7 @@ class Chord{
         maj7.add(noteName + 7);
         maj7.add(noteName + 11);
         for(int noteValue=0;noteValue<4;noteValue++){
-            Note C = new Note(maj7.get(noteValue) % 13, pitch);
+            Note C = new Note(maj7.get(noteValue) % 12, pitch);
             maj7.set(noteValue, C.getNote());
         }
         System.out.println("maj7");
@@ -109,7 +109,7 @@ class Chord{
         _7.add(noteName + 7);
         _7.add(noteName + 10);
         for(int noteValue=0;noteValue<4;noteValue++){
-            Note C = new Note(_7.get(noteValue) % 13, pitch);
+            Note C = new Note(_7.get(noteValue) % 12, pitch);
             _7.set(noteValue, C.getNote());
         }
         System.out.println("7");
@@ -123,7 +123,7 @@ class Chord{
         C_min7.add(noteName + 7);
         C_min7.add(noteName + 10);
         for(int noteValue=0;noteValue<4;noteValue++){
-            Note C = new Note(C_min7.get(noteValue) % 13, pitch);
+            Note C = new Note(C_min7.get(noteValue) % 12, pitch);
             C_min7.set(noteValue, C.getNote());
         }
         System.out.println("-7");
@@ -137,7 +137,7 @@ class Chord{
         C_O7.add(noteName + 6);
         C_O7.add(noteName + 10);
         for(int noteValue=0;noteValue<4;noteValue++){
-            Note C = new Note(C_O7.get(noteValue) % 13, pitch);
+            Note C = new Note(C_O7.get(noteValue) % 12, pitch);
             C_O7.set(noteValue, C.getNote());
         }
         System.out.println("o7");
@@ -150,7 +150,7 @@ class Chord{
         C_maj.add(noteName + 4);
         C_maj.add(noteName + 7);
         for(int noteValue=0;noteValue<3;noteValue++){
-            Note C = new Note(C_maj.get(noteValue) % 13, pitch);
+            Note C = new Note(C_maj.get(noteValue) % 12, pitch);
             C_maj.set(noteValue, C.getNote());
         }
         System.out.println("maj");
@@ -163,7 +163,7 @@ class Chord{
         C_min.add(noteName + 3);
         C_min.add(noteName + 7);
         for(int noteValue=0;noteValue<3;noteValue++){
-            Note C = new Note(C_min.get(noteValue) % 13, pitch);
+            Note C = new Note(C_min.get(noteValue) % 12, pitch);
             C_min.set(noteValue, C.getNote());
         }
         System.out.println("min");
@@ -176,7 +176,7 @@ class Chord{
         C_O.add(noteName + 3);
         C_O.add(noteName + 6);
         for(int noteValue=0;noteValue<3;noteValue++){
-            Note C = new Note(C_O.get(noteValue) % 13, pitch);
+            Note C = new Note(C_O.get(noteValue) % 12, pitch);
             C_O.set(noteValue, C.getNote());
         }
         System.out.println("O");
