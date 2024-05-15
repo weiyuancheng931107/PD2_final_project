@@ -1,3 +1,5 @@
+package com.musicgenreclassifier;
+
 class Note {
     int noteName;
     int pitch;
@@ -7,29 +9,29 @@ class Note {
     }
     public int getNote(){
         switch (noteName) {
-            case 1://"C"
+            case 0://"C"
                 return 12*pitch+12;
-            case 2://"C#":
+            case 1://"C#":
                 return 12*pitch+13;
-            case 3://"D":
+            case 2://"D":
                 return 12*pitch+14;
-            case 4://"D#":
+            case 3://"D#":
                 return 12*pitch+15;
-            case 5://"E":
+            case 4://"E":
                 return 12*pitch+16;
-            case 6://"F":
+            case 5://"F":
                 return 12*pitch+17;
-            case 7://"F#":
+            case 6://"F#":
                 return 12*pitch+18;
-            case 8://"G":
+            case 7://"G":
                 return 12*pitch+19;
-            case 9://"G#":
+            case 8://"G#":
                 return 12*pitch+20;
-            case 10://"A":
+            case 9://"A":
                 return 12*pitch+21;
-            case 11://"A#":
+            case 10://"A#":
                 return 12*pitch+22;
-            case 12://"B":
+            case 11://"B":
                 return 12*pitch+23;
             default:
                 return -1;
