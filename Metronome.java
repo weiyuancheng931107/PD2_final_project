@@ -10,7 +10,7 @@ class Metronome {
     private Track track;
     int bpm;
     static int program;
-    ArrayList<Integer> notename;
+    ArrayList<ArrayList<Integer>> notename;
     int pitch;
     int velocity;
     ArrayList<Integer> beat;
@@ -18,13 +18,17 @@ class Metronome {
     int tick = 0;
     private Sequencer sequencer;
 
-    public Metronome(int bpm, int program, ArrayList<Integer> notename, int pitch, int velocity, ArrayList<Double> beat, int channel) throws InvalidMidiDataException, MidiUnavailableException {
+    public Metronome(int bpm, int program, ArrayList<ArrayList<Integer>> notename, int pitch, int velocity, ArrayList<Double> beat, int channel) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         Metronome.program = program;
         this.notename = new ArrayList<>();
         for (int i = 0; i < notename.size(); i++) {
-            Note note = new Note(notename.get(i), pitch);
-            this.notename.add(note.getNote());
+            ArrayList<Integer> temp = new ArrayList<>(); // 每次迭代都创建一个新的temp列表
+            for (int j = 0; j < notename.get(i).size(); j++) {
+                Note note = new Note(notename.get(i).get(j) % 12, pitch);
+                temp.add(note.getNote());
+            }
+            this.notename.add(temp); // 将每个新创建的temp列表添加到notename中
         }
         this.pitch = pitch;
         this.velocity = velocity;
@@ -50,7 +54,7 @@ class Metronome {
         return program;
     }
 
-    public ArrayList<Integer> getNotename() {
+    public ArrayList<ArrayList<Integer>> getNotename() {
         return notename;
     }
 
@@ -73,44 +77,28 @@ class Metronome {
     public void rhythmchord() throws InvalidMidiDataException {
         // Add MIDI events: note ON
         for (int j = 0; j < beat.size(); j++) {
-            for (int i = 0; i < notename.size(); i++) {
-                if (notename.get(i) == -1) {
-                    break;
+                for(int k = 0;k<notename.get(j).size();k++){
+                    if (notename.get(j).get(k) == -1) {
+                        break;
+                    }
+                    ShortMessage noteOn = new ShortMessage();
+                    noteOn.setMessage(ShortMessage.NOTE_ON, channel, notename.get(j).get(k), velocity);
+                    track.add(new MidiEvent(noteOn, tick));
                 }
-                ShortMessage noteOn = new ShortMessage();
-                noteOn.setMessage(ShortMessage.NOTE_ON, channel, notename.get(i), velocity);
-                track.add(new MidiEvent(noteOn, tick));
-            }
-            // Add MIDI events: note OFF
-            for (int i = 0; i < notename.size(); i++) {
-                if (notename.get(i) == -1) {
-                    continue;
+                // Add MIDI events: note OFF
+
+                for(int k = 0;k<notename.get(j).size();k++){
+                    if (notename.get(j).get(k) == -1) {
+                        break;
+                    }
+                    ShortMessage noteOff = new ShortMessage();
+                    noteOff.setMessage(ShortMessage.NOTE_OFF, channel, notename.get(j).get(k), velocity);
+                    track.add(new MidiEvent(noteOff, tick + this.beat.get(j)));
                 }
-                ShortMessage noteOff = new ShortMessage();
-                noteOff.setMessage(ShortMessage.NOTE_OFF, channel, notename.get(i), velocity);
-                track.add(new MidiEvent(noteOff, tick + this.beat.get(j)));
-                tick += this.beat.get(j);
+            
+                tick+=this.beat.get(j);
             }
         }
-    }
-
-    public void rhythmonenote() throws InvalidMidiDataException {
-        // Add MIDI events: note ON
-        for (int i = 0; i < notename.size(); i++) {
-            if (notename.get(i) == -1) {
-                continue;
-            }
-            ShortMessage noteOn = new ShortMessage();
-            noteOn.setMessage(ShortMessage.NOTE_ON, channel, notename.get(i), velocity);
-            track.add(new MidiEvent(noteOn, tick));
-            // Add MIDI events: note OFF
-            ShortMessage noteOff = new ShortMessage();
-            noteOff.setMessage(ShortMessage.NOTE_OFF, channel, notename.get(i), velocity);
-            track.add(new MidiEvent(noteOff, tick + this.beat.get(i)));
-            tick += this.beat.get(i);
-        }
-    }
-
     public static MidiEvent createProgramChangeMessage() throws InvalidMidiDataException {
         ShortMessage message = new ShortMessage();
         // Set to pipe organ sound (program number 19 in General MIDI)
