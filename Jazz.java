@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +92,7 @@ class Jazz implements InnerJazz {
         ArrayList<Integer> drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
         ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(1.0,1.5,3.0,1.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0));
-        //
+        //第一小節
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
@@ -105,7 +104,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //
+        //第二小節
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_SNARE));
@@ -122,7 +121,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //
+        //第三小節
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,PEDAL_HI_HAT));
@@ -135,7 +134,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //
+        //第四小節
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,PEDAL_HI_HAT));
@@ -165,16 +164,19 @@ class Jazz implements InnerJazz {
         ArrayList<ArrayList<Integer>> pianochordfinal = new ArrayList<>();
         ArrayList<Double> pianobeatfinal = new ArrayList<>();
         this.chordHashMap =  groupAndFilter(this.chordHashMap);
+        int lastbeat = 0;
         for (Integer key : chordHashMap.keySet()) {
             beatcount.add(key);
             pianochordtemp = chordHashMap.get(key);
             pianochord.add(pianochordtemp);
+            lastbeat = key;
         }
         for(int i = 0;i<beatcount.size()-1;i++){
             pianobeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));
         }
-        if(beatcount.get((beatcount.size()-1))%4!=0){
-            pianobeat.add((double)(1/((double)(4-beatcount.get((beatcount.size())-1)%4)+1.0)));
+        
+        if(lastbeat%4!=0){
+            pianobeat.add(1/((double)(17-lastbeat)));
         }
         else{
             pianobeat.add(1.0);
@@ -241,8 +243,8 @@ class Jazz implements InnerJazz {
             }
         }
         System.out.println(this.chordHashMap);
-        // System.out.println(pianobeat);
-        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 4, velocity, pianobeatfinal, 0);
+        System.out.println(pianobeat);
+        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 4, velocity, pianobeatfinal, 1);
         piano.rhythmchord();
         piano.writeToFile("piano");
     }
@@ -259,16 +261,18 @@ class Jazz implements InnerJazz {
         this.chordHashMap =  groupAndFilter(this.chordHashMap);
         ArrayList<Integer> bassonenote= new ArrayList<>();
         int a = 0;
+        int lastbeat = 0;
         for (Integer key : chordHashMap.keySet()) {
             beatcount.add(key);
             basschordtemp = chordHashMap.get(key);
             basschord.add(basschordtemp);
+            lastbeat = key;
         }
         for(int i = 0;i<beatcount.size()-1;i++){
             bassbeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));
         }
-        if(beatcount.get((beatcount.size()-1))%4!=0){
-            bassbeat.add((double)(1/((double)(4-beatcount.get((beatcount.size())-1)%4)+1.0)));
+        if(lastbeat%4!=0){
+            bassbeat.add(1/((double)(17-lastbeat)));
         }
         else{
             bassbeat.add(1.0);
@@ -333,60 +337,33 @@ class Jazz implements InnerJazz {
                 basschordfinal.add(bassline);
             }
         }
-        Metronome bass = new Metronome(bpm, 33, basschordfinal, 2, velocity, bassbeatfinal, 0);
+        Metronome bass = new Metronome(bpm, 46, basschordfinal, 2, velocity, bassbeatfinal, 0);
         bass.rhythmchord();
         bass.writeToFile("bass");
     }
 
-    public static HashMap<Integer, ArrayList<Integer>> groupAndFilter(Map<Integer, ArrayList<Integer>> inputMap) {
-        HashMap<Integer, ArrayList<Integer>> resultMap = new HashMap<>();
-
-        for (Map.Entry<Integer, ArrayList<Integer>> entry : inputMap.entrySet()) {
-            int key = entry.getKey();
-            ArrayList<Integer> value = entry.getValue();
-
-            boolean grouped = false;
-            for (Map.Entry<Integer, ArrayList<Integer>> resultEntry : resultMap.entrySet()) {
-                if (resultEntry.getValue().equals(value)) {
-                    resultMap.remove(key);
-                    grouped = true;
-                    break;
-                }
-            }
-
-            if (!grouped) {
-                boolean added = false;
-                for (Map.Entry<Integer, ArrayList<Integer>> resultEntry : resultMap.entrySet()) {
-                    if (isSimilar(value, resultEntry.getValue())) {
-                        if (key > resultEntry.getKey()) {
-                            resultMap.remove(resultEntry.getKey());
-                            resultMap.put(key, value);
-                        }
-                        added = true;
-                        break;
-                    }
-                }
-                if (!added) {
-                    resultMap.put(key, value);
+    public static Map<Integer, ArrayList<Integer>> groupAndFilter(Map<Integer, ArrayList<Integer>> input) {
+        Map<Integer, ArrayList<Integer>> result = new HashMap<>();
+        // 將鍵按4的倍數分組
+        TreeMap<Integer, List<Integer>> groupedMap = new TreeMap<>();
+        for (Integer key : input.keySet()) {
+            int groupKey = (key-1) / 4;
+            groupedMap.putIfAbsent(groupKey, new ArrayList<Integer>());
+            groupedMap.get(groupKey).add(key);
+        }
+        // System.out.println(groupedMap);
+        // 用來檢查已經處理過的分組
+        for (List<Integer> groupKeys : groupedMap.values()) {
+            Set<ArrayList<Integer>> seenGroups = new HashSet<>();
+            for (Integer key : groupKeys) {
+                ArrayList<Integer> group = input.get(key);
+                if (!seenGroups.contains(group)) {
+                    seenGroups.add(group);
+                    result.put(key, group);
                 }
             }
         }
-
-        return resultMap;
-    }
-
-    public static boolean isSimilar(ArrayList<Integer> list1, ArrayList<Integer> list2) {
-        if (list1.size() != list2.size())
-            return false;
-
-        for (int i = 0; i < list1.size(); i++) {
-            if ((list1.get(i) % 4 != 0 && list2.get(i) % 4 != 0) || (list1.get(i) % 4 == 0 && list2.get(i) % 4 == 0)) {
-                if (!list1.get(i).equals(list2.get(i))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return result;
     }
     public static int rand(int min, int max, Random random) {
         return random.nextInt((max - min) + 1) + min;
