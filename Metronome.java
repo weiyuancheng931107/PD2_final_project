@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.sound.midi.*;
 
-class Metronome1 {
+class Metronome {
     private Sequence sequence;
     private Track track;
     int bpm;
     static int program;
-    ArrayList<Integer> notename;
+    ArrayList<ArrayList<Integer>> notename;
     int pitch;
     int velocity;
     ArrayList<Integer> beat;
@@ -18,12 +18,17 @@ class Metronome1 {
     int tick = 0;
     private Sequencer sequencer;
 
-    public Metronome1(int bpm, int program, ArrayList<Integer> notename, int pitch, int velocity, ArrayList<Double> beat, int channel) throws InvalidMidiDataException, MidiUnavailableException {
+    public Metronome(int bpm, int program, ArrayList<ArrayList<Integer>> notename, int pitch, int velocity, ArrayList<Double> beat, int channel) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         Metronome.program = program;
         this.notename = new ArrayList<>();
         for (int i = 0; i < notename.size(); i++) {
-            this.notename = notename;
+            ArrayList<Integer> temp = new ArrayList<>(); // 
+            for (int j = 0; j < notename.get(i).size(); j++) {
+                Note note = new Note(notename.get(i).get(j) % 12, pitch);
+                temp.add(note.getNote());
+            }
+            this.notename.add(temp); // 
         }
         this.pitch = pitch;
         this.velocity = velocity;
@@ -49,7 +54,7 @@ class Metronome1 {
         return program;
     }
 
-    public ArrayList<Integer> getNotename() {
+    public ArrayList<ArrayList<Integer>> getNotename() {
         return notename;
     }
 
@@ -72,22 +77,25 @@ class Metronome1 {
     public void rhythmchord() throws InvalidMidiDataException {
         // Add MIDI events: note ON
         for (int j = 0; j < beat.size(); j++) {
-                    if (notename.get(j) == -1) {
-                        tick+=this.beat.get(j);
-                        continue;
+                for(int k = 0;k<notename.get(j).size();k++){
+                    if (notename.get(j).get(k) == -1) {
+                        break;
                     }
                     ShortMessage noteOn = new ShortMessage();
-                    noteOn.setMessage(ShortMessage.NOTE_ON, channel, notename.get(j), velocity);
+                    noteOn.setMessage(ShortMessage.NOTE_ON, channel, notename.get(j).get(k), velocity);
                     track.add(new MidiEvent(noteOn, tick));
-                
+                }
                 // Add MIDI events: note OFF
 
-                if (notename.get(j) == -1) {
-                    continue;
+                for(int k = 0;k<notename.get(j).size();k++){
+                    if (notename.get(j).get(k) == -1) {
+                        break;
+                    }
+                    ShortMessage noteOff = new ShortMessage();
+                    noteOff.setMessage(ShortMessage.NOTE_OFF, channel, notename.get(j).get(k), velocity);
+                    track.add(new MidiEvent(noteOff, tick + this.beat.get(j)));
                 }
-                ShortMessage noteOff = new ShortMessage();
-                noteOff.setMessage(ShortMessage.NOTE_OFF, channel, notename.get(j), velocity);
-                track.add(new MidiEvent(noteOff, tick + this.beat.get(j)));
+            
                 tick+=this.beat.get(j);
             }
         }
