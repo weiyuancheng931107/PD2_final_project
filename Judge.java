@@ -1,14 +1,13 @@
-package com.musicgenreclassifier;
-
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiUnavailableException;
 
 public class Judge {
     Chord C;
@@ -45,18 +44,41 @@ public class Judge {
         this.notename = notename;
         this.beat = beat;
         this.meter = meter;
+        for(int i = 0;i<notename.size();i++){
+            notename.set(i, notename.get(i)%12);
+        }
     }
 
     public ArrayList<ArrayList<Integer>> getChord() {
         return chordList;
     }
 
-    public HashMap<Integer, ArrayList<ArrayList<Integer>>> judgement() {
+    public static Map<Integer, Double> sortChord(Map<Integer, Double> pointeOfChord) {
+        // System.out.println(pointeOfChord);
+        Map<Integer, Double> sortedLHashMap = new LinkedHashMap<>();
+        List<Map.Entry<Integer, Double>> list = new ArrayList<>(pointeOfChord.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Double> o1, Map.Entry<Integer, Double> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        for (Map.Entry<Integer, Double> entry : list) {
+            sortedLHashMap.put(entry.getKey(), entry.getValue());
+        }
+        // System.out.println(sortedLHashMap);
+        return sortedLHashMap;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Map<Integer, ArrayList<Integer>> judgement() {
         ArrayList<Chord> chords = new ArrayList<>();
-        HashMap<Integer, ArrayList<ArrayList<Integer>>> judgements = new HashMap<>();
+        Map<Integer, ArrayList<Integer>> judgements = new HashMap<>();
+        ArrayList<Integer> negativeArrayList = new ArrayList<>(Arrays.asList(-1));
+        Map<Integer, Double> pointOfchord = new HashMap<>();
         double parameter = 0;
         int j = 0;
-
+        int bar = 0;
         chords.add(C);
         chords.add(Csharp);
         chords.add(D);
@@ -79,56 +101,99 @@ public class Judge {
             chordList.add(chords.get(i).get_min());
             chordList.add(chords.get(i).get_min7());
         }
-
-        ArrayList<ArrayList<Integer>> originalChordList = new ArrayList<>(chordList);
-        
-        // ArrayList<ArrayList<Integer>> currentChordList = new ArrayList<>(originalChordList);
-        ArrayList<ArrayList<Integer>> currentChordList = new ArrayList<>(originalChordList);
-        // System.out.println(originalChordList);
-        // System.out.println("-======================================");
-        Iterator<ArrayList<Integer>> iterator = currentChordList.iterator();
-        for (int i = 0; i < beat.size(); i++) {
-            // ArrayList<ArrayList<Integer>> currentChordList = new ArrayList<>(originalChordList);
-            // Iterator<ArrayList<Integer>> iterator = currentChordList.iterator();
-            while (iterator.hasNext()) {
-                ArrayList<Integer> currentChord = iterator.next();
-                if (!currentChord.contains(notename.get(i))) {
-                    iterator.remove();
+        for(int i = 0;i<chordList.size();i++){
+            pointOfchord.put(i,0.0);
+        }
+        for(int i = 0;i<beat.size();i++){
+            for(int k = 0;k<chordList.size();k++){
+                if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) == 0 && ((double)beat.get(i)) == 1.0){
+                    if(i>0&&i<notename.size()){
+                        if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && ((double)beat.get(i+1)) == 1.0 && ((double)beat.get(i-1)) == 1.0){
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 4.65);
+                        }
+                        else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 2.0 || ((double)beat.get(i-1)) == 2.0)){
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 2.25);
+                        }
+                        else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 3.0 || ((double)beat.get(i-1)) == 3.0)){
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.45);
+                        }
+                        else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 4.0 || ((double)beat.get(i-1)) == 4.0)){
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.85);
+                        }
+                        else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 5.0 || ((double)beat.get(i-1)) == 5.0)){
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.55);
+                        }
+                        else if(chordList.get(k).contains(notename.get(i-1)) && !chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 1.0 || ((double)beat.get(i-1)) == 1.0)){
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 3.05);
+                        }
+                        else if(chordList.get(k).contains(notename.get(i-1)) && !chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 2.0 || ((double)beat.get(i-1)) == 2.0)){
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.75);
+                        }
+                    }
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 1.0){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.33);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 3.0){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.36);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 4.0){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.27);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 16.0){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.063);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 32.0){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.035);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 5.0){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.18);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 0.25){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 2.1);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 0.5){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 2.1);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) == 0 && ((double)beat.get(i)) == 0.25){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 4.1);
+                }
+                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) == 0 && ((double)beat.get(i)) == 0.4){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 4);
+                }
+                if(chordList.get(k).contains(notename.get(i))){
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.0);
                 }
             }
             if (parameter <= 1) {
-                // System.out.println(currentChordList);
-                judgements.put(j + 1, currentChordList);
+                pointOfchord = sortChord(pointOfchord);
+                int index = 0;
+                for (Integer key : pointOfchord.keySet()) {
+                    index = key;
+                    break;
+                }
+                judgements.put(j+1,chordList.get(index));
+
             }
             parameter += (double) (1.0 / beat.get(i));
-            while (Math.abs(parameter - 1) <= 0.01 || parameter >= 1) {
-                System.out.println("asdasd, " + i);
-                if (parameter > 1) {
-                    currentChordList = new ArrayList<>(originalChordList);
-                    iterator = currentChordList.iterator();
-                    while (iterator.hasNext()) {
-                        ArrayList<Integer> currentChord = iterator.next();
-                        if (!currentChord.contains(notename.get(i))) {
-                            iterator.remove();
-                        }
-                    }
-                } else {
-                    currentChordList = new ArrayList<>(originalChordList);
-                }
+            while ((Math.abs(parameter - 1) <= 0.01 || parameter >= 1)) {
                 parameter -= 1;
                 j++;
-                // judgements.put(j, currentChordList);
-                
+                for(int k = 1;k<pointOfchord.size();k++){
+                    pointOfchord.put(k, 0.0);
+                }
+                if(j%4 == 0){
+                    bar++;
+                }
             }
-            iterator = currentChordList.iterator();
+        }
+        System.out.println(judgements);
+            return judgements;
         }
 
-        return judgements;
-    }
-
-    public HashMap<Integer, ArrayList<Integer>> getRepeat(HashMap<Integer, ArrayList<ArrayList<Integer>>> judgements) {
-        HashMap<Integer, ArrayList<Integer>> repeat = new HashMap<>();
-        System.out.println(judgements);
+    public Map<Integer, ArrayList<Integer>> getRepeat(Map<Integer, ArrayList<ArrayList<Integer>>> judgements) {
+        Map<Integer, ArrayList<Integer>> repeat = new HashMap<>();
+        // System.out.println(judgements);
         Random random = new Random();
 
         List<Integer> keys = new ArrayList<>(judgements.keySet());
@@ -155,36 +220,21 @@ public class Judge {
             }
 
             if (!found) {
-                int randomIndex1 = random.nextInt(judgeList1.size());
-                repeat.put(key1, judgeList1.get(randomIndex1));
-
-                for (int j = 0; j < keys.size(); j++) {
-                    if (i == j) continue;
-                    int key2 = keys.get(j);
-                    ArrayList<ArrayList<Integer>> judgeList2 = judgements.get(key2);
-                    int randomIndex2 = random.nextInt(judgeList2.size());
-                    repeat.put(key2, judgeList2.get(randomIndex2));
+                if (judgeList1.size()!= 0) {
+                    int randomIndex1 = random.nextInt(judgeList1.size());
+                    repeat.put(key1, judgeList1.get(randomIndex1));
+    
+                    for (int j = 0; j < keys.size(); j++) {
+                        if (i == j) continue;
+                        int key2 = keys.get(j);
+                        ArrayList<ArrayList<Integer>> judgeList2 = judgements.get(key2);
+                        int randomIndex2 = random.nextInt(judgeList2.size());
+                        repeat.put(key2, judgeList2.get(randomIndex2));
+                    }
                 }
             }
         }
-
-        System.out.println(repeat);
         return repeat;
     }
-
-    public void music() throws InvalidMidiDataException, MidiUnavailableException, IOException{
-        HashMap<Integer, ArrayList<ArrayList<Integer>>> a = new HashMap<>();
-        a = judgement();
-        ArrayList<Double> b = new ArrayList<>();
-        b.add(1.0);
-        b.add(1.0);
-        b.add(1.0);
-        b.add(1.0);
-        Metronome s = new Metronome(120, 29, a.get(1).get(3), 4, 100,b, 0);
-
-        // s.rhythmchord();
-        s.rhythmonenote();
-        s.writeToFile("output");
-    }
-
+    
 }
