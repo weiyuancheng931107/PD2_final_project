@@ -1,4 +1,4 @@
-package com.musicgenreclassifier;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,11 +29,11 @@ class Jazz implements InnerJazz {
     public static final int KICK_DRUM = 36; // Bass drum
     public static final int RIDE = 42;
     public static final int CRASH = 51;
-    HashMap<Integer, ArrayList<Integer>> chordHashMap;
+    Map<Integer, ArrayList<Integer>> chordHashMap;
     private int bpm;
     private int velocity;
     public ArrayList<Integer> pause;
-    public Jazz(int bpm, int velocity,HashMap<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
+    public Jazz(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         this.velocity = velocity;
         this.chordHashMap = chordHashMap;
@@ -93,7 +93,7 @@ class Jazz implements InnerJazz {
         ArrayList<Integer> drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
         ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(1.0,1.5,3.0,1.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0));
-        //第一小節
+        //
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
@@ -105,7 +105,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //第二小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_SNARE));
@@ -122,7 +122,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //第三小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,PEDAL_HI_HAT));
@@ -135,7 +135,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //第四小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,PEDAL_HI_HAT));
@@ -156,6 +156,8 @@ class Jazz implements InnerJazz {
 
     @Override
     public void Piano() throws InvalidMidiDataException, MidiUnavailableException, IOException {
+        Random random = new Random();
+        int randomplaylist = rand(0, 1, random) ;
         ArrayList<Integer> pianochordtemp = new ArrayList<>();
         ArrayList<ArrayList<Integer>> pianochord = new ArrayList<>();
         ArrayList<Double> pianobeat = new ArrayList<>();
@@ -178,23 +180,56 @@ class Jazz implements InnerJazz {
             pianobeat.add(1.0);
         }
         for(int i = 0;i<pianobeat.size();i++){
-            if(pianobeat.get(i)==0.25){
+            if(pianobeat.get(i)==0.25 && randomplaylist == 0){
                 pianobeatfinal.add(1.0);
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(0.4);
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pause);
                 pianochordfinal.add(pianochord.get(i));
+                randomplaylist = rand(0, 1, random) ;
             }
-            else if(pianobeat.get(i) == 1.0){
+            else if(pianobeat.get(i)==0.25 && randomplaylist == 1){
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(1.0);
                 pianobeatfinal.add(1.0);
                 pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                randomplaylist = rand(0, 1, random) ;
             }
-            else if(pianobeat.get(i) == 0.5){
+            else if(pianobeat.get(i) == 1.0&& randomplaylist == 1){
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                randomplaylist = rand(0, 1, random) ;
+            }
+            else if(pianobeat.get(i) == 1.0&& randomplaylist == 0){
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                randomplaylist = rand(0, 1, random) ;
+
+            }
+            else if(pianobeat.get(i) == 0.5 && randomplaylist == 0){
                 pianobeatfinal.add((double)(2.0/(double)(3.0)));
                 pianobeatfinal.add(2.0);
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
+                randomplaylist = rand(0, 1, random) ;
+            }
+            else if(pianobeat.get(i) == 0.5 && randomplaylist == 1){
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pianochord.get(i));
+                randomplaylist = rand(0, 1, random) ;
             }
             else{
                 pianobeatfinal.add(0.5);
@@ -206,7 +241,7 @@ class Jazz implements InnerJazz {
             }
         }
         System.out.println(this.chordHashMap);
-        System.out.println(pianobeat);
+        // System.out.println(pianobeat);
         Metronome piano = new Metronome(bpm, 4, pianochordfinal, 4, velocity, pianobeatfinal, 0);
         piano.rhythmchord();
         piano.writeToFile("piano");
@@ -271,7 +306,7 @@ class Jazz implements InnerJazz {
                 a = 0;
             } else if (bassbeat.get(i) == 1.0) {
                 ArrayList<Integer> bassline = new ArrayList<>();
-                bassline.add(basschord.get(i).get(rand(0, 3, random)));
+                bassline.add(basschord.get(i).get(rand(0, 2, random)));
                 basschordfinal.add(bassline);
                 bassbeatfinal.add(1.0);
             } else if (bassbeat.get(i) == 0.5) {
@@ -298,35 +333,60 @@ class Jazz implements InnerJazz {
                 basschordfinal.add(bassline);
             }
         }
-        Metronome bass = new Metronome(bpm, 46, basschordfinal, 2, velocity, bassbeatfinal, 0);
+        Metronome bass = new Metronome(bpm, 33, basschordfinal, 2, velocity, bassbeatfinal, 0);
         bass.rhythmchord();
         bass.writeToFile("bass");
     }
 
-    public static HashMap<Integer, ArrayList<Integer>> groupAndFilter(HashMap<Integer, ArrayList<Integer>> input) {
-        HashMap<Integer, ArrayList<Integer>> result = new HashMap<>();
+    public static HashMap<Integer, ArrayList<Integer>> groupAndFilter(Map<Integer, ArrayList<Integer>> inputMap) {
+        HashMap<Integer, ArrayList<Integer>> resultMap = new HashMap<>();
 
-        // 將鍵按4的倍數分組
-        TreeMap<Integer, List<Integer>> groupedMap = new TreeMap<>();
-        for (Integer key : input.keySet()) {
-            int groupKey = key / 4;
-            groupedMap.putIfAbsent(groupKey, new ArrayList<Integer>());
-            groupedMap.get(groupKey).add(key);
-        }
+        for (Map.Entry<Integer, ArrayList<Integer>> entry : inputMap.entrySet()) {
+            int key = entry.getKey();
+            ArrayList<Integer> value = entry.getValue();
 
-        // 用來檢查已經處理過的分組
-        for (List<Integer> groupKeys : groupedMap.values()) {
-            Set<ArrayList<Integer>> seenGroups = new HashSet<>();
-            for (Integer key : groupKeys) {
-                ArrayList<Integer> group = input.get(key);
-                if (!seenGroups.contains(group)) {
-                    seenGroups.add(group);
-                    result.put(key, group);
+            boolean grouped = false;
+            for (Map.Entry<Integer, ArrayList<Integer>> resultEntry : resultMap.entrySet()) {
+                if (resultEntry.getValue().equals(value)) {
+                    resultMap.remove(key);
+                    grouped = true;
+                    break;
+                }
+            }
+
+            if (!grouped) {
+                boolean added = false;
+                for (Map.Entry<Integer, ArrayList<Integer>> resultEntry : resultMap.entrySet()) {
+                    if (isSimilar(value, resultEntry.getValue())) {
+                        if (key > resultEntry.getKey()) {
+                            resultMap.remove(resultEntry.getKey());
+                            resultMap.put(key, value);
+                        }
+                        added = true;
+                        break;
+                    }
+                }
+                if (!added) {
+                    resultMap.put(key, value);
                 }
             }
         }
 
-        return result;
+        return resultMap;
+    }
+
+    public static boolean isSimilar(ArrayList<Integer> list1, ArrayList<Integer> list2) {
+        if (list1.size() != list2.size())
+            return false;
+
+        for (int i = 0; i < list1.size(); i++) {
+            if ((list1.get(i) % 4 != 0 && list2.get(i) % 4 != 0) || (list1.get(i) % 4 == 0 && list2.get(i) % 4 == 0)) {
+                if (!list1.get(i).equals(list2.get(i))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     public static int rand(int min, int max, Random random) {
         return random.nextInt((max - min) + 1) + min;
