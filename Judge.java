@@ -109,15 +109,15 @@ public class Judge {
                 if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) == 0 && ((double)beat.get(i)) == 1.0){
                     if(i>0&&i<notename.size()){
                         if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && ((double)beat.get(i+1)) == 1.0 && ((double)beat.get(i-1)) == 1.0){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 4.65);
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 3.65);
                         }
                         else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 2.0 || ((double)beat.get(i-1)) == 2.0)){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 2.25);
+                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.25);
                         }
                         else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 3.0 || ((double)beat.get(i-1)) == 3.0)){
                             pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.45);
                         }
-                        else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 4.0 || ((double)beat.get(i-1)) == 4.0)){
+                        else if(chordList.get(k).contains(notename.get(i-1)) || chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 4.0 || ((double)beat.get(i-1)) == 4.0)){
                             pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.85);
                         }
                         else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 5.0 || ((double)beat.get(i-1)) == 5.0)){
