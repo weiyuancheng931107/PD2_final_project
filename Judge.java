@@ -1,13 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+package com.musicgenreclassifier;
 
+import java.util.*;
 
 public class Judge {
     Chord C;
@@ -41,12 +34,12 @@ public class Judge {
         this.Asharp = new Chord(10, -1);
         this.B = new Chord(11, -1);
         this.chordList = new ArrayList<>();
-        this.notename = notename;
+        this.notename = new ArrayList<>();
+        for(int i = 0;i<notename.size();i++){
+            this.notename.add(notename.get(i)%12);
+        }
         this.beat = beat;
         this.meter = meter;
-        for(int i = 0;i<notename.size();i++){
-            notename.set(i, notename.get(i)%12);
-        }
     }
 
     public ArrayList<ArrayList<Integer>> getChord() {
@@ -54,7 +47,6 @@ public class Judge {
     }
 
     public static Map<Integer, Double> sortChord(Map<Integer, Double> pointeOfChord) {
-        // System.out.println(pointeOfChord);
         Map<Integer, Double> sortedLHashMap = new LinkedHashMap<>();
         List<Map.Entry<Integer, Double>> list = new ArrayList<>(pointeOfChord.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {
@@ -66,15 +58,30 @@ public class Judge {
         for (Map.Entry<Integer, Double> entry : list) {
             sortedLHashMap.put(entry.getKey(), entry.getValue());
         }
-        // System.out.println(sortedLHashMap);
         return sortedLHashMap;
+    }
+
+    private int determineKey() {
+        int[] noteCount = new int[12];
+        for (int note : notename) {
+            noteCount[note % 12]++;
+        }
+        int maxCount = 0;
+        int key = 0;
+        for (int i = 0; i < noteCount.length; i++) {
+            if (noteCount[i] > maxCount) {
+                maxCount = noteCount[i];
+                key = i;
+            }
+        }
+        return key;
     }
 
     @SuppressWarnings("unchecked")
     public Map<Integer, ArrayList<Integer>> judgement() {
         ArrayList<Chord> chords = new ArrayList<>();
         Map<Integer, ArrayList<Integer>> judgements = new HashMap<>();
-        ArrayList<Integer> negativeArrayList = new ArrayList<>(Arrays.asList(-1));
+        ArrayList<Integer> negativeArrayList = new ArrayList<>(Collections.singletonList(-1));
         Map<Integer, Double> pointOfchord = new HashMap<>();
         double parameter = 0;
         int j = 0;
@@ -92,111 +99,112 @@ public class Judge {
         chords.add(Asharp);
         chords.add(B);
 
-        for (int i = 0; i < chords.size(); i++) {
-            chordList.add(chords.get(i).get_7());
-            chordList.add(chords.get(i).get_O());
-            chordList.add(chords.get(i).get_O7());
-            chordList.add(chords.get(i).get_maj());
-            chordList.add(chords.get(i).get_maj7());
-            chordList.add(chords.get(i).get_min());
-            chordList.add(chords.get(i).get_min7());
+        // 添加指定和弦
+        chordList.add(new ArrayList<>(Arrays.asList(9, 0, 4, 7)));  // A-7
+        chordList.add(new ArrayList<>(Arrays.asList(2, 5, 9, 1)));  // D-7
+        chordList.add(new ArrayList<>(Arrays.asList(7, 11, 2, 5)));  // G7
+        chordList.add(new ArrayList<>(Arrays.asList(0, 4, 7, 11)));  // CMAJ7
+
+        for (int i = 0; i < chordList.size(); i++) {
+            pointOfchord.put(i, 0.0);
         }
-        for(int i = 0;i<chordList.size();i++){
-            pointOfchord.put(i,0.0);
-        }
-        for(int i = 0;i<beat.size();i++){
-            for(int k = 0;k<chordList.size();k++){
-                if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) == 0 && ((double)beat.get(i)) == 1.0){
-                    if(i>0&&i<notename.size()){
-                        if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && ((double)beat.get(i+1)) == 1.0 && ((double)beat.get(i-1)) == 1.0){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 3.65);
+
+        int key = determineKey();
+        List<Integer> keyNotes = Arrays.asList(key, (key + 2) % 12, (key + 4) % 12, (key + 5) % 12, (key + 7) % 12, (key + 9) % 12, (key + 11) % 12);
+
+        for (int i = 0; i < beat.size(); i++) {
+            for (int k = 0; k < chordList.size(); k++) {
+                if (chordList.get(k).contains(notename.get(i))) {
+                    // 基于音高的相似性
+                    double pitchSimilarity = 0.1 * (1.0 - Math.abs(notename.get(i) % 12 - chordList.get(k).get(0)) / 12.0);
+
+                    // 基于和弦进行的流畅度（假设前一个和弦的索引是prevChordIndex）
+                    double chordProgressionSmoothness = (i > 0 && chordList.get(k).contains(notename.get(i - 1))) ? 0.5 : 0.0;
+
+                    // 基于节奏匹配度
+                    double rhythmMatching = 0;
+                    if ((parameter % 4.0) == 0) {
+                        if (beat.get(i) == 1.0) {
+                            rhythmMatching = 0.6;
+                        } else if (beat.get(i) == 0.25) {
+                            rhythmMatching = 2.5;
+                        } else if (beat.get(i) == 0.5) {
+                            rhythmMatching = 2.0;
                         }
-                        else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 2.0 || ((double)beat.get(i-1)) == 2.0)){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.25);
-                        }
-                        else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 3.0 || ((double)beat.get(i-1)) == 3.0)){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.45);
-                        }
-                        else if(chordList.get(k).contains(notename.get(i-1)) || chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 4.0 || ((double)beat.get(i-1)) == 4.0)){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.85);
-                        }
-                        else if(chordList.get(k).contains(notename.get(i-1)) && chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 5.0 || ((double)beat.get(i-1)) == 5.0)){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.55);
-                        }
-                        else if(chordList.get(k).contains(notename.get(i-1)) && !chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 1.0 || ((double)beat.get(i-1)) == 1.0)){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 3.05);
-                        }
-                        else if(chordList.get(k).contains(notename.get(i-1)) && !chordList.get(k).contains(notename.get(i+1)) && (((double)beat.get(i+1)) == 2.0 || ((double)beat.get(i-1)) == 2.0)){
-                            pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.75);
+                    } else {
+                        if (beat.get(i) == 1.0) {
+                            rhythmMatching = 0.4;
+                        } else if (beat.get(i) == 3.0) {
+                            rhythmMatching = 0.35;
+                        } else if (beat.get(i) == 4.0) {
+                            rhythmMatching = 0.25;
+                        } else if (beat.get(i) == 16.0) {
+                            rhythmMatching = 0.06;
+                        } else if (beat.get(i) == 32.0) {
+                            rhythmMatching = 0.03;
+                        } else if (beat.get(i) == 5.0) {
+                            rhythmMatching = 0.2;
                         }
                     }
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 1.0){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.33);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 3.0){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.36);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 4.0){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.27);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 16.0){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.063);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 32.0){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.035);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 5.0){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 0.18);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 0.25){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 2.1);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) != 0 && ((double)beat.get(i)) == 0.5){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 2.1);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) == 0 && ((double)beat.get(i)) == 0.25){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 4.1);
-                }
-                else if(chordList.get(k).contains(notename.get(i))&&(parameter%4.0) == 0 && ((double)beat.get(i)) == 0.4){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 4);
-                }
-                if(chordList.get(k).contains(notename.get(i))){
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + 1.0);
+
+                    // 和弦稳定性
+                    double chordStability = (i % meter == 0) ? 0.5 : 0.1;
+
+                    // 调性匹配度
+                    double keyMatching = keyNotes.contains(notename.get(i) % 12) ? 0.3 : 0.0;
+
+                    // 考虑前后的音符是否包含在某个和弦中
+                    double noteContextMatching = 0.0;
+                    if (i > 0 && chordList.get(k).contains(notename.get(i - 1))) {
+                        noteContextMatching += 0.2;
+                    }
+                    if (i < notename.size() - 1 && chordList.get(k).contains(notename.get(i + 1))) {
+                        noteContextMatching += 0.2;
+                    }
+
+                    // 考虑前后的音符和速度比较
+                    double speedContextMatching = 0.0;
+                    if (i > 0 && Math.abs(beat.get(i) - beat.get(i - 1)) < 0.1) {
+                        speedContextMatching += 0.1;
+                    }
+                    if (i < beat.size() - 1 && Math.abs(beat.get(i) - beat.get(i + 1)) < 0.1) {
+                        speedContextMatching += 0.1;
+                    }
+
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + pitchSimilarity + chordProgressionSmoothness + rhythmMatching + chordStability + keyMatching + noteContextMatching + speedContextMatching + 1.0);
                 }
             }
+
             if (parameter <= 1) {
                 pointOfchord = sortChord(pointOfchord);
                 int index = 0;
-                for (Integer key : pointOfchord.keySet()) {
-                    index = key;
+                for (Integer keys : pointOfchord.keySet()) {
+                    index = keys;
                     break;
                 }
-                judgements.put(j+1,chordList.get(index));
-
+                judgements.put(j + 1, chordList.get(index));
             }
-            parameter += (double) (1.0 / beat.get(i));
-            while ((Math.abs(parameter - 1) <= 0.01 || parameter >= 1)) {
+
+            parameter += 1.0 / beat.get(i);
+            while (parameter >= 1) {
                 parameter -= 1;
                 j++;
-                for(int k = 1;k<pointOfchord.size();k++){
+                for (int k = 1; k < pointOfchord.size(); k++) {
                     pointOfchord.put(k, 0.0);
                 }
-                if(j%4 == 0){
+                if (j % 4 == 0) {
                     bar++;
                 }
             }
         }
-        System.out.println(judgements);
-            return judgements;
-        }
+        return judgements;
+    }
 
     public Map<Integer, ArrayList<Integer>> getRepeat(Map<Integer, ArrayList<ArrayList<Integer>>> judgements) {
         Map<Integer, ArrayList<Integer>> repeat = new HashMap<>();
-        // System.out.println(judgements);
         Random random = new Random();
-
         List<Integer> keys = new ArrayList<>(judgements.keySet());
+
         for (int i = 0; i < keys.size() - 1; i++) {
             int key1 = keys.get(i);
             ArrayList<ArrayList<Integer>> judgeList1 = judgements.get(key1);
@@ -220,10 +228,10 @@ public class Judge {
             }
 
             if (!found) {
-                if (judgeList1.size()!= 0) {
+                if (judgeList1.size() != 0) {
                     int randomIndex1 = random.nextInt(judgeList1.size());
                     repeat.put(key1, judgeList1.get(randomIndex1));
-    
+
                     for (int j = 0; j < keys.size(); j++) {
                         if (i == j) continue;
                         int key2 = keys.get(j);
@@ -236,5 +244,4 @@ public class Judge {
         }
         return repeat;
     }
-    
 }
