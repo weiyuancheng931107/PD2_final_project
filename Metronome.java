@@ -1,9 +1,9 @@
+package com.musicgenreclassifier;
 
-
+import javax.sound.midi.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.sound.midi.*;
 
 class Metronome {
     private Sequence sequence;
@@ -23,12 +23,12 @@ class Metronome {
         Metronome.program = program;
         this.notename = new ArrayList<>();
         for (int i = 0; i < notename.size(); i++) {
-            ArrayList<Integer> temp = new ArrayList<>(); // 
+            ArrayList<Integer> temp = new ArrayList<>(); // 每次迭代都创建一个新的temp列表
             for (int j = 0; j < notename.get(i).size(); j++) {
                 Note note = new Note(notename.get(i).get(j) % 12, pitch);
                 temp.add(note.getNote());
             }
-            this.notename.add(temp); // 
+            this.notename.add(temp); // 将每个新创建的temp列表添加到notename中
         }
         this.pitch = pitch;
         this.velocity = velocity;
@@ -42,7 +42,7 @@ class Metronome {
         sequencer = MidiSystem.getSequencer(); // Get sequencer
         sequencer.open(); // Open sequencer
         
-        // Add the Program Change message to set the instrument to a pipe organ
+        // Add the Program Change message to set the instrument
         track.add(createProgramChangeMessage());
     }
 
@@ -75,33 +75,29 @@ class Metronome {
     }
 
     public void rhythmchord() throws InvalidMidiDataException {
-        // Add MIDI events: note ON
+        // Add MIDI events: note ON and OFF
         for (int j = 0; j < beat.size(); j++) {
-                for(int k = 0;k<notename.get(j).size();k++){
-                    if (notename.get(j).get(k) == -1) {
-                        break;
-                    }
-                    ShortMessage noteOn = new ShortMessage();
-                    noteOn.setMessage(ShortMessage.NOTE_ON, channel, notename.get(j).get(k), velocity);
-                    track.add(new MidiEvent(noteOn, tick));
+            for(int k = 0; k < notename.get(j).size(); k++){
+                if (notename.get(j).get(k) == -1) {
+                    break;
                 }
-                // Add MIDI events: note OFF
-
-                for(int k = 0;k<notename.get(j).size();k++){
-                    if (notename.get(j).get(k) == -1) {
-                        break;
-                    }
-                    ShortMessage noteOff = new ShortMessage();
-                    noteOff.setMessage(ShortMessage.NOTE_OFF, channel, notename.get(j).get(k), velocity);
-                    track.add(new MidiEvent(noteOff, tick + this.beat.get(j)));
-                }
-            
-                tick+=this.beat.get(j);
+                // Note ON
+                ShortMessage noteOn = new ShortMessage();
+                noteOn.setMessage(ShortMessage.NOTE_ON, channel, notename.get(j).get(k), velocity);
+                track.add(new MidiEvent(noteOn, tick));
+                
+                // Note OFF
+                ShortMessage noteOff = new ShortMessage();
+                noteOff.setMessage(ShortMessage.NOTE_OFF, channel, notename.get(j).get(k), velocity);
+                track.add(new MidiEvent(noteOff, tick + this.beat.get(j)));
             }
+            tick += this.beat.get(j);
         }
+    }
+
     public static MidiEvent createProgramChangeMessage() throws InvalidMidiDataException {
         ShortMessage message = new ShortMessage();
-        // Set to pipe organ sound (program number 19 in General MIDI)
+        // Set the instrument (program number)
         message.setMessage(ShortMessage.PROGRAM_CHANGE, 0, program, 0);
         return new MidiEvent(message, 0);
     }

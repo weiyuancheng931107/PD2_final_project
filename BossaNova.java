@@ -19,12 +19,12 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 /**
  * InnerJazz
  */ 
-interface InnerJazz {
+interface InnerBossaNova {
     void Drums() throws InvalidMidiDataException, MidiUnavailableException, IOException;
     void Piano() throws InvalidMidiDataException, MidiUnavailableException, IOException;
     void Bass() throws InvalidMidiDataException, MidiUnavailableException, IOException;
 }
-class Jazz implements InnerJazz {
+class BossaNova implements InnerBossaNova {
     
     public static final int KICK_DRUM = 36; // Bass drum
     public static final int RIDE = 42;
@@ -33,7 +33,7 @@ class Jazz implements InnerJazz {
     private int bpm;
     private int velocity;
     public ArrayList<Integer> pause;
-    public Jazz(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
+    public BossaNova(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         this.velocity = 80;
         this.chordHashMap = chordHashMap;
@@ -49,7 +49,7 @@ class Jazz implements InnerJazz {
     public static final int LOW_FLOOR_TOM = 41;
     public static final int CLOSED_HI_HAT = 42;
     public static final int HIGH_FLOOR_TOM = 43;
-    // public static final int CLOSED_HI_HAT = 44;
+    public static final int PEDAL_HI_HAT = 42;
     public static final int LOW_TOM = 45;
     public static final int OPEN_HI_HAT = 46;
     public static final int LOW_MID_TOM = 47;
@@ -92,61 +92,76 @@ class Jazz implements InnerJazz {
         
         ArrayList<Integer> drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
-        ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(1.0,1.5,3.0,1.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0));
+        ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0));
         //第一小節
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         //第二小節
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_SNARE));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,CLOSED_HI_HAT));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_SNARE));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_SNARE));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,CLOSED_HI_HAT));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         //第三小節
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         //第四小節
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(CRASH));
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
 
         MetronomeWithNoPitch drums = new MetronomeWithNoPitch(bpm, 59, drumcordfinal, 2, velocity, drumsbeat, 9);
@@ -156,8 +171,7 @@ class Jazz implements InnerJazz {
 
     @Override
     public void Piano() throws InvalidMidiDataException, MidiUnavailableException, IOException {
-        Random random = new Random();
-        int randomplaylist = rand(0, 1, random) ;
+        int bars = 1;
         ArrayList<Integer> pianochordtemp = new ArrayList<>();
         ArrayList<ArrayList<Integer>> pianochord = new ArrayList<>();
         ArrayList<Double> pianobeat = new ArrayList<>();
@@ -183,69 +197,164 @@ class Jazz implements InnerJazz {
             pianobeat.add(1.0);
         }
         for(int i = 0;i<pianobeat.size();i++){
-            if(pianobeat.get(i)==0.25 && randomplaylist == 0){
+            if(pianobeat.get(i)==0.25 && bars%8 == 1){
+                pianobeatfinal.add(1.0);
                 pianobeatfinal.add(1.0);
                 pianobeatfinal.add(2.0);
-                pianobeatfinal.add(0.4);
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(2.0);
+                pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pause);
                 pianochordfinal.add(pianochord.get(i));
-                randomplaylist = rand(0, 1, random) ;
+                pianochordfinal.add(pianochord.get(i));
+                bars+=4;
             }
-            else if(pianobeat.get(i)==0.25 && randomplaylist == 1){
-                pianobeatfinal.add(1.0);
+            else if(pianobeat.get(i)==0.25 & bars%8 == 5){
                 pianobeatfinal.add(2.0);
-                pianobeatfinal.add(2.0);
-                pianobeatfinal.add(1.0);
-                pianobeatfinal.add(1.0);
-                pianochordfinal.add(pianochord.get(i));
-                pianochordfinal.add(pause);
-                pianochordfinal.add(pianochord.get(i));
-                pianochordfinal.add(pause);
-                pianochordfinal.add(pianochord.get(i));
-                randomplaylist = rand(0, 1, random) ;
-            }
-            else if(pianobeat.get(i) == 1.0&& randomplaylist == 1){
-                pianobeatfinal.add(1.0);
-                pianochordfinal.add(pianochord.get(i));
-                randomplaylist = rand(0, 1, random) ;
-            }
-            else if(pianobeat.get(i) == 1.0&& randomplaylist == 0){
-                pianobeatfinal.add(2.0);
-                pianobeatfinal.add(2.0);
-                pianochordfinal.add(pause);
-                pianochordfinal.add(pianochord.get(i));
-                randomplaylist = rand(0, 1, random) ;
-
-            }
-            else if(pianobeat.get(i) == 0.5 && randomplaylist == 0){
                 pianobeatfinal.add((double)(2.0/(double)(3.0)));
-                pianobeatfinal.add(2.0);
-                pianochordfinal.add(pianochord.get(i));
-                pianochordfinal.add(pianochord.get(i));
-                randomplaylist = rand(0, 1, random) ;
-            }
-            else if(pianobeat.get(i) == 0.5 && randomplaylist == 1){
-                pianobeatfinal.add(2.0);
-                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(1.0);
                 pianobeatfinal.add(1.0);
                 pianochordfinal.add(pause);
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
-                randomplaylist = rand(0, 1, random) ;
+                pianochordfinal.add(pianochord.get(i));
+                bars+=4;
             }
-            else{
-                pianobeatfinal.add(0.5);
+            else if(pianobeat.get(i) == 1.0 && bars%8 == 1){
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=1;
+            }
+            else if(pianobeat.get(i) == 1.0 && bars%8 == 2){
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=1;
+            }
+            else if(pianobeat.get(i) == 1.0 && bars%8 == 3){
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=1;
+            }
+            else if(pianobeat.get(i) == 1.0 && bars%8 == 4){
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=1;
+            }
+            else if(pianobeat.get(i) == 1.0 && bars%8 == 5){
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=1;
+            }
+            else if(pianobeat.get(i) == 1.0 && bars%8 == 6){
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=1;
+            }
+            else if(pianobeat.get(i) == 1.0 && bars%8 == 7){
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=1;
+            }
+            else if(pianobeat.get(i) == 1.0 && bars%8 == 0){
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=1;
+            }
+            else if(pianobeat.get(i) == 0.5 && bars%8 == 1){
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pianochord.get(i));
+                bars+=2;
+            }
+            else if(pianobeat.get(i) == 0.5 && bars%8 == 2){
+                pianobeatfinal.add(1.0);
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(2.0);
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pause);
                 pianochordfinal.add(pianochord.get(i));
+                bars+=2;
+            }
+            else if(pianobeat.get(i) == 0.5 && bars%8 == 3){
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(2.0);
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pianochord.get(i));
+                bars+=2;
+            }
+            else if(pianobeat.get(i) == 0.5 && bars%8 == 5){
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add((double)(2.0/(double)(3.0)));
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=2;
+            }
+            else if(pianobeat.get(i) == 0.5 && bars%8 == 6){
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pianochord.get(i));
+                bars+=2;
+            }
+            else if(pianobeat.get(i) == 0.5 && bars%8 == 7){
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pianochord.get(i));
+                bars+=2;
+            }
+            else if((pianobeat.get(i))-(double)(1.0/(double)(3.0))==0&& bars%8 == 1){
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=3;
+            }
+            else if((pianobeat.get(i))-(double)(1.0/(double)(3.0))==0&& bars%8 == 2){
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(2.0);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pianochord.get(i));
+                bars+=3;
+            }
+            else if((pianobeat.get(i))-(double)(1.0/(double)(3.0))==0&& bars%8 == 5){
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add((double)(2.0/(double)(3.0)));
+                pianobeatfinal.add(1.0);
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pianochord.get(i));
+                bars+=3;
+            }
+            else if((pianobeat.get(i))-(double)(1.0/(double)(3.0))==0&& bars%8 == 6){
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add((double)(2.0/(double)(3.0)));
+                pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pause);
+                pianochordfinal.add(pianochord.get(i));
+                bars+=3;
             }
         }
         System.out.println(this.chordHashMap);
         System.out.println(pianobeat);
-        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 4, velocity, pianobeatfinal, 1);
+        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 5, velocity, pianobeatfinal, 1);
         piano.rhythmchord();
         piano.writeToFile("piano");
     }
@@ -280,32 +389,40 @@ class Jazz implements InnerJazz {
         }
         for (int i = 0; i < bassbeat.size(); i++) {
             if (bassbeat.get(i) == 0.25 && a == 0) {
-                bassbeatfinal.add(1.0);
-                bassbeatfinal.add(1.0);
-                bassbeatfinal.add(1.0);
-                bassbeatfinal.add(1.0);
+                bassbeatfinal.add((double)(2.0/(double)(3.0)));
+                bassbeatfinal.add(2.0);
+                bassbeatfinal.add((double)(2.0/(double)(3.0)));
+                bassbeatfinal.add(2.0);
                 sortAscending(basschord);
-                for (int j = 0; j < 3; j++) {
-                    ArrayList<Integer> bassline = new ArrayList<>();
-                    bassline.add(basschord.get(i).get(j));
-                    basschordfinal.add(bassline);
-                }
                 ArrayList<Integer> bassline = new ArrayList<>();
+                bassline.add(basschord.get(i).get(0));
+                basschordfinal.add(bassline);
+                bassline = new ArrayList<>();
+                bassline.add(basschord.get(i).get(0));
+                basschordfinal.add(bassline);
+                bassline = new ArrayList<>();
+                bassline.add(basschord.get(i).get(2));
+                basschordfinal.add(bassline);
+                bassline = new ArrayList<>();
                 bassline.add(basschord.get(i).get(2));
                 basschordfinal.add(bassline);
                 a = 1;
             } else if (bassbeat.get(i) == 0.25 && a == 1) {
-                bassbeatfinal.add(1.0);
-                bassbeatfinal.add(1.0);
-                bassbeatfinal.add(1.0);
-                bassbeatfinal.add(1.0);
+                bassbeatfinal.add((double)(2.0/(double)(3.0)));
+                bassbeatfinal.add(2.0);
+                bassbeatfinal.add((double)(2.0/(double)(3.0)));
+                bassbeatfinal.add(2.0);
                 sortDescending(basschord);
-                for (int j = 0; j < 3; j++) {
-                    ArrayList<Integer> bassline = new ArrayList<>();
-                    bassline.add(basschord.get(i).get(j));
-                    basschordfinal.add(bassline);
-                }
                 ArrayList<Integer> bassline = new ArrayList<>();
+                bassline.add(basschord.get(i).get(0));
+                basschordfinal.add(bassline);
+                bassline = new ArrayList<>();
+                bassline.add(basschord.get(i).get(0));
+                basschordfinal.add(bassline);
+                bassline = new ArrayList<>();
+                bassline.add(basschord.get(i).get(2));
+                basschordfinal.add(bassline);
+                bassline = new ArrayList<>();
                 bassline.add(basschord.get(i).get(2));
                 basschordfinal.add(bassline);
                 a = 0;
@@ -315,17 +432,17 @@ class Jazz implements InnerJazz {
                 basschordfinal.add(bassline);
                 bassbeatfinal.add(1.0);
             } else if (bassbeat.get(i) == 0.5) {
-                bassbeatfinal.add(1.0);
-                bassbeatfinal.add(1.0);
+                bassbeatfinal.add((double)(2.0/(double)(3.0)));
+                bassbeatfinal.add(2.0);
                 ArrayList<Integer> bassline = new ArrayList<>();
-                bassline.add(basschord.get(i).get(rand(0, 2, random)));
+                bassline.add(basschord.get(i).get(0));
                 basschordfinal.add(bassline);
                 bassline = new ArrayList<>();
-                bassline.add(basschord.get(i).get(rand(0, 2, random)));
+                bassline.add(basschord.get(i).get(0));
                 basschordfinal.add(bassline);
             } else {
-                bassbeatfinal.add(1.0);
-                bassbeatfinal.add(1.0);
+                bassbeatfinal.add((double)(2.0/(double)(3.0)));
+                bassbeatfinal.add(2.0);
                 bassbeatfinal.add(1.0);
                 ArrayList<Integer> bassline = new ArrayList<>();
                 bassline.add(basschord.get(i).get(rand(0, 2, random)));
@@ -338,7 +455,7 @@ class Jazz implements InnerJazz {
                 basschordfinal.add(bassline);
             }
         }
-        Metronome bass = new Metronome(bpm, 46, basschordfinal, 2, 100, bassbeatfinal, 0);
+        Metronome bass = new Metronome(bpm, 46, basschordfinal, 2, velocity, bassbeatfinal, 0);
         bass.rhythmchord();
         bass.writeToFile("bass");
     }
