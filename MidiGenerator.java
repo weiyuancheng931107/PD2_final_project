@@ -16,6 +16,8 @@ class MidiGenerator {
     private final Sequencer sequencer;
     private int tick = 0;
 
+    private int program;
+
     public MidiGenerator(int bpm, int program, ArrayList<Integer> noteSequence, int pitch, int velocity, ArrayList<Double> beats, int channel) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         this.velocity = velocity;
@@ -29,20 +31,24 @@ class MidiGenerator {
         this.track = sequence.createTrack();
         this.sequencer = MidiSystem.getSequencer();
         sequencer.open();
-        track.add(createProgramChangeMessage(program));
+        //track.add(createProgramChangeMessage(program)); //changed(marked)
+
+        this.program = program;
     }
 
     public void playRhythm() throws InvalidMidiDataException {
         for (int j = 0; j < beatDurations.size(); j++) {
                 if (noteSequence != null) {
+                    track.add(createProgramChangeMessage(program,tick));//changed
                     track.add(new MidiEvent(createNoteOnMessage(noteSequence.get(j)), tick));
                     track.add(new MidiEvent(createNoteOffMessage(noteSequence.get(j)), tick + beatDurations.get(j)));
+                    //track.add(createProgramChangeMessage(program));changed(marked)
                 }
             tick += beatDurations.get(j);
         }
     }
     public void saveToFile(String filename) throws IOException {
-        File outputFile = new File(filename + ".mid");
+        File outputFile = new File(filename);
         MidiSystem.write(sequence, 1, outputFile);
         sequencer.close();
     }
@@ -59,9 +65,9 @@ class MidiGenerator {
         return noteOff;
     }
 
-    private MidiEvent createProgramChangeMessage(int program) throws InvalidMidiDataException {
+    private MidiEvent createProgramChangeMessage(int program,int tick) throws InvalidMidiDataException { //changed
         ShortMessage message = new ShortMessage();
         message.setMessage(ShortMessage.PROGRAM_CHANGE, 0, program, 0);
-        return new MidiEvent(message, 0);
+        return new MidiEvent(message, tick);//changed
     }
 }
