@@ -94,7 +94,7 @@ class Rock implements InnerRock {
         ArrayList<Integer> drumchord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
         ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0));
-        //第一小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,CRASH));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
@@ -111,7 +111,7 @@ class Rock implements InnerRock {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        //第二小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,CRASH));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
@@ -128,7 +128,7 @@ class Rock implements InnerRock {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        //第三小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,CRASH));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
@@ -145,7 +145,7 @@ class Rock implements InnerRock {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        //第四小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,CRASH));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
@@ -275,7 +275,7 @@ class Rock implements InnerRock {
                 guitarchordfinal.add(guitarline);
             }
         }
-        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, 80, guitarbeatfinal, 1);
+        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, 80, guitarbeatfinal, 0);
         guitar.rhythmchord();
         guitar.writeToFile("guitar");
     }
@@ -353,14 +353,14 @@ class Rock implements InnerRock {
                 basschordfinal.add(bassline);
             }
         }
-        Metronome bass = new Metronome(bpm, 46, basschordfinal, 2, velocity, bassbeatfinal, 1);
+        Metronome bass = new Metronome(bpm, 45, basschordfinal, 2, velocity, bassbeatfinal, 0);
         bass.rhythmchord();
         bass.writeToFile("bass");
     }
 
     public static Map<Integer, ArrayList<Integer>> groupAndFilter(Map<Integer, ArrayList<Integer>> input) {
         Map<Integer, ArrayList<Integer>> result = new HashMap<>();
-        // 將鍵按4的倍數分組
+        // 
         TreeMap<Integer, List<Integer>> groupedMap = new TreeMap<>();
         for (Integer key : input.keySet()) {
             int groupKey = (key-1) / 4;
@@ -368,7 +368,7 @@ class Rock implements InnerRock {
             groupedMap.get(groupKey).add(key);
         }
         // System.out.println(groupedMap);
-        // 用來檢查已經處理過的分組
+        // 
         for (List<Integer> groupKeys : groupedMap.values()) {
             Set<ArrayList<Integer>> seenGroups = new HashSet<>();
             for (Integer key : groupKeys) {
@@ -443,7 +443,7 @@ class Rock implements InnerRock {
         }
         System.out.println(this.chordHashMap);
         System.out.println(pianobeat);
-        Metronome piano = new Metronome(bpm, 17, pianochordfinal, 4, velocity, pianobeatfinal, 0);
+        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 3, velocity, pianobeatfinal, 0);//changed pitch = 4
         piano.rhythmchord();
         piano.writeToFile("piano");
     }
