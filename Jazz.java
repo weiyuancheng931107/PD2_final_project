@@ -93,7 +93,7 @@ class Jazz implements InnerJazz {
         ArrayList<Integer> drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
         ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(1.0,1.5,3.0,1.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0));
-        //第一小節
+        //
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
         drumcordfinal.add(drumchord);
@@ -105,7 +105,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //第二小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_SNARE));
@@ -122,7 +122,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //第三小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
@@ -135,7 +135,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2));
         drumcordfinal.add(drumchord);
-        //第四小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
@@ -245,7 +245,7 @@ class Jazz implements InnerJazz {
         }
         System.out.println(this.chordHashMap);
         System.out.println(pianobeat);
-        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 4, velocity, pianobeatfinal, 1);
+        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 3, velocity, pianobeatfinal, 0);
         piano.rhythmchord();
         piano.writeToFile("piano");
     }
@@ -345,7 +345,7 @@ class Jazz implements InnerJazz {
 
     public static Map<Integer, ArrayList<Integer>> groupAndFilter(Map<Integer, ArrayList<Integer>> input) {
         Map<Integer, ArrayList<Integer>> result = new HashMap<>();
-        // 將鍵按4的倍數分組
+        // 
         TreeMap<Integer, List<Integer>> groupedMap = new TreeMap<>();
         for (Integer key : input.keySet()) {
             int groupKey = (key-1) / 4;
@@ -353,7 +353,7 @@ class Jazz implements InnerJazz {
             groupedMap.get(groupKey).add(key);
         }
         // System.out.println(groupedMap);
-        // 用來檢查已經處理過的分組
+        // 
         for (List<Integer> groupKeys : groupedMap.values()) {
             Set<ArrayList<Integer>> seenGroups = new HashSet<>();
             for (Integer key : groupKeys) {
