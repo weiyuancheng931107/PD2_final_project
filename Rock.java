@@ -34,7 +34,7 @@ class Rock implements InnerRock {
     private int bpm;
     private int velocity;
     public ArrayList<Integer> pause;
-    private int barAmount = 33;
+    private int barAmount = 17;
     public Rock(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         this.velocity =80;
@@ -310,7 +310,7 @@ class Rock implements InnerRock {
                 guitarchordfinal.add(guitarline);
             }
         }
-        Metronome guitar = new Metronome(bpm, 28, guitarchordfinal, 4, velocity, guitarbeatfinal, 0);
+        Metronome guitar = new Metronome(bpm, 30, guitarchordfinal, 4, 80, guitarbeatfinal, 0);
         guitar.rhythmchord();
         guitar.writeToFile("guitar");
     }
@@ -475,7 +475,7 @@ class Rock implements InnerRock {
                 pianochordfinal.add(pianochord.get(i));
             }
             else{
-                pianobeatfinal.add((double)(2.0/(double)(3.0)));
+                pianobeatfinal.add(1.0/3.0);
                 pianochordfinal.add(pianochord.get(i));
             }
         }
