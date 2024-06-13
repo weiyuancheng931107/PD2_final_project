@@ -1,3 +1,4 @@
+//0614 need to change all of the 33(or barAmount) in every file
 package com.musicgenreclassifier;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ class Rock implements InnerRock {
     private int barAmount = 17;
     public Rock(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity =80;
+        this.velocity = 50;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>();
         pause.add(-1);
@@ -310,7 +311,7 @@ class Rock implements InnerRock {
                 guitarchordfinal.add(guitarline);
             }
         }
-        Metronome guitar = new Metronome(bpm, 30, guitarchordfinal, 4, 80, guitarbeatfinal, 0);
+        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, velocity, guitarbeatfinal, 0);
         guitar.rhythmchord();
         guitar.writeToFile("guitar");
     }
@@ -475,7 +476,7 @@ class Rock implements InnerRock {
                 pianochordfinal.add(pianochord.get(i));
             }
             else{
-                pianobeatfinal.add(1.0/3.0);
+                pianobeatfinal.add((double)(1.0/(double)3.0));
                 pianochordfinal.add(pianochord.get(i));
             }
         }
