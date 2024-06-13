@@ -35,8 +35,8 @@ public class Judge {
         this.B = new Chord(11, -1);
         this.chordList = new ArrayList<>();
         this.notename = new ArrayList<>();
-        for(int i = 0;i<notename.size();i++){
-            this.notename.add(notename.get(i)%12);
+        for (int i = 0; i < notename.size(); i++) {
+            this.notename.add(notename.get(i) % 12);
         }
         this.beat = beat;
         this.meter = meter;
@@ -63,8 +63,7 @@ public class Judge {
 
     private int determineKey() {
         int[] noteCount = new int[12];
-        int [][] noteContain = new int[12][7];
-
+        int[][] noteContain = new int[12][7];
 
         // Initialize the array with example data
         noteContain[0] = new int[]{0, 2, 4, 5, 7, 9, 11}; // C major
@@ -79,20 +78,18 @@ public class Judge {
         noteContain[9] = new int[]{9, 11, 13, 14, 16, 18, 20}; // A major
         noteContain[10] = new int[]{10, 12, 14, 15, 17, 19, 21}; // A# major
         noteContain[11] = new int[]{11, 13, 15, 16, 18, 20, 22}; // B major
-        
+
         // Apply % 12 to all elements
         for (int i = 0; i < noteContain.length; i++) {
             for (int j = 0; j < noteContain[i].length; j++) {
                 noteContain[i][j] = noteContain[i][j] % 12;
             }
         }
-        
-        
-        
-        for (int i = 0;i<notename.size();i++) {
-            for(int j = 0;j<12;j++){
-                for(int k =0;k<7;k++){
-                    if(notename.get(i) == noteContain[j][k]){
+
+        for (int i = 0; i < notename.size(); i++) {
+            for (int j = 0; j < 12; j++) {
+                for (int k = 0; k < 7; k++) {
+                    if (notename.get(i) == noteContain[j][k]) {
                         noteCount[j]++;
                     }
                 }
@@ -131,15 +128,14 @@ public class Judge {
         chords.add(Asharp);
         chords.add(B);
 
-        // 
         for (int i = 0; i < chords.size(); i++) {
-            chordList.add(chords.get(i).get_7());
-            chordList.add(chords.get(i).get_O());
-            chordList.add(chords.get(i).get_O7());
-            chordList.add(chords.get(i).get_maj());
-            chordList.add(chords.get(i).get_maj7());
-            chordList.add(chords.get(i).get_min());
-            chordList.add(chords.get(i).get_min7());
+            chordList.add(chords.get(i).get7());
+            chordList.add(chords.get(i).getDim());
+            chordList.add(chords.get(i).getDim7());
+            chordList.add(chords.get(i).getMaj());
+            chordList.add(chords.get(i).getMaj7());
+            chordList.add(chords.get(i).getMin());
+            chordList.add(chords.get(i).getMin7());
         }
 
         for (int i = 0; i < chordList.size(); i++) {
@@ -152,74 +148,127 @@ public class Judge {
         for (int i = 0; i < beat.size(); i++) {
             for (int k = 0; k < chordList.size(); k++) {
                 if (chordList.get(k).contains(notename.get(i))) {
-                    // 
-                    double pitchSimilarity = 0.1 * (1.0 - Math.abs(notename.get(i) % 12 - chordList.get(k).get(0)) / 12.0);
-                    // 
-                    double chordProgressionSmoothness = (i > 0 && chordList.get(k).contains(notename.get(i - 1))) ? 0.5 : 0.0;
-                    // 
+                    // Modify pitch similarity
+                    double pitchSimilarity = 0.2 * (1.0 - Math.abs(notename.get(i) % 12 - chordList.get(k).get(0)) / 12.0);
+
+                    // Modify chord progression smoothness
+                    double chordProgressionSmoothness = (i > 0 && chordList.get(k).contains(notename.get(i - 1))) ? 0.6 : 0.0;
+
+                    // Modify rhythm matching
                     double rhythmMatching = 0;
-                    if ((parameter % 4.0) == 0) { 
-                        //
-                        if (beat.get(i) == 1.0) {
-                            rhythmMatching = 0.6;
-                        } else if (beat.get(i) == 0.25) {
+                    if ((parameter % 4.0) == 0) {
+                        if (beat.get(i) == 0.25) {
                             rhythmMatching = 2.5;
+                        } else if (beat.get(i) == 0.4) {
+                            rhythmMatching = 2.2;
                         } else if (beat.get(i) == 0.5) {
                             rhythmMatching = 2.0;
+                        } else if (beat.get(i) == (double)(1.0/(double)(3.0))) {
+                            rhythmMatching = 1.8;
+                        } else if (beat.get(i) == 0.8) {
+                            rhythmMatching = 1.6;
+                        } else if (beat.get(i) == 1.0) {
+                            rhythmMatching = 1.0;
+                        } else if (beat.get(i) == (double)(2.0/(double)(3.0))) {
+                            rhythmMatching = 0.8;
+                        } else if (beat.get(i) == 1.6) {
+                            rhythmMatching = 1.1;
+                        } else if (beat.get(i) == 2.0) {
+                            rhythmMatching = 1.0;
                         }
-                    } else {
-                        if (beat.get(i) == 1.0) {
-                            rhythmMatching = 0.4;
-                        } else if (beat.get(i) == 3.0) {
-                            rhythmMatching = 0.35;
+                    }else{
+                        if (beat.get(i) == 0.25) {
+                            rhythmMatching = 2.5;
+                        } else if (beat.get(i) == 0.4) {
+                            rhythmMatching = 2.2;
+                        } else if (beat.get(i) == 0.5) {
+                            rhythmMatching = 2.0;
+                        } else if (beat.get(i) == (double)(1.0/(double)(3.0))) {
+                            rhythmMatching = 1.8;
+                        } else if (beat.get(i) == 0.8) {
+                            rhythmMatching = 1.6;
+                        } else if (beat.get(i) == 1.0) {
+                            rhythmMatching = 1.0;
+                        } else if (beat.get(i) == (double)(2.0/(double)(3.0))) {
+                            rhythmMatching = 0.96;
+                        } else if (beat.get(i) == 1.6) {
+                            rhythmMatching = 0.8;
+                        } else if (beat.get(i) == 2.0) {
+                            rhythmMatching = 0.76;
+                        } else if (beat.get(i) == (double)(4.0/(double)(3.0))) {
+                            rhythmMatching = 0.71;
+                        } else if (beat.get(i) == 3.2) {
+                            rhythmMatching = 0.5;
                         } else if (beat.get(i) == 4.0) {
-                            rhythmMatching = 0.25;
-                        } else if (beat.get(i) == 16.0) {
-                            rhythmMatching = 0.06;
-                        } else if (beat.get(i) == 32.0) {
-                            rhythmMatching = 0.03;
-                        } else if (beat.get(i) == 5.0) {
+                            rhythmMatching = 0.4;
+                        } else if (beat.get(i) == (double)(8.0/(double)(3.0))) {
                             rhythmMatching = 0.2;
+                        } else if (beat.get(i) == 6.4) {
+                            rhythmMatching = 0.1;
+                        } else if (beat.get(i) == 8.0) {
+                            rhythmMatching = 0.04;
+                        } else if (beat.get(i) == 10.67) {
+                            rhythmMatching = 0.03;
+                        } else if (beat.get(i) == (double)(16.0/(double)(3.0))) {
+                            rhythmMatching = 0.02;
+                        } else if (beat.get(i) == 16.0) {
+                            rhythmMatching = 0.01;
+                        } else if(beat.get(i) == 3.0){
+                            rhythmMatching = 0.45;
+                        } else if(beat.get(i) == 5.0){
+                            rhythmMatching = 0.24;
+                        } else if(beat.get(i) == 7.0){
+                            rhythmMatching = 0.1;
                         }
                     }
 
-                    // 
-                    double chordStability = (i % meter == 0) ? 0.5 : 0.1;
+                    // Modify chord stability
+                    double chordStability = (i % meter == 0) ? 0.6 : 0.2;
 
-                    // 
-
-                    double keyMatching = keyNotes.contains(notename.get(i) % 12) ? 0.3 : 0.0;
-                    for(int p = 0;p<chordList.get(k).size();p++){
-                        if(!keyNotes.contains(chordList.get(k).get(p))){
-                            keyMatching-=0.3;
+                    // Modify key matching
+                    double keyMatching = keyNotes.contains(notename.get(i) % 12) ? 0.4 : 0.0;
+                    for (int p = 0; p < chordList.get(k).size(); p++) {
+                        if (!keyNotes.contains(chordList.get(k).get(p))) {
+                            keyMatching -= 0.2;
                         }
                     }
-                    // 
+
+                    // Modify note context matching
                     double noteContextMatching = 0.0;
                     if (i > 0 && chordList.get(k).contains(notename.get(i - 1))) {
-                        noteContextMatching += 0.2;
+                        noteContextMatching += 0.3;
                     }
                     if (i < notename.size() - 1 && chordList.get(k).contains(notename.get(i + 1))) {
-                        noteContextMatching += 0.2;
+                        noteContextMatching += 0.3;
                     }
 
-                    // 
+                    // Modify speed context matching
                     double speedContextMatching = 0.0;
                     if (i > 0 && Math.abs(beat.get(i) - beat.get(i - 1)) < 0.1) {
-                        speedContextMatching += 0.1;
+                        speedContextMatching += 0.2;
                     }
                     if (i < beat.size() - 1 && Math.abs(beat.get(i) - beat.get(i + 1)) < 0.1) {
-                        speedContextMatching += 0.1;
+                        speedContextMatching += 0.2;
                     }
 
-                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + pitchSimilarity + chordProgressionSmoothness + rhythmMatching + chordStability + keyMatching + noteContextMatching + speedContextMatching + 1.0);
+                    // Add new condition to avoid minor second and major second intervals
+                    double intervalAvoidance = 0.0;
+                    for (int chordNote : chordList.get(k)) {
+                        int interval = Math.abs(notename.get(i) - chordNote) % 12;
+                        if (interval == 1) {
+                            intervalAvoidance -= 0.5; // Avoid minor second
+                        } else if (interval == 2) {
+                            intervalAvoidance -= 0.2; // Avoid major second
+                        }
+                    }
+
+                    pointOfchord.put(k, pointOfchord.getOrDefault(k, 0.0) + pitchSimilarity + chordProgressionSmoothness + rhythmMatching + chordStability + keyMatching + noteContextMatching + speedContextMatching + intervalAvoidance + 1.0);
                 }
             }
 
             if (parameter <= 1) {
                 pointOfchord = sortChord(pointOfchord);
                 int index = 0;
-                // System.out.println(pointOfchord);
                 for (Integer keys : pointOfchord.keySet()) {
                     index = keys;
                     break;
@@ -227,7 +276,7 @@ public class Judge {
                 judgements.put(j + 1, chordList.get(index));
             }
 
-            parameter += 1.0 / beat.get(i);//real length
+            parameter += 1.0 / beat.get(i); // real length
             while (parameter >= 1) {
                 parameter -= 1;
                 j++;
@@ -239,7 +288,6 @@ public class Judge {
                 }
             }
         }
-        // System.out.println(pointOfchord);
         return judgements;
     }
 

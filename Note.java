@@ -19,7 +19,7 @@ class Note {
                 return 12*pitch+15;
             case 4://"E":
                 return 12*pitch+16;
-            case 5://"F":d
+            case 5://"F":
                 return 12*pitch+17;
             case 6://"F#":
                 return 12*pitch+18;

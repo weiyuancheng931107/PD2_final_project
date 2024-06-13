@@ -273,7 +273,7 @@ class Jazz implements InnerJazz {
         }
         System.out.println(this.chordHashMap);
         System.out.println(pianobeat);
-        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 3, velocity, pianobeatfinal, 0);
+        Metronome piano = new Metronome(bpm, 2, pianochordfinal, 3, velocity-10, pianobeatfinal, 0);
         piano.rhythmchord();
         piano.writeToFile("piano");
     }
