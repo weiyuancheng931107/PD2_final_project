@@ -1,3 +1,4 @@
+
 package com.musicgenreclassifier;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ class BossaNova implements InnerBossaNova {
     private int bpm;
     private int velocity;
     public ArrayList<Integer> pause;
+    private int barAmount = 33;
     public BossaNova(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         this.velocity = 80;
@@ -92,8 +94,41 @@ class BossaNova implements InnerBossaNova {
         
         ArrayList<Integer> drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
-        ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0));
-        //第一小節
+        ArrayList<Double> drumsbeat = new ArrayList<>();
+        for(int j =0;j<(barAmount-1)/16;j++){
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        //
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
@@ -111,7 +146,7 @@ class BossaNova implements InnerBossaNova {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        //第二小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
@@ -128,7 +163,7 @@ class BossaNova implements InnerBossaNova {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        //第三小節
+        //
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
         drumcordfinal.add(drumchord);
@@ -146,7 +181,7 @@ class BossaNova implements InnerBossaNova {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-        //第四小節
+        //
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
@@ -163,7 +198,7 @@ class BossaNova implements InnerBossaNova {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-
+        }
         MetronomeWithNoPitch drums = new MetronomeWithNoPitch(bpm, 59, drumcordfinal, 2, velocity, drumsbeat, 9);
         drums.playRhythm();
         drums.saveToFile("drums");
@@ -191,7 +226,7 @@ class BossaNova implements InnerBossaNova {
         }
         
         if(lastbeat%4!=0){
-            pianobeat.add(1/((double)(17-lastbeat)));
+            pianobeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             pianobeat.add(1.0);
@@ -354,7 +389,7 @@ class BossaNova implements InnerBossaNova {
         }
         System.out.println(this.chordHashMap);
         System.out.println(pianobeat);
-        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 5, velocity, pianobeatfinal, 1);
+        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 3, velocity, pianobeatfinal, 1);
         piano.rhythmchord();
         piano.writeToFile("piano");
     }
@@ -382,7 +417,7 @@ class BossaNova implements InnerBossaNova {
             bassbeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));
         }
         if(lastbeat%4!=0){
-            bassbeat.add(1/((double)(17-lastbeat)));
+            bassbeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             bassbeat.add(1.0);
@@ -462,15 +497,14 @@ class BossaNova implements InnerBossaNova {
 
     public static Map<Integer, ArrayList<Integer>> groupAndFilter(Map<Integer, ArrayList<Integer>> input) {
         Map<Integer, ArrayList<Integer>> result = new HashMap<>();
-        // 將鍵按4的倍數分組
+        // 
         TreeMap<Integer, List<Integer>> groupedMap = new TreeMap<>();
         for (Integer key : input.keySet()) {
             int groupKey = (key-1) / 4;
             groupedMap.putIfAbsent(groupKey, new ArrayList<Integer>());
             groupedMap.get(groupKey).add(key);
         }
-        // System.out.println(groupedMap);
-        // 用來檢查已經處理過的分組
+        
         for (List<Integer> groupKeys : groupedMap.values()) {
             Set<ArrayList<Integer>> seenGroups = new HashSet<>();
             for (Integer key : groupKeys) {
