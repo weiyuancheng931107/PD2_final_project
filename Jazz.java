@@ -33,6 +33,7 @@ class Jazz implements InnerJazz {
     private int bpm;
     private int velocity;
     public ArrayList<Integer> pause;
+    private int barAmount = 33;
     public Jazz(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         this.velocity = 80;
@@ -92,7 +93,34 @@ class Jazz implements InnerJazz {
         
         ArrayList<Integer> drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM));
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
-        ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(1.0,1.5,3.0,1.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0,1.0,1.5,3.0));
+        ArrayList<Double> drumsbeat = new ArrayList<>();
+        for(int j =0;j<(barAmount-1)/16;j++){
+        drumsbeat.add(1.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
+        drumsbeat.add(1.0);
+        drumsbeat.add(1.5);
+        drumsbeat.add(3.0);
         //
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2,ACOUSTIC_BASS_DRUM,ACOUSTIC_SNARE,CLOSED_HI_HAT));
@@ -148,7 +176,7 @@ class Jazz implements InnerJazz {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(CRASH));
         drumcordfinal.add(drumchord);
-
+        }
         MetronomeWithNoPitch drums = new MetronomeWithNoPitch(bpm, 59, drumcordfinal, 2, velocity, drumsbeat, 9);
         drums.playRhythm();
         drums.saveToFile("drums");
@@ -177,7 +205,7 @@ class Jazz implements InnerJazz {
         }
         
         if(lastbeat%4!=0){
-            pianobeat.add(1/((double)(17-lastbeat)));
+            pianobeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             pianobeat.add(1.0);
@@ -273,7 +301,7 @@ class Jazz implements InnerJazz {
             bassbeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));
         }
         if(lastbeat%4!=0){
-            bassbeat.add(1/((double)(17-lastbeat)));
+            bassbeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             bassbeat.add(1.0);
