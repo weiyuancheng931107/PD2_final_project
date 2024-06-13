@@ -46,8 +46,8 @@ public class Judge {
         return chordList;
     }
 
-    public static Map<Integer, Double> sortChord(Map<Integer, Double> pointeOfChord) {
-        Map<Integer, Double> sortedLHashMap = new LinkedHashMap<>();
+    public static LinkedHashMap<Integer, Double> sortChord(LinkedHashMap<Integer, Double> pointeOfChord) {
+        LinkedHashMap<Integer, Double> sortedLHashMap = new LinkedHashMap<>();
         List<Map.Entry<Integer, Double>> list = new ArrayList<>(pointeOfChord.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<Integer, Double>>() {
             @Override
@@ -63,8 +63,40 @@ public class Judge {
 
     private int determineKey() {
         int[] noteCount = new int[12];
-        for (int note : notename) {
-            noteCount[note % 12]++;
+        int [][] noteContain = new int[12][7];
+
+
+        // Initialize the array with example data
+        noteContain[0] = new int[]{0, 2, 4, 5, 7, 9, 11}; // C major
+        noteContain[1] = new int[]{1, 3, 5, 6, 8, 10, 12}; // C# major
+        noteContain[2] = new int[]{2, 4, 6, 7, 9, 11, 13}; // D major
+        noteContain[3] = new int[]{3, 5, 7, 8, 10, 12, 14}; // D# major
+        noteContain[4] = new int[]{4, 6, 8, 9, 11, 13, 15}; // E major
+        noteContain[5] = new int[]{5, 7, 9, 10, 12, 14, 16}; // F major
+        noteContain[6] = new int[]{6, 8, 10, 11, 13, 15, 17}; // F# major
+        noteContain[7] = new int[]{7, 9, 11, 12, 14, 16, 18}; // G major
+        noteContain[8] = new int[]{8, 10, 12, 13, 15, 17, 19}; // G# major
+        noteContain[9] = new int[]{9, 11, 13, 14, 16, 18, 20}; // A major
+        noteContain[10] = new int[]{10, 12, 14, 15, 17, 19, 21}; // A# major
+        noteContain[11] = new int[]{11, 13, 15, 16, 18, 20, 22}; // B major
+        
+        // Apply % 12 to all elements
+        for (int i = 0; i < noteContain.length; i++) {
+            for (int j = 0; j < noteContain[i].length; j++) {
+                noteContain[i][j] = noteContain[i][j] % 12;
+            }
+        }
+        
+        
+        
+        for (int i = 0;i<notename.size();i++) {
+            for(int j = 0;j<12;j++){
+                for(int k =0;k<7;k++){
+                    if(notename.get(i) == noteContain[j][k]){
+                        noteCount[j]++;
+                    }
+                }
+            }
         }
         int maxCount = 0;
         int key = 0;
@@ -82,7 +114,7 @@ public class Judge {
         ArrayList<Chord> chords = new ArrayList<>();
         Map<Integer, ArrayList<Integer>> judgements = new HashMap<>();
         ArrayList<Integer> negativeArrayList = new ArrayList<>(Collections.singletonList(-1));
-        Map<Integer, Double> pointOfchord = new HashMap<>();
+        LinkedHashMap<Integer, Double> pointOfchord = new LinkedHashMap<>();
         double parameter = 0;
         int j = 0;
         int bar = 0;
@@ -99,11 +131,16 @@ public class Judge {
         chords.add(Asharp);
         chords.add(B);
 
-        // 添加指定和弦
-        chordList.add(new ArrayList<>(Arrays.asList(9, 0, 4, 7)));  // A-7
-        chordList.add(new ArrayList<>(Arrays.asList(2, 5, 9, 1)));  // D-7
-        chordList.add(new ArrayList<>(Arrays.asList(7, 11, 2, 5)));  // G7
-        chordList.add(new ArrayList<>(Arrays.asList(0, 4, 7, 11)));  // CMAJ7
+        // 
+        for (int i = 0; i < chords.size(); i++) {
+            chordList.add(chords.get(i).get_7());
+            chordList.add(chords.get(i).get_O());
+            chordList.add(chords.get(i).get_O7());
+            chordList.add(chords.get(i).get_maj());
+            chordList.add(chords.get(i).get_maj7());
+            chordList.add(chords.get(i).get_min());
+            chordList.add(chords.get(i).get_min7());
+        }
 
         for (int i = 0; i < chordList.size(); i++) {
             pointOfchord.put(i, 0.0);
@@ -111,19 +148,18 @@ public class Judge {
 
         int key = determineKey();
         List<Integer> keyNotes = Arrays.asList(key, (key + 2) % 12, (key + 4) % 12, (key + 5) % 12, (key + 7) % 12, (key + 9) % 12, (key + 11) % 12);
-
+        System.out.println(key);
         for (int i = 0; i < beat.size(); i++) {
             for (int k = 0; k < chordList.size(); k++) {
                 if (chordList.get(k).contains(notename.get(i))) {
-                    // 基于音高的相似性
+                    // 
                     double pitchSimilarity = 0.1 * (1.0 - Math.abs(notename.get(i) % 12 - chordList.get(k).get(0)) / 12.0);
-
-                    // 基于和弦进行的流畅度（假设前一个和弦的索引是prevChordIndex）
+                    // 
                     double chordProgressionSmoothness = (i > 0 && chordList.get(k).contains(notename.get(i - 1))) ? 0.5 : 0.0;
-
-                    // 基于节奏匹配度
+                    // 
                     double rhythmMatching = 0;
-                    if ((parameter % 4.0) == 0) {
+                    if ((parameter % 4.0) == 0) { 
+                        //
                         if (beat.get(i) == 1.0) {
                             rhythmMatching = 0.6;
                         } else if (beat.get(i) == 0.25) {
@@ -147,13 +183,18 @@ public class Judge {
                         }
                     }
 
-                    // 和弦稳定性
+                    // 
                     double chordStability = (i % meter == 0) ? 0.5 : 0.1;
 
-                    // 调性匹配度
-                    double keyMatching = keyNotes.contains(notename.get(i) % 12) ? 0.3 : 0.0;
+                    // 
 
-                    // 考虑前后的音符是否包含在某个和弦中
+                    double keyMatching = keyNotes.contains(notename.get(i) % 12) ? 0.3 : 0.0;
+                    for(int p = 0;p<chordList.get(k).size();p++){
+                        if(!keyNotes.contains(chordList.get(k).get(p))){
+                            keyMatching-=0.3;
+                        }
+                    }
+                    // 
                     double noteContextMatching = 0.0;
                     if (i > 0 && chordList.get(k).contains(notename.get(i - 1))) {
                         noteContextMatching += 0.2;
@@ -162,7 +203,7 @@ public class Judge {
                         noteContextMatching += 0.2;
                     }
 
-                    // 考虑前后的音符和速度比较
+                    // 
                     double speedContextMatching = 0.0;
                     if (i > 0 && Math.abs(beat.get(i) - beat.get(i - 1)) < 0.1) {
                         speedContextMatching += 0.1;
@@ -178,6 +219,7 @@ public class Judge {
             if (parameter <= 1) {
                 pointOfchord = sortChord(pointOfchord);
                 int index = 0;
+                // System.out.println(pointOfchord);
                 for (Integer keys : pointOfchord.keySet()) {
                     index = keys;
                     break;
@@ -185,11 +227,11 @@ public class Judge {
                 judgements.put(j + 1, chordList.get(index));
             }
 
-            parameter += 1.0 / beat.get(i);
+            parameter += 1.0 / beat.get(i);//real length
             while (parameter >= 1) {
                 parameter -= 1;
                 j++;
-                for (int k = 1; k < pointOfchord.size(); k++) {
+                for (int k = 0; k < pointOfchord.size(); k++) {
                     pointOfchord.put(k, 0.0);
                 }
                 if (j % 4 == 0) {
@@ -197,6 +239,7 @@ public class Judge {
                 }
             }
         }
+        // System.out.println(pointOfchord);
         return judgements;
     }
 
