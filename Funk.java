@@ -1,5 +1,3 @@
-
-//0614 need to change all of the 33(or barAmount) in code
 package com.musicgenreclassifier;
 
 import java.io.IOException;
@@ -17,6 +15,8 @@ import java.util.TreeMap;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import javax.swing.text.html.HTMLDocument.Iterator;
+
+import org.netlib.util.doubleW;
 
 /**
  * InnerJazz
@@ -39,7 +39,7 @@ class Funk implements InnerFunk {
     private int barAmount = 33;
     public Funk(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity = 50;
+        this.velocity =80;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>();
         pause.add(-1);
@@ -92,14 +92,14 @@ class Funk implements InnerFunk {
     public static final int MUTE_TRIANGLE = 80;
     public static final int OPEN_TRIANGLE = 81;
 
-    
+    public static final int FRET_NOISE = 120;
     @Override
     public void Drums() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         
         ArrayList<Integer> drumchord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
         ArrayList<Double> drumsbeat = new ArrayList<>();
-        for(int j =0;j<(barAmount-1)/33;j++){
+        for(int j =0;j<(barAmount-1)/16;j++){
         drumsbeat.add(2.0);
         drumsbeat.add(4.0);
         drumsbeat.add(4.0);
@@ -270,8 +270,28 @@ class Funk implements InnerFunk {
                 guitarbeatfinal.add(4.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(4.0);
-                
-               
+                /*
+                  sortAscending(guitarchord);
+                for (int j = 0; j < 3; j++) {
+                    ArrayList<Integer> guitarline = new ArrayList<>();
+                    guitarline.add(guitarchord.get(i).get(j));
+                    guitarchordfinal.add(guitarline);
+                }
+
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                 */
+
                 guitarchordfinal.add(pause);
                 guitarchordfinal.add(guitarchord.get(i));
                 guitarchordfinal.add(pause);
@@ -285,7 +305,16 @@ class Funk implements InnerFunk {
 
                
             } else if (guitarbeat.get(i) == 1.0) {
-               
+                /*
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0);
+                 */
                 guitarbeatfinal.add(4.0);
                 guitarbeatfinal.add(4.0);
                 guitarbeatfinal.add(2.0);
@@ -298,9 +327,23 @@ class Funk implements InnerFunk {
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(4.0);
-                guitarbeatfinal.add((double)(4.0/(double)3.0));
-               
-               
+                guitarbeatfinal.add((double)(4.0/(double)(3.0)));
+                /*
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                sortAscending(guitarchord);
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                 */
+
                 guitarchordfinal.add(pause);
                 guitarchordfinal.add(guitarchord.get(i));
                 guitarchordfinal.add(guitarchord.get(i));
@@ -316,22 +359,41 @@ class Funk implements InnerFunk {
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(4.0);
                 guitarbeatfinal.add(4.0);
-                guitarbeatfinal.add((double)(4.0/(double)3.0));
-                
-                
+                guitarbeatfinal.add((double)(4.0/(double)(3.0)));
+                /*
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(guitarline);
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                 */
 
-                guitarchordfinal.add(guitarchordfinal.get(i));
-                guitarchordfinal.add(guitarchordfinal.get(i));
-                guitarchordfinal.add(guitarchordfinal.get(i));
+
+
+                guitarchordfinal.add(guitarchord.get(i));
+                guitarchordfinal.add(guitarchord.get(i));
+                guitarchordfinal.add(guitarchord.get(i));
                 guitarchordfinal.add(pause);
-                guitarchordfinal.add(guitarchordfinal.get(i));
-                guitarchordfinal.add(guitarchordfinal.get(i));
+                guitarchordfinal.add(guitarchord.get(i));
+                guitarchordfinal.add(guitarchord.get(i));
                 guitarchordfinal.add(pause);
-                guitarchordfinal.add(guitarchordfinal.get(i));
+                guitarchordfinal.add(guitarchord.get(i));
                 
             }
         }
-        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, velocity, guitarbeatfinal, 0);
+        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, 80, guitarbeatfinal, 0);
         guitar.rhythmchord();
         guitar.writeToFile("guitar");
     }
@@ -398,7 +460,7 @@ class Funk implements InnerFunk {
                 bassline.add(basschord.get(i).get(0));
                 basschordfinal.add(bassline);
             } else {
-                bassbeatfinal.add((double)(2.0/(double)3.0));
+                bassbeatfinal.add((2.0/3.0));
                 bassbeatfinal.add(2.0);
                 bassbeatfinal.add(1.0);
                 ArrayList<Integer> bassline = new ArrayList<>();
@@ -485,11 +547,11 @@ class Funk implements InnerFunk {
         for(int i = 0;i<pianobeat.size();i++){
             if(pianobeat.get(i)==0.25){
                 pianobeatfinal.add(1.0);
-                pianobeatfinal.add((double)(8.0/(double)7.0));
+                pianobeatfinal.add(8.0/7.0);
                 pianobeatfinal.add(8.0);
-                pianobeatfinal.add((double)(4.0/(double)3.0));
+                pianobeatfinal.add(4.0/3.0);
                 pianobeatfinal.add(2.0);
-                pianobeatfinal.add((double)(4.0/(double)3.0));
+                pianobeatfinal.add(4.0/3.0);
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
@@ -505,13 +567,13 @@ class Funk implements InnerFunk {
             else if(pianobeat.get(i) == 0.5){
                 pianobeatfinal.add(1.0);
                 pianobeatfinal.add(4.0);
-                pianobeatfinal.add((double)(4.0/(double)3.0));
+                pianobeatfinal.add(4.0/3.0);
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
             }
             else{
-                pianobeatfinal.add((double)(1.0/(double)3.0));
+                pianobeatfinal.add(1.0/3.0);
                 pianochordfinal.add(pianochord.get(i));
             }
         }

@@ -1,4 +1,3 @@
-//0614 need to change all of the 33(or barAmount) in every file
 package com.musicgenreclassifier;
 
 import java.io.IOException;
@@ -38,7 +37,7 @@ class Soul implements InnerSoul {
     private int barAmount = 33;
     public Soul(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity = 50;
+        this.velocity =50;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>();
         pause.add(-1);
@@ -98,7 +97,7 @@ class Soul implements InnerSoul {
         ArrayList<Integer> drumchord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
         ArrayList<Double> drumsbeat = new ArrayList<>();
-        for(int j =0;j<(barAmount-1)/33;j++){
+        for(int j =0;j<(barAmount-1)/16;j++){
         drumsbeat.add(2.0);
         drumsbeat.add(2.0);
         drumsbeat.add(2.0);
@@ -287,9 +286,10 @@ class Soul implements InnerSoul {
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
+                //guitarbeatfinal.add(1.0);
                 guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add((double)(2.0/(double)3.0));
-               
+                guitarbeatfinal.add(2.0/3.0);
+                //guitarbeatfinal.add(1.0);
                 sortAscending(guitarchord);
                 for (int j = 0; j < 3; j++) {
                     ArrayList<Integer> guitarline = new ArrayList<>();
@@ -297,9 +297,11 @@ class Soul implements InnerSoul {
                     guitarchordfinal.add(guitarline);
                 }
                 guitarchordfinal.add(guitarchord.get(i));
+                ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
                 guitarchordfinal.add(pause);
                 guitarchordfinal.add(guitarchord.get(i));
-                
+                //guitarchordfinal.add(guitarchord.get(i));
+                //guitarchordfinal.add(guitarchord.get(i));
             } else if (guitarbeat.get(i) == 1.0) {
                 ArrayList<Integer> guitarline = new ArrayList<>();
                 guitarline.add(guitarchord.get(i).get(0));
@@ -314,7 +316,7 @@ class Soul implements InnerSoul {
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
-                
+                //guitarbeatfinal.add(1.0);
                 ArrayList<Integer> guitarline = new ArrayList<>();
                 sortAscending(guitarchord);
                 guitarline.add(guitarchord.get(i).get(0));
@@ -328,18 +330,18 @@ class Soul implements InnerSoul {
                 guitarline = new ArrayList<>();
                 guitarline.add(guitarchord.get(i).get(1));
                 guitarchordfinal.add(guitarline);
-                
+                ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
                 guitarchordfinal.add(pause);
             } else {
                 guitarbeatfinal.add(1.0);
-                
+                //guitarbeatfinal.add(1.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
 
                 guitarchordfinal.add(guitarchord.get(i));
-                
+                ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
                 guitarchordfinal.add(pause);
                 ArrayList<Integer> guitarline = new ArrayList<>();
                 sortAscending(guitarchord);
@@ -352,7 +354,7 @@ class Soul implements InnerSoul {
                 guitarline.add(guitarchord.get(i).get(2));
                 guitarchordfinal.add(guitarline);
                 guitarline = new ArrayList<>();
-                
+                //guitarline.add(guitarchord.get(i).get(3));
             }
         }
         Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, velocity, guitarbeatfinal, 0);
@@ -450,7 +452,8 @@ class Soul implements InnerSoul {
             groupedMap.putIfAbsent(groupKey, new ArrayList<Integer>());
             groupedMap.get(groupKey).add(key);
         }
-        
+        // System.out.println(groupedMap);
+        // 
         for (List<Integer> groupKeys : groupedMap.values()) {
             Set<ArrayList<Integer>> seenGroups = new HashSet<>();
             for (Integer key : groupKeys) {
@@ -512,7 +515,7 @@ class Soul implements InnerSoul {
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(2.0);
-                
+                //pianobeatfinal.add(1.0);
 
                 pianochordfinal.add(pianochord.get(i));
                 for (int j = 0; j < 3; j++) {
@@ -521,7 +524,7 @@ class Soul implements InnerSoul {
                     pianochordfinal.add(pianoline);
                 }
                 pianochordfinal.add(pianochord.get(i));
-                
+                //pianochordfinal.add(pianochord.get(i));
             }
             else if(pianobeat.get(i) == 1.0){
                 pianobeatfinal.add(1.0);
@@ -534,7 +537,7 @@ class Soul implements InnerSoul {
                 pianochordfinal.add(pause);
             }
             else{
-                pianobeatfinal.add((double)(1.0/(double)3.0));
+                pianobeatfinal.add(1.0/3.0);
                 pianochordfinal.add(pianochord.get(i));
             }
         }

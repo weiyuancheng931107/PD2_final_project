@@ -1,4 +1,3 @@
-//0614 need to change all of the 33(or barAmount) in every file
 package com.musicgenreclassifier;
 
 import java.io.IOException;
@@ -38,7 +37,7 @@ class RnB implements InnerRnB {
     public ArrayList<Integer> pause;
     public RnB(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity = 50;
+        this.velocity =80;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>();
         pause.add(-1);
@@ -96,7 +95,7 @@ class RnB implements InnerRnB {
         ArrayList<Integer> drumchord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
         ArrayList<Double> drumsbeat = new ArrayList<>();
-        for(int j =0;j<(barAmount-1)/33;j++){
+        for(int j =0;j<(barAmount-1)/16;j++){
             for (int i = 0; i < 64; i++) {
                 drumsbeat.add(4.0);
             }
@@ -273,7 +272,7 @@ class RnB implements InnerRnB {
                 guitarbeatfinal.add(4.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add((double)(4.0/(double)3.0));
+                guitarbeatfinal.add(4.0/3.0);
 
                 guitarchordfinal.add(guitarchord.get(i));
                 guitarchordfinal.add(pause);
@@ -283,19 +282,66 @@ class RnB implements InnerRnB {
                 guitarchordfinal.add(guitarchord.get(i));
 
                 
-                
+                /*
+                sortAscending(guitarchord);
+                for (int j = 0; j < 3; j++) {
+                    ArrayList<Integer> guitarline = new ArrayList<>();
+                    guitarline.add(guitarchord.get(i).get(j));
+                    guitarchordfinal.add(guitarline);
+                }
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                */
                 
             } else if (guitarbeat.get(i) == 1.0) {
-                
+                /*
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0);
+                */
                 guitarbeatfinal.add(1.0);
                 guitarchordfinal.add(guitarchord.get(i));
                 
             } else if (guitarbeat.get(i) == 0.5) {
+                /*
+                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0);
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                sortAscending(guitarchord);
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                 */
 
-                guitarbeatfinal.add(1.0);
-                guitarbeatfinal.add(1.0);
-                guitarchordfinal.add(guitarchord.get(i));
-                guitarchordfinal.add(pause);
+                 guitarbeatfinal.add(1.0);
+                 guitarbeatfinal.add(1.0);
+                 guitarchordfinal.add(guitarchord.get(i));
+                 guitarchordfinal.add(pause);
                 
             } else {
                 guitarbeatfinal.add(1.0);
@@ -311,11 +357,30 @@ class RnB implements InnerRnB {
                 guitarchordfinal.add(guitarchord.get(i));
 
                 
+                /*
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(guitarline);
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                 */
                 
             }
         }
-        
-        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, velocity, guitarbeatfinal, 0);
+        // System.out.println(guitarbeat+"guitarbeat");
+        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, 80, guitarbeatfinal, 0);
         guitar.rhythmchord();
         guitar.writeToFile("guitar");
     }
@@ -473,7 +538,16 @@ class RnB implements InnerRnB {
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(0.5);
+                /*
+                sortAscending(pianochord);
+                for (int j = 0; j < 3; j++) {
+                    ArrayList<Integer> pianoline = new ArrayList<>();
+                    pianoline.add(pianochord.get(i).get(j));
+                    pianochordfinal.add(pianoline);
+                }
+                */
                 
+
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
                 pianochordfinal.add(pianochord.get(i));
@@ -492,7 +566,7 @@ class RnB implements InnerRnB {
                 pianochordfinal.add(pause);
             }
             else{
-                pianobeatfinal.add((double)(1.0/(double)3.0));
+                pianobeatfinal.add((double)(1.0/3.0));
                 pianochordfinal.add(pianochord.get(i));
             }
         }
