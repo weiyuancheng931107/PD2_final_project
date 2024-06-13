@@ -521,8 +521,8 @@ class Reggae implements InnerReggae {
                 pianochordfinal.add(pause);
                 pianochordfinal.add(pianochord.get(i));
             }
-            else{ //1.5 or what, why not 3
-                pianobeatfinal.add((double)(2.0/(double)(3.0)));
+            else{ 
+                pianobeatfinal.add(1.0/3.0);
                 pianochordfinal.add(pianochord.get(i));
             }
         }
