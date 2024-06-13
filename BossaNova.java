@@ -1,4 +1,4 @@
-
+//0614 need to change all of the 33(or barAmount) in every file
 package com.musicgenreclassifier;
 
 import java.io.IOException;
@@ -389,7 +389,7 @@ class BossaNova implements InnerBossaNova {
         }
         System.out.println(this.chordHashMap);
         System.out.println(pianobeat);
-        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 3, velocity, pianobeatfinal, 1);
+        Metronome piano = new Metronome(bpm, 4, pianochordfinal, 3, velocity, pianobeatfinal, 0);
         piano.rhythmchord();
         piano.writeToFile("piano");
     }
