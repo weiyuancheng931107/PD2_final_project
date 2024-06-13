@@ -566,7 +566,7 @@ class RnB implements InnerRnB {
                 pianochordfinal.add(pause);
             }
             else{
-                pianobeatfinal.add((double)(2.0/(double)(3.0)));
+                pianobeatfinal.add((double)(1.0/3.0));
                 pianochordfinal.add(pianochord.get(i));
             }
         }
