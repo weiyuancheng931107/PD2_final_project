@@ -34,6 +34,7 @@ class Rock implements InnerRock {
     private int bpm;
     private int velocity;
     public ArrayList<Integer> pause;
+    private int barAmount = 17;
     public Rock(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
         this.velocity =80;
@@ -93,8 +94,41 @@ class Rock implements InnerRock {
         
         ArrayList<Integer> drumchord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
-        ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0));
+        ArrayList<Double> drumsbeat = new ArrayList<>();
+        for(int j =0;j<(barAmount-1)/16;j++){
         //
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
         drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,CRASH));
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
@@ -162,7 +196,7 @@ class Rock implements InnerRock {
         drumcordfinal.add(drumchord);
         drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
         drumcordfinal.add(drumchord);
-
+        }
         MetronomeWithNoPitch drums = new MetronomeWithNoPitch(bpm, 59, drumcordfinal, 2, velocity, drumsbeat, 9);
         drums.playRhythm();
         drums.saveToFile("drums");
@@ -187,14 +221,15 @@ class Rock implements InnerRock {
             lastbeat = key;
         }
         for(int i = 0;i<beatcount.size()-1;i++){
-            guitarbeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));
+            guitarbeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));//note length between two different chords 
         }
+
         if(lastbeat%4!=0){
-            guitarbeat.add(1/((double)(17-lastbeat)));
-        }
-        else{
+            guitarbeat.add(1/((double)(barAmount-lastbeat)));//17?unable to function if input bar amount > 4
+        } else{
             guitarbeat.add(1.0);
         }
+
         for (int i = 0; i < guitarbeat.size(); i++) {
             if (guitarbeat.get(i) == 0.25 ) {
                 guitarbeatfinal.add(2.0);
@@ -275,7 +310,7 @@ class Rock implements InnerRock {
                 guitarchordfinal.add(guitarline);
             }
         }
-        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, 80, guitarbeatfinal, 0);
+        Metronome guitar = new Metronome(bpm, 30, guitarchordfinal, 4, 80, guitarbeatfinal, 0);
         guitar.rhythmchord();
         guitar.writeToFile("guitar");
     }
@@ -307,7 +342,7 @@ class Rock implements InnerRock {
             bassbeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));
         }
         if(lastbeat%4!=0){
-            bassbeat.add(1/((double)(17-lastbeat)));
+            bassbeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             bassbeat.add(1.0);
@@ -343,9 +378,12 @@ class Rock implements InnerRock {
                 basschordfinal.add(bassline);
             } else {
                 bassbeatfinal.add((double)(2.0/(double)(3.0)));
-                bassbeatfinal.add(0.5);
+                bassbeatfinal.add(2.0);
                 bassbeatfinal.add(1.0);
                 ArrayList<Integer> bassline = new ArrayList<>();
+                bassline.add(basschord.get(i).get(0));
+                basschordfinal.add(bassline);
+                bassline = new ArrayList<>();
                 bassline.add(basschord.get(i).get(0));
                 basschordfinal.add(bassline);
                 bassline = new ArrayList<>();
@@ -418,7 +456,7 @@ class Rock implements InnerRock {
         }
         
         if(lastbeat%4!=0){
-            pianobeat.add(1/((double)(17-lastbeat)));
+            pianobeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             pianobeat.add(1.0);
