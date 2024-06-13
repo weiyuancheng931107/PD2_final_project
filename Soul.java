@@ -514,7 +514,7 @@ class Soul implements InnerSoul {
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(2.0);
-                // pianobeatfinal.add(1.0);
+                //pianobeatfinal.add(1.0);
 
                 pianochordfinal.add(pianochord.get(i));
                 for (int j = 0; j < 3; j++) {
@@ -522,16 +522,8 @@ class Soul implements InnerSoul {
                     pianoline.add(pianochord.get(i).get(j));
                     pianochordfinal.add(pianoline);
                 }
-                if(pianochord.get(i).size() == 4){
-                    ArrayList<Integer> pianoline = new ArrayList<>();
-                    pianoline.add(pianochord.get(i).get(3));
-                    pianochordfinal.add(pianoline);
-                    //pianochordfinal.add(pianochord.get(i));
-                }else{
-                    ArrayList<Integer> pianoline = new ArrayList<>();
-                    pianoline.add(pianochord.get(i).get(1));
-                    pianochordfinal.add(pianoline);
-                }
+                pianochordfinal.add(pianochord.get(i));
+                //pianochordfinal.add(pianochord.get(i));
             }
             else if(pianobeat.get(i) == 1.0){
                 pianobeatfinal.add(1.0);
@@ -544,7 +536,7 @@ class Soul implements InnerSoul {
                 pianochordfinal.add(pause);
             }
             else{
-                pianobeatfinal.add((double)(2.0/(double)(3.0)));
+                pianobeatfinal.add(1.0/3.0);
                 pianochordfinal.add(pianochord.get(i));
             }
         }
