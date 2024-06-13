@@ -32,14 +32,14 @@ public class Main {
         noteSequence.add(5+12*5);
         noteSequence.add(4+12*5);
         noteSequence.add(4+12*5);
-        // noteSequence.add(0+12*5);
-        // noteSequence.add(1+12*5);
-        // noteSequence.add(2+12*5);
-        // noteSequence.add(9+12*5);
-        // noteSequence.add(9+12*5);
-        // noteSequence.add(0+12*6);
-        // noteSequence.add(11+12*5);
-        // noteSequence.add(7+12*5);
+        noteSequence.add(0+12*5);
+        noteSequence.add(1+12*5);
+        noteSequence.add(2+12*5);
+        noteSequence.add(9+12*5);
+        noteSequence.add(9+12*5);
+        noteSequence.add(0+12*6);
+        noteSequence.add(11+12*5);
+        noteSequence.add(7+12*5);
 
 
         // noteSequence.add(7+12*5);
@@ -71,8 +71,8 @@ public class Main {
         noteDurations.add((double)(2.0/(double)(3.0)));
         noteDurations.add(2.0);
         noteDurations.add(1.0);
-        noteDurations.add(2.0);
         noteDurations.add(1.0);
+        noteDurations.add(2.0);
         noteDurations.add((double)(2.0/(double)(3.0)));
         noteDurations.add(1.0);
         noteDurations.add(1.0);
@@ -82,15 +82,15 @@ public class Main {
         noteDurations.add(2.0);
         noteDurations.add(2.0);
         noteDurations.add(0.25);
-        // noteDurations.add((double)(1.0/(double)(3.0)));
-        // noteDurations.add(1.0);
-        // noteDurations.add(2.0);
-        // noteDurations.add(1.0);
-        // noteDurations.add((double)(2.0/(double)(5.0)));
-        // noteDurations.add((double)(1.0/(double)(3.0)));
-        // noteDurations.add(1.0);
-        // noteDurations.add(0.25);
-        
+        noteDurations.add((double)(1.0/(double)(3.0)));
+        noteDurations.add(1.0);
+        noteDurations.add(2.0);
+        noteDurations.add(1.0);
+        noteDurations.add((double)(2.0/(double)(5.0)));
+        noteDurations.add((double)(1.0/(double)(3.0)));
+        noteDurations.add(1.0);
+        noteDurations.add(0.25);
+
         // noteDurations.add((double)(2.0/(double)(3.0)));
         // noteDurations.add(2.0);
         // noteDurations.add(1.0);
@@ -129,7 +129,7 @@ public class Main {
         midiGenerator.playRhythm();
         midiGenerator.saveToFile("output.mid");
         //BossaNova rock= new BossaNova(bpm, velocity, chordMap);
-        Jazz rock= new Jazz(bpm, velocity, chordMap);
+        Soul rock= new Soul(bpm, velocity, chordMap);
         rock.Piano();
         rock.Drums();
         rock.Bass();

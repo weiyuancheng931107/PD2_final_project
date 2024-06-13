@@ -158,23 +158,23 @@ public class Judge {
                     double rhythmMatching = 0;
                     if ((parameter % 4.0) == 0) {
                         if (beat.get(i) == 0.25) {
-                            rhythmMatching = 2.5;
+                            rhythmMatching = 2.5*1.5;
                         } else if (beat.get(i) == 0.4) {
-                            rhythmMatching = 2.2;
+                            rhythmMatching = 2.2*1.5;
                         } else if (beat.get(i) == 0.5) {
-                            rhythmMatching = 2.0;
+                            rhythmMatching = 2.0*1.5;
                         } else if (beat.get(i) == (double)(1.0/(double)(3.0))) {
-                            rhythmMatching = 1.8;
+                            rhythmMatching = 1.8*1.5;
                         } else if (beat.get(i) == 0.8) {
-                            rhythmMatching = 1.6;
+                            rhythmMatching = 1.6*1.5;
                         } else if (beat.get(i) == 1.0) {
-                            rhythmMatching = 1.0;
+                            rhythmMatching = 1.0*1.5;
                         } else if (beat.get(i) == (double)(2.0/(double)(3.0))) {
-                            rhythmMatching = 0.8;
+                            rhythmMatching = 0.8*1.5;
                         } else if (beat.get(i) == 1.6) {
-                            rhythmMatching = 1.1;
+                            rhythmMatching = 1.1*1.5;
                         } else if (beat.get(i) == 2.0) {
-                            rhythmMatching = 1.0;
+                            rhythmMatching = 1.0*1.5;
                         }
                     }else{
                         if (beat.get(i) == 0.25) {
@@ -256,9 +256,9 @@ public class Judge {
                     for (int chordNote : chordList.get(k)) {
                         int interval = Math.abs(notename.get(i) - chordNote) % 12;
                         if (interval == 1) {
-                            intervalAvoidance -= 0.5; // Avoid minor second
+                            intervalAvoidance -= 1.5; // Avoid minor second
                         } else if (interval == 2) {
-                            intervalAvoidance -= 0.2; // Avoid major second
+                            intervalAvoidance -= 0.9; // Avoid major second
                         }
                     }
 

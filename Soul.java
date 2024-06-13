@@ -514,15 +514,24 @@ class Soul implements InnerSoul {
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(2.0);
                 pianobeatfinal.add(2.0);
-                //pianobeatfinal.add(1.0);
+                // pianobeatfinal.add(1.0);
 
                 pianochordfinal.add(pianochord.get(i));
-                for (int j = 0; j < 4; j++) {
+                for (int j = 0; j < 3; j++) {
                     ArrayList<Integer> pianoline = new ArrayList<>();
                     pianoline.add(pianochord.get(i).get(j));
                     pianochordfinal.add(pianoline);
                 }
-                //pianochordfinal.add(pianochord.get(i));
+                if(pianochord.get(i).size() == 4){
+                    ArrayList<Integer> pianoline = new ArrayList<>();
+                    pianoline.add(pianochord.get(i).get(3));
+                    pianochordfinal.add(pianoline);
+                    //pianochordfinal.add(pianochord.get(i));
+                }else{
+                    ArrayList<Integer> pianoline = new ArrayList<>();
+                    pianoline.add(pianochord.get(i).get(1));
+                    pianochordfinal.add(pianoline);
+                }
             }
             else if(pianobeat.get(i) == 1.0){
                 pianobeatfinal.add(1.0);
