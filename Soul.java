@@ -291,11 +291,12 @@ class Soul implements InnerSoul {
                 guitarbeatfinal.add(2.0/3.0);
                 //guitarbeatfinal.add(1.0);
                 sortAscending(guitarchord);
-                for (int j = 0; j < 4; j++) {
+                for (int j = 0; j < 3; j++) {
                     ArrayList<Integer> guitarline = new ArrayList<>();
                     guitarline.add(guitarchord.get(i).get(j));
                     guitarchordfinal.add(guitarline);
                 }
+                guitarchordfinal.add(guitarchord.get(i));
                 ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
                 guitarchordfinal.add(pause);
                 guitarchordfinal.add(guitarchord.get(i));
@@ -327,10 +328,10 @@ class Soul implements InnerSoul {
                 guitarline.add(guitarchord.get(i).get(2));
                 guitarchordfinal.add(pause);
                 guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(3));
+                guitarline.add(guitarchord.get(i).get(1));
                 guitarchordfinal.add(guitarline);
                 ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
-                guitarchordfinal.add(fretNoise);
+                guitarchordfinal.add(pause);
             } else {
                 guitarbeatfinal.add(1.0);
                 //guitarbeatfinal.add(1.0);
@@ -341,7 +342,7 @@ class Soul implements InnerSoul {
 
                 guitarchordfinal.add(guitarchord.get(i));
                 ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
-                guitarchordfinal.add(fretNoise);
+                guitarchordfinal.add(pause);
                 ArrayList<Integer> guitarline = new ArrayList<>();
                 sortAscending(guitarchord);
                 guitarline.add(guitarchord.get(i).get(0));
