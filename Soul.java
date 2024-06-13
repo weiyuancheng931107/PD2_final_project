@@ -34,9 +34,10 @@ class Soul implements InnerSoul {
     private int bpm;
     private int velocity;
     public ArrayList<Integer> pause;
+    private int barAmount = 33;
     public Soul(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity =80;
+        this.velocity =50;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>();
         pause.add(-1);
@@ -88,113 +89,165 @@ class Soul implements InnerSoul {
     public static final int OPEN_CUICA = 79;
     public static final int MUTE_TRIANGLE = 80;
     public static final int OPEN_TRIANGLE = 81;
+
+    public static final int FRET_NOISE = 120;
     @Override
     public void Drums() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         
         ArrayList<Integer> drumchord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
-        ArrayList<Double> drumsbeat = new ArrayList<>(Arrays.asList(2.0,2.0,2.0,4.0,4.0,4.0,4.0,4.0,4.0,3.0,3.0,3.0,2.0,2.0,2.0,4.0,4.0,4.0,4.0,4.0,4.0,3.0,3.0,3.0,2.0,2.0,2.0,4.0,4.0,4.0,4.0,4.0,4.0,3.0,3.0,3.0,2.0,2.0,2.0,4.0,4.0,4.0,4.0,4.0,4.0,3.0,3.0,3.0));
-        //第一小節
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        //第二小節
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        //第三小節
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        //第四小節
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
-        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-        drumcordfinal.add(drumchord);
+        ArrayList<Double> drumsbeat = new ArrayList<>();
+        for(int j =0;j<(barAmount-1)/16;j++){
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(2.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(4.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(3.0);
+        drumsbeat.add(3.0);
 
+        //
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        //
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        //
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        //
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,SIDE_STICK));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        drumchord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+        drumcordfinal.add(drumchord);
+        }
         MetronomeWithNoPitch drums = new MetronomeWithNoPitch(bpm, 59, drumcordfinal, 2, velocity, drumsbeat, 9);
         drums.playRhythm();
         drums.saveToFile("drums");
@@ -222,7 +275,7 @@ class Soul implements InnerSoul {
             guitarbeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));
         }
         if(lastbeat%4!=0){
-            guitarbeat.add(1/((double)(17-lastbeat)));
+            guitarbeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             guitarbeat.add(1.0);
@@ -232,28 +285,22 @@ class Soul implements InnerSoul {
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(1.0);
                 guitarbeatfinal.add(2.0);
+                //guitarbeatfinal.add(1.0);
                 guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0/3.0);
+                //guitarbeatfinal.add(1.0);
                 sortAscending(guitarchord);
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < 4; j++) {
                     ArrayList<Integer> guitarline = new ArrayList<>();
                     guitarline.add(guitarchord.get(i).get(j));
                     guitarchordfinal.add(guitarline);
                 }
-                ArrayList<Integer> guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(2));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(0));
-                guitarchordfinal.add(guitarline);
+                ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
+                guitarchordfinal.add(pause);
+                guitarchordfinal.add(guitarchord.get(i));
+                //guitarchordfinal.add(guitarchord.get(i));
+                //guitarchordfinal.add(guitarchord.get(i));
             } else if (guitarbeat.get(i) == 1.0) {
                 ArrayList<Integer> guitarline = new ArrayList<>();
                 guitarline.add(guitarchord.get(i).get(0));
@@ -268,6 +315,33 @@ class Soul implements InnerSoul {
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
+                //guitarbeatfinal.add(1.0);
+                ArrayList<Integer> guitarline = new ArrayList<>();
+                sortAscending(guitarchord);
+                guitarline.add(guitarchord.get(i).get(0));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(1));
+                guitarchordfinal.add(guitarline);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(2));
+                guitarchordfinal.add(pause);
+                guitarline = new ArrayList<>();
+                guitarline.add(guitarchord.get(i).get(3));
+                guitarchordfinal.add(guitarline);
+                ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
+                guitarchordfinal.add(fretNoise);
+            } else {
+                guitarbeatfinal.add(1.0);
+                //guitarbeatfinal.add(1.0);
+                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0);
+                guitarbeatfinal.add(2.0);
+
+                guitarchordfinal.add(guitarchord.get(i));
+                ArrayList<Integer> fretNoise = new ArrayList<>(Arrays.asList(FRET_NOISE));
+                guitarchordfinal.add(fretNoise);
                 ArrayList<Integer> guitarline = new ArrayList<>();
                 sortAscending(guitarchord);
                 guitarline.add(guitarchord.get(i).get(0));
@@ -279,35 +353,10 @@ class Soul implements InnerSoul {
                 guitarline.add(guitarchord.get(i).get(2));
                 guitarchordfinal.add(guitarline);
                 guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-            } else {
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                ArrayList<Integer> guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(0));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(2));
-                guitarchordfinal.add(guitarline);
-                guitarline.add(guitarchord.get(i).get(2));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(0));
-                guitarchordfinal.add(guitarline);
+                //guitarline.add(guitarchord.get(i).get(3));
             }
         }
-        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, 80, guitarbeatfinal, 1);
+        Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, velocity, guitarbeatfinal, 0);
         guitar.rhythmchord();
         guitar.writeToFile("guitar");
     }
@@ -339,7 +388,7 @@ class Soul implements InnerSoul {
             bassbeat.add(1/((double)(beatcount.get(i+1)-beatcount.get(i))));
         }
         if(lastbeat%4!=0){
-            bassbeat.add(1/((double)(17-lastbeat)));
+            bassbeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             bassbeat.add(1.0);
@@ -375,7 +424,7 @@ class Soul implements InnerSoul {
                 basschordfinal.add(bassline);
             } else {
                 bassbeatfinal.add((double)(2.0/(double)(3.0)));
-                bassbeatfinal.add(0.5);
+                bassbeatfinal.add(2.0);
                 bassbeatfinal.add(1.0);
                 ArrayList<Integer> bassline = new ArrayList<>();
                 bassline.add(basschord.get(i).get(0));
@@ -383,16 +432,19 @@ class Soul implements InnerSoul {
                 bassline = new ArrayList<>();
                 bassline.add(basschord.get(i).get(0));
                 basschordfinal.add(bassline);
+                bassline = new ArrayList<>();
+                bassline.add(basschord.get(i).get(0));
+                basschordfinal.add(bassline);
             }
         }
-        Metronome bass = new Metronome(bpm, 46, basschordfinal, 2, velocity, bassbeatfinal, 1);
+        Metronome bass = new Metronome(bpm, 46, basschordfinal, 2, velocity, bassbeatfinal, 0);
         bass.rhythmchord();
         bass.writeToFile("bass");
     }
 
     public static Map<Integer, ArrayList<Integer>> groupAndFilter(Map<Integer, ArrayList<Integer>> input) {
         Map<Integer, ArrayList<Integer>> result = new HashMap<>();
-        // 將鍵按4的倍數分組
+        // 
         TreeMap<Integer, List<Integer>> groupedMap = new TreeMap<>();
         for (Integer key : input.keySet()) {
             int groupKey = (key-1) / 4;
@@ -400,7 +452,7 @@ class Soul implements InnerSoul {
             groupedMap.get(groupKey).add(key);
         }
         // System.out.println(groupedMap);
-        // 用來檢查已經處理過的分組
+        // 
         for (List<Integer> groupKeys : groupedMap.values()) {
             Set<ArrayList<Integer>> seenGroups = new HashSet<>();
             for (Integer key : groupKeys) {
@@ -450,23 +502,37 @@ class Soul implements InnerSoul {
         }
         
         if(lastbeat%4!=0){
-            pianobeat.add(1/((double)(17-lastbeat)));
+            pianobeat.add(1/((double)(barAmount-lastbeat)));
         }
         else{
             pianobeat.add(1.0);
         }
         for(int i = 0;i<pianobeat.size();i++){
             if(pianobeat.get(i)==0.25){
-                pianobeatfinal.add(0.25);
+                pianobeatfinal.add(0.5);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                pianobeatfinal.add(2.0);
+                //pianobeatfinal.add(1.0);
+
                 pianochordfinal.add(pianochord.get(i));
+                for (int j = 0; j < 4; j++) {
+                    ArrayList<Integer> pianoline = new ArrayList<>();
+                    pianoline.add(pianochord.get(i).get(j));
+                    pianochordfinal.add(pianoline);
+                }
+                //pianochordfinal.add(pianochord.get(i));
             }
             else if(pianobeat.get(i) == 1.0){
                 pianobeatfinal.add(1.0);
                 pianochordfinal.add(pianochord.get(i));
             }
             else if(pianobeat.get(i) == 0.5){
-                pianobeatfinal.add(0.5);
+                pianobeatfinal.add(1.0);
+                pianobeatfinal.add(1.0);
                 pianochordfinal.add(pianochord.get(i));
+                pianochordfinal.add(pause);
             }
             else{
                 pianobeatfinal.add((double)(2.0/(double)(3.0)));
@@ -475,7 +541,7 @@ class Soul implements InnerSoul {
         }
         System.out.println(this.chordHashMap);
         System.out.println(pianobeat);
-        Metronome piano = new Metronome(bpm, 17, pianochordfinal, 4, velocity, pianobeatfinal, 0);
+        Metronome piano = new Metronome(bpm, 17, pianochordfinal, 5, velocity, pianobeatfinal, 0);
         piano.rhythmchord();
         piano.writeToFile("piano");
     }
