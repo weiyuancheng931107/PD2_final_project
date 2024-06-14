@@ -5,18 +5,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class MidiMerger {
-    public static void main(String[] args) {
-        String[] midiFiles = {"piano.mid", "drums.mid", "bass.mid"};
-        String outputFile = "merged.mid";
-
-        try {
-            mergeMidiFiles(midiFiles, outputFile);
-            System.out.println("MIDI files merged successfully into " + outputFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void mergeMidiFiles(String[] midiFiles, String outputFile) throws IOException, InvalidMidiDataException {
         Sequence mergedSequence = null;
 

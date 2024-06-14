@@ -8,7 +8,6 @@ import java.util.ArrayList;
 class MidiGenerator {
     private final Sequence sequence;
     private final Track track;
-    private final int bpm;
     private final int velocity;
     private final ArrayList<Integer> noteSequence;
     private final ArrayList<Integer> beatDurations;
@@ -19,7 +18,6 @@ class MidiGenerator {
     private int program;
 
     public MidiGenerator(int bpm, int program, ArrayList<Integer> noteSequence, int pitch, int velocity, ArrayList<Double> beats, int channel) throws InvalidMidiDataException, MidiUnavailableException {
-        this.bpm = bpm;
         this.velocity = velocity;
         this.channel = channel;
         this.noteSequence = noteSequence;

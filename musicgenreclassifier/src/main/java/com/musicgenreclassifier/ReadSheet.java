@@ -44,13 +44,13 @@ public class ReadSheet {
                 Map<Integer, ArrayList<Integer>> chordMap = judge.judgement();
 
                 // Create MidiGenerator object and generate MIDI file
-                MidiGenerator midiGenerator = new MidiGenerator(bpm, 56, noteSequence, bpm, 100, noteDurations, 3);
+                MidiGenerator midiGenerator = new MidiGenerator(bpm, 56, noteSequence, 2, 100, noteDurations, 3);
                 midiGenerator.playRhythm();
                 midiGenerator.saveToFile("output.mid");
 
                 // Create DefineStyle object and call midimerge method
                 DefineStyle defineStyle = new DefineStyle(style, bpm, chordMap,baramount);
-                defineStyle.midimerge();
+                defineStyle.midiMerge();
 
             } catch (FileNotFoundException e) {
                 System.out.println("File not found: " + e.getMessage());

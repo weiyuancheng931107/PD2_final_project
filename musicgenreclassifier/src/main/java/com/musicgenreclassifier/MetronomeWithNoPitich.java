@@ -8,7 +8,6 @@ import java.util.ArrayList;
 class MetronomeWithNoPitch {
     private final Sequence sequence;
     private final Track track;
-    private final int bpm;
     private final int velocity;
     private final ArrayList<ArrayList<Integer>> noteSequence;
     private final ArrayList<Integer> beatDurations;
@@ -17,7 +16,6 @@ class MetronomeWithNoPitch {
     private int tick = 0;
 
     public MetronomeWithNoPitch(int bpm, int program, ArrayList<ArrayList<Integer>> noteSequence, int pitch, int velocity, ArrayList<Double> beats, int channel) throws InvalidMidiDataException, MidiUnavailableException {
-        this.bpm = bpm;
         this.velocity = velocity;
         this.channel = channel;
         this.noteSequence = noteSequence;

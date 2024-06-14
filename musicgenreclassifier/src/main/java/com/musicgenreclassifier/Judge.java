@@ -106,15 +106,12 @@ public class Judge {
         return key;
     }
 
-    @SuppressWarnings("unchecked")
     public Map<Integer, ArrayList<Integer>> judgement() {
         ArrayList<Chord> chords = new ArrayList<>();
         Map<Integer, ArrayList<Integer>> judgements = new HashMap<>();
-        ArrayList<Integer> negativeArrayList = new ArrayList<>(Collections.singletonList(-1));
         LinkedHashMap<Integer, Double> pointOfchord = new LinkedHashMap<>();
         double parameter = 0;
         int j = 0;
-        int bar = 0;
         chords.add(C);
         chords.add(Csharp);
         chords.add(D);
@@ -284,7 +281,6 @@ public class Judge {
                     pointOfchord.put(k, 0.0);
                 }
                 if (j % 4 == 0) {
-                    bar++;
                 }
             }
         }

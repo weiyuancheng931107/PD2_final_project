@@ -15,16 +15,14 @@ import java.util.TreeMap;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 /**
  * InnerJazz
  */ 
 interface InnerSoul {
-    void Drums() throws InvalidMidiDataException, MidiUnavailableException, IOException;
-    void Guitar() throws InvalidMidiDataException, MidiUnavailableException, IOException;
-    void Bass() throws InvalidMidiDataException, MidiUnavailableException, IOException;
-    void Piano() throws InvalidMidiDataException, MidiUnavailableException, IOException;
+    void drums() throws InvalidMidiDataException, MidiUnavailableException, IOException;
+    void guitar() throws InvalidMidiDataException, MidiUnavailableException, IOException;
+    void bass() throws InvalidMidiDataException, MidiUnavailableException, IOException;
+    void piano() throws InvalidMidiDataException, MidiUnavailableException, IOException;
 }
 class Soul implements InnerSoul {
     
@@ -94,7 +92,7 @@ class Soul implements InnerSoul {
 
     public static final int FRET_NOISE = 120;
     @Override
-    public void Drums() throws InvalidMidiDataException, MidiUnavailableException, IOException {
+    public void drums() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         
         ArrayList<Integer> drumchord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumcordfinal = new ArrayList<>();
@@ -255,8 +253,7 @@ class Soul implements InnerSoul {
         drums.saveToFile("drums");
     }
     @Override
-    public void Guitar() throws InvalidMidiDataException, MidiUnavailableException, IOException {
-        Random random = new Random();
+    public void guitar() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         ArrayList<Integer> guitarchordtemp = new ArrayList<>();
         ArrayList<ArrayList<Integer>> guitarchord = new ArrayList<>();
         ArrayList<Double> guitarbeat = new ArrayList<>();
@@ -264,8 +261,6 @@ class Soul implements InnerSoul {
         ArrayList<ArrayList<Integer>> guitarchordfinal = new ArrayList<>();
         ArrayList<Double> guitarbeatfinal = new ArrayList<>();
         this.chordHashMap =  groupAndFilter(this.chordHashMap);
-        ArrayList<Integer> guitaronenote= new ArrayList<>();
-        int a = 0;
         int lastbeat = 0;
         for (Integer key : chordHashMap.keySet()) {
             beatcount.add(key);
@@ -357,7 +352,7 @@ class Soul implements InnerSoul {
             }
         }
         Metronome guitar = new Metronome(bpm, 25, guitarchordfinal, 4, velocity, guitarbeatfinal, 0);
-        guitar.rhythmchord();
+        guitar.rhythmChord();
         guitar.writeToFile("guitar");
     }
 
@@ -366,8 +361,7 @@ class Soul implements InnerSoul {
 
 
     @Override
-    public void Bass() throws InvalidMidiDataException, MidiUnavailableException, IOException {
-        Random random = new Random();
+    public void bass() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         ArrayList<Integer> basschordtemp = new ArrayList<>();
         ArrayList<ArrayList<Integer>> basschord = new ArrayList<>();
         ArrayList<Double> bassbeat = new ArrayList<>();
@@ -375,8 +369,6 @@ class Soul implements InnerSoul {
         ArrayList<ArrayList<Integer>> basschordfinal = new ArrayList<>();
         ArrayList<Double> bassbeatfinal = new ArrayList<>();
         this.chordHashMap =  groupAndFilter(this.chordHashMap);
-        ArrayList<Integer> bassonenote= new ArrayList<>();
-        int a = 0;
         int lastbeat = 0;
         for (Integer key : chordHashMap.keySet()) {
             beatcount.add(key);
@@ -438,7 +430,7 @@ class Soul implements InnerSoul {
             }
         }
         Metronome bass = new Metronome(bpm, 46, basschordfinal, 2, velocity, bassbeatfinal, 0);
-        bass.rhythmchord();
+        bass.rhythmChord();
         bass.writeToFile("bass");
     }
 
@@ -479,9 +471,7 @@ class Soul implements InnerSoul {
     }
 
     @Override
-    public void Piano() throws InvalidMidiDataException, MidiUnavailableException, IOException {
-        Random random = new Random();
-        int randomplaylist = rand(0, 1, random) ;
+    public void piano() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         ArrayList<Integer> pianochordtemp = new ArrayList<>();
         ArrayList<ArrayList<Integer>> pianochord = new ArrayList<>();
         ArrayList<Double> pianobeat = new ArrayList<>();
@@ -542,7 +532,7 @@ class Soul implements InnerSoul {
         System.out.println(this.chordHashMap);
         System.out.println(pianobeat);
         Metronome piano = new Metronome(bpm, 17, pianochordfinal, 5, velocity, pianobeatfinal, 0);
-        piano.rhythmchord();
+        piano.rhythmChord();
         piano.writeToFile("piano");
     }
 }
