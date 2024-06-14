@@ -1,22 +1,12 @@
 package com.musicgenreclassifier;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
-
+import java.util.*;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 
 /**
- * InnerJazz
+ * Interface defining the methods required for an RnB rhythm section.
  */
 interface InnerRnB {
     void drums() throws InvalidMidiDataException, MidiUnavailableException, IOException;
@@ -24,30 +14,50 @@ interface InnerRnB {
     void bass() throws InvalidMidiDataException, MidiUnavailableException, IOException;
     void piano() throws InvalidMidiDataException, MidiUnavailableException, IOException;
 }
+
 /**
  * Class representing the RnB music genre, implementing the InnerRnB interface.
  */
 class RnB implements InnerRnB {
 
-    public static final int KICK_DRUM = 36; // Bass drum
+    // Constants for MIDI drum instrument codes
+    public static final int KICK_DRUM = 36;
     public static final int RIDE = 42;
     public static final int CRASH = 51;
-    private int barAmount;
-    Map<Integer, ArrayList<Integer>> chordHashMap;
-    private int bpm;
-    private int velocity;
-    public ArrayList<Integer> pause;
 
+    // Chord hash map for storing chord progressions
+    private Map<Integer, ArrayList<Integer>> chordHashMap;
+
+    // BPM (beats per minute) for the rhythm
+    private int bpm;
+
+    // Velocity (volume) for the notes
+    private int velocity;
+
+    // Placeholder for pauses in the rhythm
+    private ArrayList<Integer> pause;
+
+    // Total number of bars in the rhythm
+    private int barAmount;
+
+    /**
+     * Constructor for the RnB class.
+     * @param bpm - Beats per minute for the rhythm.
+     * @param velocity - Volume for the notes.
+     * @param chordHashMap - Chord progressions for the melody.
+     * @param barAmount - Number of bars in the rhythm.
+     * @throws InvalidMidiDataException
+     * @throws MidiUnavailableException
+     */
     public RnB(int bpm, int velocity, Map<Integer, ArrayList<Integer>> chordHashMap, int barAmount) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity = 50;
+        this.velocity = velocity;
         this.chordHashMap = chordHashMap;
-        this.pause = new ArrayList<>();
-        pause.add(-1);
+        this.pause = new ArrayList<>(Collections.singletonList(-1));
         this.barAmount = barAmount * 4 + 1;
     }
 
-    // Constants for different drum sounds
+    // Additional MIDI drum instrument codes
     public static final int ACOUSTIC_BASS_DRUM = 35;
     public static final int BASS_DRUM = 36;
     public static final int SIDE_STICK = 37;
@@ -57,7 +67,7 @@ class RnB implements InnerRnB {
     public static final int LOW_FLOOR_TOM = 41;
     public static final int CLOSED_HI_HAT = 42;
     public static final int HIGH_FLOOR_TOM = 43;
-    public static final int PEDAL_HI_HAT = 42;
+    public static final int PEDAL_HI_HAT = 44;
     public static final int LOW_TOM = 45;
     public static final int OPEN_HI_HAT = 46;
     public static final int LOW_MID_TOM = 47;
@@ -96,18 +106,25 @@ class RnB implements InnerRnB {
     public static final int MUTE_TRIANGLE = 80;
     public static final int OPEN_TRIANGLE = 81;
 
+    /**
+     * Method to generate the drum track for the RnB rhythm.
+     * @throws InvalidMidiDataException
+     * @throws MidiUnavailableException
+     * @throws IOException
+     */
     @Override
     public void drums() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         ArrayList<Integer> drumChord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumChordFinal = new ArrayList<>();
         ArrayList<Double> drumsBeat = new ArrayList<>();
 
-        // Create drum beat and chord sequences
+        // Populate the drum chord and beat lists for each bar
         for (int j = 0; j < (barAmount - 1) / barAmount; j++) {
             for (int i = 0; i < 64; i++) {
                 drumsBeat.add(4.0);
             }
 
+            // Populate drum chords for each beat
             drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
             drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
@@ -134,6 +151,12 @@ class RnB implements InnerRnB {
         drums.saveToFile("drums");
     }
 
+    /**
+     * Method to generate the guitar track for the RnB rhythm.
+     * @throws InvalidMidiDataException
+     * @throws MidiUnavailableException
+     * @throws IOException
+     */
     @Override
     public void guitar() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         ArrayList<Integer> guitarChordTemp = new ArrayList<>();
@@ -208,6 +231,12 @@ class RnB implements InnerRnB {
         guitar.writeToFile("guitar");
     }
 
+    /**
+     * Method to generate the bass track for the RnB rhythm.
+     * @throws InvalidMidiDataException
+     * @throws MidiUnavailableException
+     * @throws IOException
+     */
     @Override
     public void bass() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         ArrayList<Integer> bassChordTemp = new ArrayList<>();
@@ -243,42 +272,32 @@ class RnB implements InnerRnB {
                 bassBeatFinal.add(0.5);
                 bassBeatFinal.add(1.0);
                 bassBeatFinal.add(1.0);
-                ArrayList<Integer> bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                ArrayList<Integer> bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
-                bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
-                bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
-                bassLine = new ArrayList<>();
             } else if (bassBeat.get(i) == 1.0) {
-                ArrayList<Integer> bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                ArrayList<Integer> bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
                 bassBeatFinal.add(1.0);
             } else if (bassBeat.get(i) == 0.5) {
                 bassBeatFinal.add((double) (2.0 / (double) (3.0)));
                 bassBeatFinal.add(2.0);
-                ArrayList<Integer> bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                ArrayList<Integer> bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
-                bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
             } else {
                 bassBeatFinal.add((double) (2.0 / (double) (3.0)));
                 bassBeatFinal.add(2.0);
                 bassBeatFinal.add(1.0);
-                ArrayList<Integer> bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                ArrayList<Integer> bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
-                bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
-                bassLine = new ArrayList<>();
-                bassLine.add(bassChord.get(i).get(0));
+                bassLine = new ArrayList<>(Collections.singletonList(bassChord.get(i).get(0)));
                 bassChordFinal.add(bassLine);
             }
         }
@@ -289,6 +308,12 @@ class RnB implements InnerRnB {
         bass.writeToFile("bass");
     }
 
+    /**
+     * Method to generate the piano track for the RnB rhythm.
+     * @throws InvalidMidiDataException
+     * @throws MidiUnavailableException
+     * @throws IOException
+     */
     @Override
     public void piano() throws InvalidMidiDataException, MidiUnavailableException, IOException {
         ArrayList<Integer> pianoChordTemp = new ArrayList<>();
@@ -357,18 +382,21 @@ class RnB implements InnerRnB {
         piano.writeToFile("piano");
     }
 
+    /**
+     * Group and filter the chords based on beat groups.
+     * @param input - Input chord hash map.
+     * @return Filtered and grouped chord hash map.
+     */
     public static Map<Integer, ArrayList<Integer>> groupAndFilter(Map<Integer, ArrayList<Integer>> input) {
         Map<Integer, ArrayList<Integer>> result = new HashMap<>();
         TreeMap<Integer, List<Integer>> groupedMap = new TreeMap<>();
 
-        // Group input chords by bar
         for (Integer key : input.keySet()) {
             int groupKey = (key - 1) / 4;
             groupedMap.putIfAbsent(groupKey, new ArrayList<Integer>());
             groupedMap.get(groupKey).add(key);
         }
 
-        // Filter chords to remove duplicates within each bar
         for (List<Integer> groupKeys : groupedMap.values()) {
             Set<ArrayList<Integer>> seenGroups = new HashSet<>();
             for (Integer key : groupKeys) {
@@ -382,16 +410,31 @@ class RnB implements InnerRnB {
         return result;
     }
 
+    /**
+     * Generate a random integer within a specified range.
+     * @param min - Minimum value.
+     * @param max - Maximum value.
+     * @param random - Random instance.
+     * @return Random integer within the range.
+     */
     public static int rand(int min, int max, Random random) {
         return random.nextInt((max - min) + 1) + min;
     }
 
+    /**
+     * Sort the inner lists of a list of lists in ascending order.
+     * @param listOfLists - List of lists to be sorted.
+     */
     public static void sortAscending(ArrayList<ArrayList<Integer>> listOfLists) {
         for (ArrayList<Integer> innerList : listOfLists) {
             Collections.sort(innerList);
         }
     }
 
+    /**
+     * Sort the inner lists of a list of lists in descending order.
+     * @param listOfLists - List of lists to be sorted.
+     */
     public static void sortDescending(ArrayList<ArrayList<Integer>> listOfLists) {
         for (ArrayList<Integer> innerList : listOfLists) {
             Collections.sort(innerList, Collections.reverseOrder());
