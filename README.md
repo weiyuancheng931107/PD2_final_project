@@ -16,8 +16,8 @@ The structure and functionalities of the project are described below. There are 
 
 ### Files and Their Functions
 
-#### BossaNova.java
-This class is responsible for generating Bossa Nova rhythms. It includes methods for defining the specific patterns and time signatures characteristic of Bossa Nova music.
+#### Note.java
+This class is responsible for classifying the note.
 
 #### Chord.java
 This class handles chord-related operations, such as creating, modifying, and analyzing chords. It includes methods to define chord structures and possibly to generate chord sequences.
@@ -51,6 +51,9 @@ This class is responsible for generating Funk rhythms. It includes methods for d
 
 #### Jazz.java
 This class is responsible for generating Jazz rhythms. It includes methods for defining the specific patterns and time signatures characteristic of Jazz music.
+
+#### BossaNova.java
+This class is responsible for generating Bossa Nova rhythms. It includes methods for defining the specific patterns and time signatures characteristic of Bossa Nova music.
 
 #### Reggae.java
 This class is responsible for generating Reggae rhythms. It includes methods for defining the specific patterns and time signatures characteristic of Reggae music.
