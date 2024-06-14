@@ -20,22 +20,19 @@ The structure and functionalities of the project are described below. There are 
 This class is responsible for classifying the note.
 
 #### Chord.java
-This class handles chord-related operations, such as creating, modifying, and analyzing chords. It includes methods to define chord structures and possibly to generate chord sequences.
+This class handles chord-related operations, such as creating chords. It includes methods to define chord structures and to generate chord sequences.
 
 #### DefineStyle.java
 This class allows users to define and apply different musical styles to MIDI sequences. It includes functionality to merge MIDI files according to specified styles.
 
 #### Judge.java
-This class evaluates musical sequences, possibly by analyzing their structure and rhythm. It might be used to ensure the sequences adhere to certain musical standards or styles.
+This class evaluates musical sequences by analyzing their structure and rhythm. It is used to ensure the sequences adhere to certain musical standards or styles.
 
 #### Metronome.java
-This class implements a metronome that produces a steady beat to help musicians keep time. It includes methods to set the tempo and possibly to customize the sound of the beat.
+It includes methods to set the tempo and possibly to customize the sound of the beat.
 
 #### MetronomeWithNoPitich.java
 Similar to Metronome.java, but this version likely focuses on a metronome with no pitch, providing just a percussive beat without any tonal elements.
-
-#### MidiFile.java
-This class handles MIDI file operations, including creating, reading, writing, and modifying MIDI files. It includes methods to write MIDI events and manage MIDI file structure.
 
 #### MidiGenerator.java
 This class is responsible for generating MIDI sequences based on given parameters such as tempo, note sequences, and rhythms. It includes methods to play and save these sequences.
