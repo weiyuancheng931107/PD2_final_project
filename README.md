@@ -1,9 +1,5 @@
 # Java Music Application
 
-![pull_request](https://github.com/otsob/wmn4j/actions/workflows/pull_request.yaml/badge.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.wmn4j/wmn4j/badge.svg)](https://search.maven.org/artifact/org.wmn4j/wmn4j)
-
 Java Music Application is a Java-based application designed for various music-related functionalities, including creating, processing, and manipulating MIDI files, generating rhythms, and defining musical styles.
 
 ## The structure of the project
