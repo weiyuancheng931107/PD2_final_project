@@ -1,4 +1,3 @@
-package com.musicgenreclassifier;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +24,7 @@ public class MusicApp extends JPanel {
     private int bar = 0;
     private int style = 7;
     private double oneBar = 0;
+    private boolean clicked = false;
     /*private int tripletCount = 0;
     private boolean tripletMode = false;*/
 
@@ -117,6 +117,8 @@ public class MusicApp extends JPanel {
                     finished.setEnabled(true);
                 }
                 finish.setEnabled(false);
+                clicked = true;
+                bar+=4;
             }
         });
         pitchPanel.add(finish);
@@ -130,7 +132,7 @@ public class MusicApp extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     style = Integer.parseInt(e.getActionCommand());
-                    if(total == 16){
+                    if(clicked){
                         finished.setEnabled(true);
                     }
                 }
@@ -179,19 +181,10 @@ public class MusicApp extends JPanel {
         });
         pitchPanel.add(finished);
 
-        /*JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        buttonPanel.add(exitButton);*/
-
         JPanel bpm_panel = new JPanel();
         bpm_panel.setOpaque(false);
         JLabel bpmLabel = new JLabel("BPM:");
-        final JTextField bpmField = new JTextField("0", 5);
+        JTextField bpmField = new JTextField("0", 5);
         bpmField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -329,6 +322,7 @@ public class MusicApp extends JPanel {
             } if (selectedNoteType.equals("WholeNoteRest") || selectedNoteType.equals("HalfNoteRest") || selectedNoteType.equals("QuarterRest") || selectedNoteType.equals("EighthRest") || selectedNoteType.equals("SixteenthRest") || selectedNoteType.equals("ThirtySecondRest") || selectedNoteType.equals("TripleRest") || selectedNoteType.equals("AugTripletRest") || selectedNoteType.equals("QuintupletRest") || selectedNoteType.equals("ProQuintupletRest")) {
                 note.add_Note(-1);
             }
+            clicked = false;
             finished.setEnabled(false);
             note.add_time(selectedNoteType);
             note.add_Pitch(pitch);
@@ -444,7 +438,6 @@ public class MusicApp extends JPanel {
             int x = 55;
             int y = 0;
             double num = 0;
-            bar = 0;
             for(int i=index; i<list.size(); i++){
                 Note note = list.get(i);
                 num += 1/note.get_time();
@@ -499,7 +492,6 @@ public class MusicApp extends JPanel {
                 if(num%4 == 0) {
                     g2d.drawLine(x, 70, x, 110);
                     x += 100;
-                    bar++;
                 }
             }
         }
