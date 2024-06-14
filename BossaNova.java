@@ -1,4 +1,4 @@
-
+//0614 need to change all of the 33(or barAmount) in every file
 package com.musicgenreclassifier;
 
 import java.io.IOException;
