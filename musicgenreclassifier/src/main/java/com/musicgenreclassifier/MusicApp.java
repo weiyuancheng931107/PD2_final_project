@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class MusicApp extends JPanel {
 
-    private ArrayList<Note> list = new ArrayList<>();
+    private ArrayList<Notes> list = new ArrayList<>();
     private static final String[] NOTES = {"C", "D", "E", "F", "G", "A", "B"};
     private static final String[] SHARPS = {"C#", "D#", "", "F#", "G#", "A#", ""};
     private String selectedNoteType = null;
@@ -24,7 +24,6 @@ public class MusicApp extends JPanel {
     private int bar = 0;
     private int style = 7;
     private double oneBar = 0;
-    private boolean clicked = false;
     /*private int tripletCount = 0;
     private boolean tripletMode = false;*/
 
@@ -100,7 +99,7 @@ public class MusicApp extends JPanel {
             pitchPanel.add(pitchButton);
         }
 
-        finish = new JButton("save");
+        /*finish = new JButton("save");
         finish.setEnabled(false);
         finish.addActionListener(new ActionListener() {
             @Override
@@ -118,10 +117,10 @@ public class MusicApp extends JPanel {
                 }
                 finish.setEnabled(false);
                 clicked = true;
-                bar+=4;
+                bar=bar+4;
             }
         });
-        pitchPanel.add(finish);
+        pitchPanel.add(finish);*/
 
         JPanel stylePanel = new JPanel();
         String[] styleList = {"rock ", "jazz ", "bossanova ", "rnb ", "soul ", "funk ", "reggae "};
@@ -132,9 +131,7 @@ public class MusicApp extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     style = Integer.parseInt(e.getActionCommand());
-                    if(clicked){
-                        finished.setEnabled(true);
-                    }
+                    checkFinished();
                 }
             });
             stylePanel.add(button);
@@ -143,13 +140,13 @@ public class MusicApp extends JPanel {
 
         finished = new JButton("finished");
         finished.setEnabled(false);
-        finish.addActionListener(new ActionListener() {
+        finished.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent i) {
                 try(BufferedWriter writer = new BufferedWriter(new FileWriter("sheetmusic.txt"))) {
                     writer.write(Integer.toString(bpm));
                     writer.write(" ");
                     writer.write("\n");
-                    for(Note note : list) {
+                    for(Notes note : list) {
                         if(note.get_Node() != -1){
                             writer.write(Integer.toString((note.get_Node()+12)+note.get_Pitch()*12));
                         }
@@ -159,7 +156,7 @@ public class MusicApp extends JPanel {
                         writer.write(" ");
                     }
                     writer.write("\n");
-                    for(Note note : list) {
+                    for(Notes note : list) {
                         writer.write(Double.toString(note.get_time()));
                         writer.write(" ");
                     }
@@ -177,6 +174,10 @@ public class MusicApp extends JPanel {
                 bar = 0;
                 finished.setEnabled(false);
                 total = 0;
+                System.out.println("yes");
+                ReadSheet.readSheet = new ReadSheet();
+                readSheet.Read();
+                System.exit(0);
             }
         });
         pitchPanel.add(finished);
@@ -190,9 +191,7 @@ public class MusicApp extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     bpm = Integer.parseInt(bpmField.getText());
-                    if(total == 16) {
-                        finish.setEnabled(true);
-                    }
+                    checkFinished();
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please enter again.");
                 }
@@ -213,6 +212,15 @@ public class MusicApp extends JPanel {
         }
         else
             pianoPanel.enablePianoKeys(false);
+    }
+
+    private void checkFinished() {
+        if (bpm !=0 && style != 7 && total == 16) {
+            finished.setEnabled(true);
+        }
+        else {
+            finished.setEnabled(false);
+        }
     }
 
     public static void main(String[] args) {
@@ -288,7 +296,7 @@ public class MusicApp extends JPanel {
         public void actionPerformed(ActionEvent e) {
             JButton source = (JButton) e.getSource();
             String command = source.getActionCommand();
-            Note note = new Note();
+            Notes note = new Notes();
             if (command.startsWith("white:")) {
                 int index = Integer.parseInt(command.split(":")[1]);
                 if (NOTES[index].equals("C")) {
@@ -322,7 +330,6 @@ public class MusicApp extends JPanel {
             } if (selectedNoteType.equals("WholeNoteRest") || selectedNoteType.equals("HalfNoteRest") || selectedNoteType.equals("QuarterRest") || selectedNoteType.equals("EighthRest") || selectedNoteType.equals("SixteenthRest") || selectedNoteType.equals("ThirtySecondRest") || selectedNoteType.equals("TripleRest") || selectedNoteType.equals("AugTripletRest") || selectedNoteType.equals("QuintupletRest") || selectedNoteType.equals("ProQuintupletRest")) {
                 note.add_Note(-1);
             }
-            clicked = false;
             finished.setEnabled(false);
             note.add_time(selectedNoteType);
             note.add_Pitch(pitch);
@@ -331,11 +338,11 @@ public class MusicApp extends JPanel {
             total = 0;
             oneBar = 0;
             for(int i =index; i<list.size(); i++) {
-                Note notes = list.get(i);
+                Notes notes = list.get(i);
                 total += 1/notes.get_time();
             }
             for(int i =index; i<list.size(); i++) {
-                Note notes = list.get(i);
+                Notes notes = list.get(i);
                 oneBar += 1/notes.get_time();
                 if(oneBar == 4){
                     oneBar = 0;
@@ -346,8 +353,19 @@ public class MusicApp extends JPanel {
                 }
             }
             System.out.println(total);
+            if(total == 16) {
+                bar+=4;
+                Component[] components = layeredPane.getComponentsInLayer(3);
+                Component component = components[0];
+                layeredPane.remove(component);
+                layeredPane.revalidate();
+                layeredPane.repaint();
+                first = true;
+                System.out.println("weeee");
+                index = list.size();
+            }
             if (total == 16 && bpm != 0) {
-                finish.setEnabled(true);
+                finished.setEnabled(true);
             }
             else if(total > 16) {
                 list.remove(list.size()-1);
@@ -360,6 +378,9 @@ public class MusicApp extends JPanel {
                 layeredPane.revalidate();
                 layeredPane.repaint();
             }
+            if(total <16) {
+                first = false;
+            }
             notationPanels = new MusicNotations();
             notationPanels.setBounds(50, 0, 1500, 300);
             notationPanels.setOpaque(false);
@@ -368,7 +389,7 @@ public class MusicApp extends JPanel {
             selectedNoteType = null;
             pitch = 0;
             checkEnablePianoKeys();
-            first = false;
+            checkFinished();
 
             System.out.println("Current Notes: " + note.get_Node() + " " + note.get_type() + " " + note.get_Pitch());
             // Add code to play the note here
@@ -396,13 +417,10 @@ public class MusicApp extends JPanel {
 
             add(panel);
         }
-
-        Graphics2D g2d;
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
-            this.g2d = g2d;
 
             // Enable anti-aliasing
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -439,7 +457,7 @@ public class MusicApp extends JPanel {
             int y = 0;
             double num = 0;
             for(int i=index; i<list.size(); i++){
-                Note note = list.get(i);
+                Notes note = list.get(i);
                 num += 1/note.get_time();
                 switch (note.get_Node()) {
                     case 0:
@@ -748,7 +766,7 @@ public class MusicApp extends JPanel {
 }
 
 
-class Note {
+class Notes {
     public double time = 0;
     public String type;
     public int pitch = 0;
