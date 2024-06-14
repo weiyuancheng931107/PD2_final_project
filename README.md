@@ -61,26 +61,29 @@ This class is responsible for generating Rock rhythms. It includes methods for d
 This class is responsible for generating Soul rhythms. It includes methods for defining the specific patterns and time signatures characteristic of Soul music.
 
 ### Building the project
-
+To build the project, use your preferred Java IDE (e.g., IntelliJ IDEA, Eclipse) to import the project files. Ensure you have the necessary Java Development Kit (JDK) installed. Follow your IDE's instructions to compile and run the project.
 
 ## Contributing
-
-
+Contributions to the Java Music Application are welcome. To contribute, please fork the repository, make your changes, and submit a pull request. Ensure that your code follows the project's coding standards and includes appropriate tests.
 
 ## Built With
-
-
+Java Standard Libraries
+MIDI Libraries for Java (e.g., javax.sound.midi)
 
 ## Versioning
-
+We use Semantic Versioning for versioning. For the [versions](https://semver.org/) available, see the tags on this repository.
 
 
 ## Authors
 
 
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
-
 ## Citation
+If you use this project in your research, please cite it as follows:
+@misc{JavaMusicApplication,
+  author = {Author 1, Author 2},
+  title = {Java Music Application},
+  year = {2024},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/your/repository}}
+}
