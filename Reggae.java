@@ -1,3 +1,4 @@
+//0614 need to change all of the 33(or barAmount) in every file
 package com.musicgenreclassifier;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ class Reggae implements InnerReggae {
     private int barAmount = 33;
     public Reggae(int bpm, int velocity,Map<Integer, ArrayList<Integer>> chordHashMap) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity =50;
+        this.velocity = 50;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>();
         pause.add(-1);
@@ -211,33 +212,7 @@ class Reggae implements InnerReggae {
         for (int i = 0; i < guitarbeat.size(); i++) {
             if (guitarbeat.get(i) == 0.25 ) {
 
-                /*
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(1.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                sortAscending(guitarchord);
-                for (int j = 0; j < 3; j++) {
-                    ArrayList<Integer> guitarline = new ArrayList<>();
-                    guitarline.add(guitarchord.get(i).get(j));
-                    guitarchordfinal.add(guitarline);
-                }
-                ArrayList<Integer> guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(2));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(0));
-                guitarchordfinal.add(guitarline);
-                 */
+                
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarchordfinal.add(pause);
@@ -257,17 +232,7 @@ class Reggae implements InnerReggae {
   
                 
             } else if (guitarbeat.get(i) == 1.0) {
-                /*
-                ArrayList<Integer> guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(0));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                 */
-
+                
                 
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
@@ -276,25 +241,7 @@ class Reggae implements InnerReggae {
                 
             } else if (guitarbeat.get(i) == 0.5) {
 
-                /*
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                ArrayList<Integer> guitarline = new ArrayList<>();
-                sortAscending(guitarchord);
-                guitarline.add(guitarchord.get(i).get(0));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(2));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                 */
+                
                 guitarbeatfinal.add(2.0);
                 guitarbeatfinal.add(2.0);
                 guitarchordfinal.add(pause);
@@ -305,32 +252,8 @@ class Reggae implements InnerReggae {
                 guitarchordfinal.add(guitarchord.get(i));
                 
                 
-            } else {//3 not quite sure about this one because of unknown of down/up beats
-                /*
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                guitarbeatfinal.add(2.0);
-                ArrayList<Integer> guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(0));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(2));
-                guitarchordfinal.add(guitarline);
-                guitarline.add(guitarchord.get(i).get(2));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(1));
-                guitarchordfinal.add(guitarline);
-                guitarline = new ArrayList<>();
-                guitarline.add(guitarchord.get(i).get(0));
-                guitarchordfinal.add(guitarline);
-                 */
+            } else {
+                
 
                  guitarbeatfinal.add(2.0);
                  guitarbeatfinal.add(2.0);
@@ -522,7 +445,7 @@ class Reggae implements InnerReggae {
                 pianochordfinal.add(pianochord.get(i));
             }
             else{ 
-                pianobeatfinal.add(1.0/3.0);
+                pianobeatfinal.add((double)(1.0/(double)3.0));
                 pianochordfinal.add(pianochord.get(i));
             }
         }
