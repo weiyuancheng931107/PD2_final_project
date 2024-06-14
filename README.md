@@ -62,52 +62,25 @@ This class is responsible for generating Soul rhythms. It includes methods for d
 
 ### Building the project
 
-This project is developed and built with OpenJDK 17. The project uses Gradle and can be built by running Gradle build. With the current configuration, the build consists of compilation, unit tests, and static analysis. It is recommended to delegate the building of the project to Gradle using the provided Gradle wrapper in the IDE to ensure all dependencies are handled correctly. To build locally, run
-
-./gradlew build
 
 ## Contributing
 
-Contributions to this project are very welcome. If you are interested, feel free to message me (otsob) through Github. Contributing to this project happens through pull requests. For commits we try to follow basic practices (for example, see the ones by [Painsi](https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53)
-or [Beams](https://chris.beams.io/posts/git-commit/)).
 
-As this project is a library, the testing happens through unit tests and it is preferred that changes come accompanied by corresponding unit tests.
-
-The coding style of this project is not very strict, but there are some [basic guidelines](CODING_CONVENTIONS.md).
-
-Contributing to this project is supposed to be enjoyable, so behaving nicely and respectfully is appreciated. For a general guideline on code-of-conduct we follow the one outlined by [Contributor Covenant](https://www.contributor-covenant.org/version/1/4/code-of-conduct).
-
-For pull requests target the `development` branch. The `main` branch is reserved for releases.
-
-If you find a bug in this project or want to propose a feature, please [open an issue](https://github.com/otsob/wmn4j/issues/new/choose) with the corresponding template.
 
 ## Built With
 
-* [Gradle](https://gradle.org)
-* [Apache Commons Math](https://commons.apache.org/proper/commons-math/)
-* [SLF4J](http://www.slf4j.org). When using this project, you need [to bind to a compatible logger](https://www.slf4j.org/manual.html#swapping) implementation.
+
 
 ## Versioning
 
-This project is still in the alpha phase. The released versions are available on [Maven central](https://search.maven.org/artifact/org.wmn4j/wmn4j).
+
 
 ## Authors
 
-* **Otso Björklund** - [otsob](https://github.com/otsob)
-* **Matias Wargelin**
 
-See also the list of [contributors](https://github.com/otsob/wmn4j/graphs/contributors) who participated in this project.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 
 ## Citation
-
-If you use this project for research, or need a reference to cite for other reasons, please use:
-@inproceedings{wmn4j2022,
-author = {Björklund, Otso},
-title = {{Western Music Notation for Java: A library for music notation on the JVM}},
-booktitle={Extended Abstracts for the Late-Breaking Demo Session of the 23rd International Society for Music Information Retrieval Conference},
-year = {2022},
-}
