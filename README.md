@@ -75,15 +75,3 @@ We use Semantic Versioning for versioning. For the [versions](https://semver.org
 
 
 ## Authors
-
-
-## Citation
-If you use this project in your research, please cite it as follows:
-@misc{JavaMusicApplication,
-  author = {Author 1, Author 2},
-  title = {Java Music Application},
-  year = {2024},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/your/repository}}
-}
