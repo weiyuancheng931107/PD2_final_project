@@ -24,86 +24,99 @@ public class MusicNotations extends JPanel {
         int x = 55;
         int y = 0;
         int staffHeight = 120;
-        int currentLine = 0;
+        int currentLine = 20;
         int panelWidth = this.getWidth();
         double num = 0;
+        int countLine = 0;
 
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
             Notes note = musicApp.getList().get(i);
             num += 1 / note.get_time();
+            y=0+70*countLine;
+            if(x>=1560) {
+                y+=70; 
+                x = 55;   
+                countLine++;        
+            }
 
             // Determine the y position based on the note and the current line
             switch (note.get_Node()) {
                 case 0:
-                    y = 60 + (currentLine);
+                    y += 60 + (currentLine);
                     break;
                 case 1:
-                    y = 60 + (currentLine);
+                    y += 60 + (currentLine);
                     drawSharp(g2d, x - 5, y + 5);
                     break;
                 case 2:
-                    y = 90 + (currentLine);
+                    y += 90 + (currentLine);
                     break;
                 case 3:
-                    y = 90 + (currentLine);
+                    y += 90 + (currentLine);
                     drawSharp(g2d, x - 5, y + 5);
                     break;
                 case 4:
-                    y = 85 + (currentLine);
+                    y += 85 + (currentLine);
                     break;
                 case 5:
-                    y = 80 + (currentLine);
+                    y += 80 + (currentLine);
                     break;
                 case 6:
-                    y = 80 + (currentLine);
+                    y += 80 + (currentLine);
                     drawSharp(g2d, x - 5, y + 5);
                     break;
                 case 7:
-                    y = 75 + (currentLine);
+                    y += 75 + (currentLine);
                     break;
                 case 8:
-                    y = 75 + (currentLine);
+                    y += 75 + (currentLine);
                     drawSharp(g2d, x - 5, y + 5);
                     break;
                 case 9:
-                    y = 70 + (currentLine);
+                    y += 70 + (currentLine);
                     break;
                 case 10:
-                    y = 70 + (currentLine);
+                    y += 70 + (currentLine);
                     drawSharp(g2d, x - 5, y + 5);
                     break;
                 case 11:
-                    y = 65 + (currentLine);
+                    y += 65 + (currentLine);
                     break;
                 case -1:
-                    y = 60 + (currentLine);
+                    y += 60 + (currentLine);
                     break;
             }
 
             drawNoteByType(g2d, x, y, note.get_type());
             x += 40;
 
-            if (x > panelWidth - 300) { // If x exceeds panel width, move to next line
+            /*if (x > panelWidth - 300) { // If x exceeds panel width, move to next line
                 currentLine+=STAFF_GAP+STAFF_HEIGHT+15;
                 y += STAFF_HEIGHT + STAFF_GAP+15;
-                x = 55; // Reset x to start of the new line
-                drawStaff(g2d, y);
-            }
+                x = 55; // Reset x to start of the new line*/
+                //drawStaff(g2d, y);
+            //}
 
             if (num % 4 == 0) {
+                y = 70+70*countLine;
+                if(x>=1560) {
+                    y+=70;  
+                    x = 55;   
+                    countLine++;       
+                }
                 g2d.drawLine(x, y, x, y+40);
                 x += 40;
             }
         }
     }
 
-    private void drawStaff(Graphics2D g2d, int yStart) {
+    /*private void drawStaff(Graphics2D g2d, int yStart) {
         int yGap = 10;
 
         for (int i = 0; i < 5; i++) {
             g2d.drawLine(50, yStart + i * yGap, 2500, yStart + i * yGap);
         }
-    }
+    }*/
 
     private void drawNoteByType(Graphics2D g2d, int x, int y, String noteType) {
         switch (noteType) {
