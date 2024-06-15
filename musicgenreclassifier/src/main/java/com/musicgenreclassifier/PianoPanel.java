@@ -131,12 +131,15 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             Notes notes = musicApp.getList().get(i);
             musicApp.setTotal(musicApp.getTotal() + 1 / notes.get_time());
         }
+        final double TOLERANCE = 0.0001;
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
             Notes notes = musicApp.getList().get(i);
             musicApp.setOneBar(musicApp.getOneBar() + 1 / notes.get_time());
-            if (musicApp.getOneBar() == 4) {
+            System.out.println(" hello" + Math.abs(musicApp.getOneBar() -4));
+            if (Math.abs(musicApp.getOneBar() -4) < TOLERANCE) {
                 musicApp.setOneBar(0);
             } else if (musicApp.getOneBar() > 4) {
+                JOptionPane.showMessageDialog(this, "over one bar!", "WARNING!", JOptionPane.WARNING_MESSAGE);
                 musicApp.getList().remove(musicApp.getList().size() - 1);
                 return;
             }
@@ -169,7 +172,7 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             musicApp.setFirst(false);
         }
         musicApp.setNotationPanels(new MusicNotations(musicApp));
-        musicApp.getNotationPanels().setBounds(50, 0, 3000, 300);
+        musicApp.getNotationPanels().setBounds(50, 0, 1700, 700);
         musicApp.getNotationPanels().setOpaque(false);
         musicApp.getLayeredPane().add(musicApp.getNotationPanels(), Integer.valueOf(3));
         musicApp.setSelectedNoteType(null);
