@@ -57,12 +57,6 @@ public class Notes {
             case "SixteenthRest":
                 time = 4;
                 break;
-            case "ThirtySecond":
-                time = 8;
-                break;
-            case "ThirtySecondRest":
-                time = 8;
-                break;
             case "Triple":
                 time = 3;
                 break;
