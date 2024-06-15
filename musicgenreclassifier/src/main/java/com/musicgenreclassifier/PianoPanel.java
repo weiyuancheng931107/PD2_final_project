@@ -169,7 +169,7 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             musicApp.setFirst(false);
         }
         musicApp.setNotationPanels(new MusicNotations(musicApp));
-        musicApp.getNotationPanels().setBounds(50, 0, 1500, 300);
+        musicApp.getNotationPanels().setBounds(50, 0, 3000, 300);
         musicApp.getNotationPanels().setOpaque(false);
         musicApp.getLayeredPane().add(musicApp.getNotationPanels(), Integer.valueOf(3));
         musicApp.setSelectedNoteType(null);
