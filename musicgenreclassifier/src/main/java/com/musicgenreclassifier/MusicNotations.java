@@ -81,7 +81,7 @@ public class MusicNotations extends JPanel {
             }
 
             drawNoteByType(g2d, x, y, note.get_type());
-            x += 100;
+            x += 40;
 
             if (x > panelWidth - 300) { // If x exceeds panel width, move to next line
                 currentLine+=STAFF_GAP+STAFF_HEIGHT+15;
@@ -92,7 +92,7 @@ public class MusicNotations extends JPanel {
 
             if (num % 4 == 0) {
                 g2d.drawLine(x, y, x, y+40);
-                x += 100;
+                x += 40;
             }
         }
     }
@@ -182,11 +182,11 @@ public class MusicNotations extends JPanel {
     }
 
     private void drawWholeNote(Graphics2D g2d, int x, int y) {
-        g2d.drawOval(x, y, 20, 10); // Note head (hollow and wider)
+        g2d.drawOval(x, y, 15, 10); // Note head (hollow and wider)
     }
 
     private void drawWholeRest(Graphics2D g2d, int x, int y) {
-        g2d.fillRect(x, y + 30, 40, 10);
+        g2d.fillRect(x, y + 30, 30, 10);
     }
 
     private void drawHalfNote(Graphics2D g2d, int x, int y) {
@@ -200,7 +200,7 @@ public class MusicNotations extends JPanel {
     }
 
     private void drawHalfRest(Graphics2D g2d, int x, int y) {
-        g2d.fillRect(x, y + 20, 40, 10);
+        g2d.fillRect(x, y + 20, 30, 10);
     }
 
     private void drawQuarterNote(Graphics2D g2d, int x, int y) {
