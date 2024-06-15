@@ -55,7 +55,7 @@ public class MusicApp extends JPanel {
         JPanel totalPanel = new JPanel();
         totalPanel.setLayout(new GridLayout(4, 1));
         JPanel buttonPanel = new JPanel();
-        String[] noteTypes = {"Whole", "Half", "DottedHalf", "Quarter", "DottedQuarter", "Eighth", "DottedEighth", "DoubleDottedQuarter", "Sixteenth", "ThirtySecond", "Triple", "AugTriple", "Quintuplet", "ProQuintuplet"};
+        String[] noteTypes = {"Whole", "Half", "DottedHalf", "Quarter", "DottedQuarter", "Eighth", "DottedEighth", "DoubleDottedQuarter", "Sixteenth", "Triple", "AugTriple", "Quintuplet", "ProQuintuplet"};
         for (String noteType : noteTypes) {
             JButton button = new JButton(noteType);
             button.setActionCommand(noteType);
@@ -71,7 +71,7 @@ public class MusicApp extends JPanel {
         totalPanel.add(buttonPanel);
 
         JPanel pausePanel = new JPanel();
-        String[] pauseTypes = {"WholeNoteRest", "HalfNoteRest", "QuarterRest", "EighthRest", "SixteenthRest", "TripletRest", "AugTripletRest", "QuintupletRest", "ProQuintupletRest", "ThirtySecondRest"};
+        String[] pauseTypes = {"WholeNoteRest", "HalfNoteRest", "QuarterRest", "EighthRest", "SixteenthRest", "TripletRest", "AugTripletRest", "QuintupletRest", "ProQuintupletRest"};
         for (String noteType : pauseTypes) {
             JButton button = new JButton(noteType);
             button.setActionCommand(noteType);
