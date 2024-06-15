@@ -131,9 +131,6 @@ public class MusicNotations extends JPanel {
             case "Sixteenth":
                 drawSixteenthNoteGroup(g2d, x, y);
                 break;
-            case "ThirtySecond":
-                drawThirtySecondNote(g2d, x, y);
-                break;
             case "Triple":
                 drawTriplet(g2d, x, y);
                 break;
@@ -176,8 +173,6 @@ public class MusicNotations extends JPanel {
             case "ProQuintupletRest":
                 drawProQuintupletRest(g2d, x, y);
                 break;
-            case "ThirtySecondRest":
-                drawThirtySecondRest(g2d, x, y);
         }
     }
 
@@ -309,34 +304,6 @@ public class MusicNotations extends JPanel {
     private void drawProQuintupletRest(Graphics2D g2d, int x, int y) {
         drawQuarterRest(g2d, x, y);
         g2d.drawString("5", x, y - 40); // Triplet marker
-    }
-
-    private void drawThirtySecondNote(Graphics2D g2d, int x, int y) {
-        g2d.fillOval(x, y, 10, 10); // Note head (filled)
-        g2d.drawLine(x + 10, y + 5, x + 10, y - 30); // Note stem
-        g2d.drawLine(x + 10, y - 30, x + 20, y - 20); // Note flag
-        g2d.drawLine(x + 10, y - 25, x + 20, y - 15); // Second flag
-        g2d.drawLine(x + 10, y - 20, x + 20, y - 10); // Third flag
-    }
-
-    private void drawThirtySecondRest(Graphics2D g2d, int x, int y) {
-        int[] xPoints1 = {x, x + 5, x + 3, x + 10, x + 8, x + 13};
-        int[] yPoints1 = {y + 20, y + 25, y + 30, y + 35, y + 40, y + 45};
-        g2d.drawPolyline(xPoints1, yPoints1, xPoints1.length);
-
-        g2d.fillOval(x + 8, y + 40, 5, 5);
-
-        int[] xPoints2 = {x + 3, x + 8, x + 6, x + 13, x + 11, x + 16};
-        int[] yPoints2 = {y + 15, y + 20, y + 25, y + 30, y + 35, y + 40};
-        g2d.drawPolyline(xPoints2, yPoints2, xPoints2.length);
-
-        g2d.fillOval(x + 11, y + 35, 5, 5);
-
-        int[] xPoints3 = {x + 6, x + 11, x + 9, x + 16, x + 14, x + 19};
-        int[] yPoints3 = {y + 10, y + 15, y + 20, y + 25, y + 30, y + 35};
-        g2d.drawPolyline(xPoints3, yPoints3, xPoints3.length);
-
-        g2d.fillOval(x + 14, y + 30, 5, 5);
     }
 
     public void drawSharp(Graphics2D g2d, int x, int y) {
