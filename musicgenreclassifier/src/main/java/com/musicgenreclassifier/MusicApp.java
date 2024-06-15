@@ -42,7 +42,7 @@ public class MusicApp extends JPanel {
 
         // Create and configure notation panel
         MusicNotation notationPanel = new MusicNotation();
-        notationPanel.setBounds(0, 0, 3000, 300);
+        notationPanel.setBounds(0, 0, 1700, 700);
         notationPanel.setOpaque(false);
 
         // Add panels to layered pane
@@ -205,6 +205,7 @@ public class MusicApp extends JPanel {
 
         MusicApp musicApp = new MusicApp();
         frame.add(musicApp);
+
 
         frame.setVisible(true);
     }
