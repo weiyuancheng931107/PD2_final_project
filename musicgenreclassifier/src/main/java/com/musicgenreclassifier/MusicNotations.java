@@ -103,8 +103,7 @@ public class MusicNotations extends JPanel {
                 x = 55; // Reset x to start of the new line*/
                 //drawStaff(g2d, y);
             //}
-
-            if (num % 4 == 0) {
+            if (Math.abs(num - 4) < musicApp.getTolerance()) {
                 y = 70+70*countLine;
                 if(x>=1560) {
                     y+=70;
@@ -113,6 +112,7 @@ public class MusicNotations extends JPanel {
                 }
                 g2d.drawLine(x, y, x, y+40);
                 x += 40;
+                num = 0;
             }
         }
     }
