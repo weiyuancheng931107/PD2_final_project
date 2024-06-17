@@ -3,7 +3,7 @@
 
 ## Overview
 
-The `Metronome` class is responsible for creating a sequence of MIDI events to play a metronome beat.
+The `Metronome` class is responsible for creating a sequence of MIDI events and process with MIDI file writting task.
 
 ### Constructor
 
