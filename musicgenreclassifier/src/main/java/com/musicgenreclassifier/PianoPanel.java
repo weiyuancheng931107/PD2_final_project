@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class PianoPanel extends JLayeredPane implements ActionListener {
+    public static final int[] WHITEKEYS = {0, 2, 4, 5, 7, 9, 11}; // {"C", "D", "E", "F", "G", "A", "B"}
+    public static final int[] BLACKKEYS = {1, 3, -1, 6, 8, 10}; // {"C#", "D#", "", "F#", "G#", "A#"};
+
     private ArrayList<JButton> whiteKeys = new ArrayList<>();
     private ArrayList<JButton> blackKeys = new ArrayList<>();
     private MusicApp musicApp;
@@ -24,46 +27,59 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         int blackKeyHeight = 120;
         int blackKeyOffset = keyWidth - (blackKeyWidth / 2);
 
+        final int WHITE_KEY_WIDTH = 60;
+        final int WHITE_KEY_HEIGHT = 200;
+        final int OFFSET_X = 50;
+        final int OFFSET_Y = 0;
+
+        final int BLACK_KEY_WIDTH = 40;
+        final int BLACK_KEY_HEIGHT = 120;
+        final int BLACK_KEY_OFFSET = WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
+
         // Create white keys
-        for (int i = 0; i < MusicApp.NOTES.length; i++) {
+        for (int i = 0; i < WHITEKEYS.length; i++) {
             JButton whiteKey = new JButton();
-            whiteKey.setBounds(offsetX + i * keyWidth, offsetY, keyWidth, keyHeight);
+            int x = OFFSET_X + i * WHITE_KEY_WIDTH;
+            whiteKey.setBounds(x, OFFSET_Y, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
             whiteKey.setBackground(Color.WHITE);
             whiteKey.setOpaque(true);
             whiteKey.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             whiteKey.addActionListener(this);
-            whiteKey.setActionCommand("white:" + i);
+            whiteKey.setActionCommand(String.valueOf(WHITEKEYS[i]));
             whiteKey.setEnabled(false); // Initially disabled
             whiteKeys.add(whiteKey);
             add(whiteKey, Integer.valueOf(1));
         }
 
         // Create black keys
-        for (int i = 0; i < MusicApp.SHARPS.length; i++) {
-            if (!MusicApp.SHARPS[i].isEmpty()) {
-                JButton blackKey = new JButton();
-                blackKey.setBounds(offsetX + i * keyWidth + blackKeyOffset, offsetY, blackKeyWidth, blackKeyHeight);
-                blackKey.setBackground(Color.BLACK);
-                blackKey.setForeground(Color.WHITE);
-                blackKey.setOpaque(true);
-                blackKey.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                blackKey.addActionListener(this);
-                blackKey.setActionCommand("black:" + i);
-                blackKey.setEnabled(false); // Initially disabled
-                blackKeys.add(blackKey);
-                add(blackKey, Integer.valueOf(2)); // Ensure black keys are on a higher layer
+        for (int i = 0; i < BLACKKEYS.length; i++) {
+            if (BLACKKEYS[i] == -1) {
+                continue;
             }
+            JButton blackKey = new JButton();
+            int x = OFFSET_X + BLACK_KEY_OFFSET + i * WHITE_KEY_WIDTH;
+            blackKey.setBounds(x, OFFSET_Y, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
+            blackKey.setBackground(Color.BLACK);
+            blackKey.setForeground(Color.WHITE);
+            blackKey.setOpaque(true);
+            blackKey.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            blackKey.addActionListener(this);
+            blackKey.setActionCommand(String.valueOf(BLACKKEYS[i]));
+            blackKey.setEnabled(false); // Initially disabled
+            blackKeys.add(blackKey);
+            add(blackKey, Integer.valueOf(2)); // Ensure black keys are on a higher layer
+            
         }
     }
 
-    public void enablePianoKeys(boolean enable) {
+    public void enablePianoKeys(boolean enabled) {
         for (JButton key : whiteKeys) {
-            key.setEnabled(enable);
-            key.setBackground(enable ? Color.WHITE : Color.LIGHT_GRAY);
+            key.setEnabled(enabled);
+            key.setBackground(enabled ? Color.WHITE : Color.LIGHT_GRAY);
         }
         for (JButton key : blackKeys) {
-            key.setEnabled(enable);
-            key.setBackground(enable ? Color.BLACK : Color.DARK_GRAY);
+            key.setEnabled(enabled);
+            key.setBackground(enabled ? Color.BLACK : Color.DARK_GRAY);
         }
     }
 
@@ -71,71 +87,33 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton source = (JButton) e.getSource();
         String command = source.getActionCommand();
-        Notes note = new Notes();
-        if (command.startsWith("white:")) {
-            int index = Integer.parseInt(command.split(":")[1]);
-            switch (MusicApp.NOTES[index]) {
-                case "C":
-                    note.add_Note(0);
-                    break;
-                case "D":
-                    note.add_Note(2);
-                    break;
-                case "E":
-                    note.add_Note(4);
-                    break;
-                case "F":
-                    note.add_Note(5);
-                    break;
-                case "G":
-                    note.add_Note(7);
-                    break;
-                case "A":
-                    note.add_Note(9);
-                    break;
-                case "B":
-                    note.add_Note(11);
-                    break;
-            }
-        } else if (command.startsWith("black:")) {
-            int index = Integer.parseInt(command.split(":")[1]);
-            switch (MusicApp.SHARPS[index]) {
-                case "C#":
-                    note.add_Note(1);
-                    break;
-                case "D#":
-                    note.add_Note(3);
-                    break;
-                case "F#":
-                    note.add_Note(6);
-                    break;
-                case "G#":
-                    note.add_Note(8);
-                    break;
-                case "A#":
-                    note.add_Note(10);
-                    break;
-            }
-        }
+        OneNote note = new OneNote();
+        
+        int key = Integer.parseInt(command);
+
+        note.add_Note(key);
+    
+        
         if (musicApp.getSelectedNoteType().contains("Rest")) {
             note.add_Note(-1);
         }
         musicApp.getFinishedButton().setEnabled(false);
         note.add_time(musicApp.getSelectedNoteType());
         note.add_Pitch(musicApp.getPitch());
-        repaint();
+        //repaint();
         musicApp.getList().add(note);
         musicApp.setTotal(0);
         musicApp.setOneBar(0);
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
-            Notes notes = musicApp.getList().get(i);
-            musicApp.setTotal(musicApp.getTotal() + 1 / notes.get_time());
+            OneNote localNote = musicApp.getList().get(i);
+            musicApp.setTotal(musicApp.getTotal() + 1 / localNote.get_time());
+            System.out.println("index: " + i + " \\ total: " + musicApp.getTotal());
         }
         final double TOLERANCE = 0.0001;
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
-            Notes notes = musicApp.getList().get(i);
-            musicApp.setOneBar(musicApp.getOneBar() + 1 / notes.get_time());
-            // System.out.println(" hello" + Math.abs(musicApp.getOneBar() -4));
+            OneNote localNote = musicApp.getList().get(i);
+            musicApp.setOneBar(musicApp.getOneBar() + 1 / localNote.get_time());
+            System.out.println(" hello" + Math.abs(musicApp.getOneBar() -4));
             if (Math.abs(musicApp.getOneBar() -4) < TOLERANCE) {
                 musicApp.setOneBar(0);
             } else if (musicApp.getOneBar() > 4) {
@@ -180,7 +158,7 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         musicApp.checkEnablePianoKeys();
         musicApp.checkFinished();
 
-        System.out.println("Current Notes: " + note.get_Node() + " " + note.get_type() + " " + note.get_Pitch());
+        System.out.println("Current Notes: " + note.get_Note() + " " + note.get_type() + " " + note.get_Pitch());
         // Add code to play the note here
     }
 }

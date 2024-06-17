@@ -3,17 +3,24 @@ package com.musicgenreclassifier;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.io.File;
 
 public class MusicNotations extends JPanel {
     private MusicApp musicApp;
     private final int STAFF_HEIGHT = 60; // Height of each staff
     private final int STAFF_GAP = 20;
+    private ImageIcon[] restIcons = new ImageIcon[4];
+    private int[] widths = new int[4];
+    private int[] heights = new int[4];
     public MusicNotations(MusicApp musicApp) {
+        setLayout(null);
+        editImage();
         this.musicApp = musicApp;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+        System.out.println("LET\'S TRY");
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
@@ -30,17 +37,17 @@ public class MusicNotations extends JPanel {
         int countLine = 0;
 
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
-            Notes note = musicApp.getList().get(i);
+            OneNote note = musicApp.getList().get(i);
             num += 1 / note.get_time();
             y=0+70*countLine;
             if(x>=1560) {
-                y+=70; 
+                y += 70; 
                 x = 55;   
                 countLine++;        
             }
 
             // Determine the y position based on the note and the current line
-            switch (note.get_Node()) {
+            switch (note.get_Note()) {
                 case 0:
                     y += 60 + (currentLine);
                     break;
@@ -96,11 +103,11 @@ public class MusicNotations extends JPanel {
                 x = 55; // Reset x to start of the new line*/
                 //drawStaff(g2d, y);
             //}
-            final double TOLERANCE = 0.0001;
-            if (num % 4 < TOLERANCE) {
+
+            if (num % 4 == 0) {
                 y = 70+70*countLine;
                 if(x>=1560) {
-                    y+=70;  
+                    y+=70;
                     x = 55;   
                     countLine++;       
                 }
@@ -156,14 +163,14 @@ public class MusicNotations extends JPanel {
             case "ProQuintuplet":
                 drawProQuintuplet(g2d, x, y);
                 break;
-            case "QuarterRest":
-                drawQuarterRest(g2d, x, y);
-                break;
             case "WholeNoteRest":
                 drawWholeRest(g2d, x, y);
                 break;
             case "HalfNoteRest":
                 drawHalfRest(g2d, x, y);
+                break;
+            case "QuarterRest":
+                drawQuarterRest(g2d, x, y);
                 break;
             case "EighthRest":
                 drawEighthRest(g2d, x, y);
@@ -194,7 +201,7 @@ public class MusicNotations extends JPanel {
     }
 
     private void drawWholeRest(Graphics2D g2d, int x, int y) {
-        g2d.fillRect(x, y + 30, 30, 10);
+        g2d.fillRect(x, y, 12, 5);
     }
 
     private void drawHalfNote(Graphics2D g2d, int x, int y) {
@@ -208,7 +215,7 @@ public class MusicNotations extends JPanel {
     }
 
     private void drawHalfRest(Graphics2D g2d, int x, int y) {
-        g2d.fillRect(x, y + 20, 30, 10);
+        g2d.fillRect(x, y + 5, 12, 5);
     }
 
     private void drawQuarterNote(Graphics2D g2d, int x, int y) {
@@ -228,14 +235,14 @@ public class MusicNotations extends JPanel {
     }
 
     private void drawQuarterRest(Graphics2D g2d, int x, int y) {
-        // Draw the vertical line
-        g2d.drawLine(x, y, x, y + 20);
+        JLabel quarterRest = new JLabel(restIcons[0]);
+        quarterRest.setBounds(0, 0, widths[0], heights[0]);
 
-        // Draw the top left hook
-        g2d.drawLine(x, y, x + 10, y + 10);
-
-        // Draw the bottom right hook
-        g2d.drawLine(x, y + 20, x - 10, y + 10);
+        JPanel panel = new JPanel();
+        panel.setBounds(x, y - 3, widths[0], heights[0]);
+        panel.setOpaque(false);
+        panel.add(quarterRest);
+        add(panel);
     }
 
     private void drawEighthNote(Graphics2D g2d, int x, int y) {
@@ -250,11 +257,14 @@ public class MusicNotations extends JPanel {
     }
 
     private void drawEighthRest(Graphics2D g2d, int x, int y) {
-        int[] xPoints = {x, x + 5, x + 3, x + 10, x + 8, x + 13};
-        int[] yPoints = {y + 20, y + 25, y + 30, y + 35, y + 40, y + 45};
-        g2d.drawPolyline(xPoints, yPoints, xPoints.length);
+        JLabel eighthRest = new JLabel(restIcons[1]);
+        eighthRest.setBounds(0, 0, widths[1], heights[1]);
 
-        g2d.fillOval(x + 8, y + 40, 5, 5);
+        JPanel panel = new JPanel();
+        panel.setBounds(x, y + 3, widths[1], heights[1]);
+        panel.setOpaque(false);
+        panel.add(eighthRest);
+        add(panel);
     }
 
     private void drawSixteenthNoteGroup(Graphics2D g2d, int x, int y) {
@@ -266,17 +276,14 @@ public class MusicNotations extends JPanel {
     }
 
     private void drawSixteenthRest(Graphics2D g2d, int x, int y) {
-        int[] xPoints1 = {x, x + 5, x + 3, x + 10, x + 8, x + 13};
-        int[] yPoints1 = {y + 20, y + 25, y + 30, y + 35, y + 40, y + 45};
-        g2d.drawPolyline(xPoints1, yPoints1, xPoints1.length);
+        JLabel sixteenthRest = new JLabel(restIcons[2]);
+        sixteenthRest.setBounds(0, 0, widths[2], heights[2]);
 
-        g2d.fillOval(x + 8, y + 40, 5, 5);
-
-        int[] xPoints2 = {x + 3, x + 8, x + 6, x + 13, x + 11, x + 16};
-        int[] yPoints2 = {y + 15, y + 20, y + 25, y + 30, y + 35, y + 40};
-        g2d.drawPolyline(xPoints2, yPoints2, xPoints2.length);
-
-        g2d.fillOval(x + 11, y + 35, 5, 5);
+        JPanel panel = new JPanel();
+        panel.setBounds(x, y + 3, widths[2], heights[2]);
+        panel.setOpaque(false);
+        panel.add(sixteenthRest);
+        add(panel);
     }
 
     private void drawTriplet(Graphics2D g2d, int x, int y) {
@@ -325,5 +332,45 @@ public class MusicNotations extends JPanel {
         g2d.drawLine(x + 6, y - 10, x + 6, y + 10); // Vertical line 2
         g2d.drawLine(x - 3, y - 4, x + 9, y - 4); // Horizontal line 1
         g2d.drawLine(x - 3, y + 4, x + 9, y + 4); // Horizontal line 2
+    }
+
+    private void editImage() {
+        String currentDirectory = System.getProperty("user.dir");
+        String imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\rest_quarter_removebg.png";
+
+        ImageIcon icon = new ImageIcon(imagePath);
+        Image image = icon.getImage();
+        widths[0] = icon.getIconWidth() / 12;
+        heights[0] = icon.getIconHeight() / 12;
+        Image resizedImage = image.getScaledInstance(widths[0], heights[0], Image.SCALE_SMOOTH);
+        restIcons[0] = new ImageIcon(resizedImage);
+
+        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\rest_eighth_removebg.png";
+
+        icon = new ImageIcon(imagePath);
+        image = icon.getImage();
+        widths[1] = icon.getIconWidth() / 8;
+        heights[1] = icon.getIconHeight() / 8;
+        resizedImage = image.getScaledInstance(widths[1], heights[1], Image.SCALE_SMOOTH);
+        restIcons[1] = new ImageIcon(resizedImage);
+        
+        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\rest_sixteenth_removebg.png";
+
+        icon = new ImageIcon(imagePath);
+        image = icon.getImage();
+        widths[2] = icon.getIconWidth() / 11;
+        heights[2] = icon.getIconHeight() / 11;
+        resizedImage = image.getScaledInstance(widths[2], heights[2], Image.SCALE_SMOOTH);
+        restIcons[2] = new ImageIcon(resizedImage);
+        
+        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\rest_thirtysecond_removebg.png";
+
+        icon = new ImageIcon(imagePath);
+        image = icon.getImage();
+        widths[3] = icon.getIconWidth() / 1;
+        heights[3] = icon.getIconHeight() / 1;
+        resizedImage = image.getScaledInstance(widths[3], heights[3], Image.SCALE_SMOOTH);
+        restIcons[3] = new ImageIcon(resizedImage);
+        
     }
 }

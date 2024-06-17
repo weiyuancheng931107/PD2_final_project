@@ -11,17 +11,18 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class MusicApp extends JPanel {
-
     public static final String[] NOTES = {"C", "D", "E", "F", "G", "A", "B"};
-    public static final String[] SHARPS = {"C#", "D#", "", "F#", "G#", "A#", ""};
+    public static final String[] SHARPS = {"C#", "D#", "", "F#", "G#", "A#"};
     
-    private ArrayList<Notes> list = new ArrayList<>();
-    private String selectedNoteType = null;
+    private ArrayList<OneNote> list = new ArrayList<>();
+    private OneNote note;
+
+    private JLayeredPane layeredPane = new JLayeredPane();
+    private PianoPanel pianoPanel;
+    private MusicNotations notationPanel;
     private int bpm = 0;
     private int pitch = 0;
-    private PianoPanel pianoPanel;
-    private JLayeredPane layeredPane = new JLayeredPane();
-    private MusicNotations notationPanels;
+    private String selectedNoteType = null;
     private boolean first = true;
     private double total = 0;
     private int index = 0;
@@ -34,23 +35,24 @@ public class MusicApp extends JPanel {
         setLayout(new BorderLayout());
 
         // Create layered pane for piano and notation
-        layeredPane.setPreferredSize(new Dimension(1500, 600));
+        layeredPane.setBounds(0, 0, 1500, 800);
 
         // Create and configure piano panel
         pianoPanel = new PianoPanel(this);
-        pianoPanel.setBounds(0, 300, 1500, 300);
+        pianoPanel.setBounds(0, 350, 1500, 250);
+        pianoPanel.enablePianoKeys(false);
 
         // Create and configure notation panel
         MusicNotation notationPanel = new MusicNotation();
-        notationPanel.setBounds(0, 0, 1700, 700);
-        notationPanel.setOpaque(false);
+        notationPanel.setBounds(0, 0, 1500, 350);
+        //notationPanel.setOpaque(false);
 
         // Add panels to layered pane
         layeredPane.add(notationPanel, Integer.valueOf(1));
         layeredPane.add(pianoPanel, Integer.valueOf(2));
 
-        add(layeredPane, BorderLayout.CENTER);
-        checkEnablePianoKeys();
+        add(layeredPane);
+        //checkEnablePianoKeys();
 
         JPanel totalPanel = new JPanel();
         totalPanel.setLayout(new GridLayout(4, 1));
@@ -124,16 +126,16 @@ public class MusicApp extends JPanel {
                     writer.write(Integer.toString(bpm));
                     writer.write(" ");
                     writer.write("\n");
-                    for (Notes note : list) {
-                        if (note.get_Node() != -1) {
-                            writer.write(Integer.toString((note.get_Node() + 12) + note.get_Pitch() * 12));
+                    for (OneNote note : list) {
+                        if (note.get_Note() != -1) {
+                            writer.write(Integer.toString((note.get_Note() + 12) + note.get_Pitch() * 12));
                         } else {
                             writer.write("-1");
                         }
                         writer.write(" ");
                     }
                     writer.write("\n");
-                    for (Notes note : list) {
+                    for (OneNote note : list) {
                         writer.write(Double.toString(note.get_time()));
                         writer.write(" ");
                     }
@@ -201,7 +203,7 @@ public class MusicApp extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Music Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1500, 600);
+        frame.setSize(1500, 800);
 
         MusicApp musicApp = new MusicApp();
         frame.add(musicApp);
@@ -210,7 +212,7 @@ public class MusicApp extends JPanel {
         frame.setVisible(true);
     }
 
-    public ArrayList<Notes> getList() {
+    public ArrayList<OneNote> getList() {
         return list;
     }
 
@@ -259,11 +261,11 @@ public class MusicApp extends JPanel {
     }
 
     public MusicNotations getNotationPanels() {
-        return notationPanels;
+        return notationPanel;
     }
 
-    public void setNotationPanels(MusicNotations notationPanels) {
-        this.notationPanels = notationPanels;
+    public void setNotationPanels(MusicNotations notationPanel) {
+        this.notationPanel = notationPanel;
     }
 
     public JButton getFinishedButton() {
