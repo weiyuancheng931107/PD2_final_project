@@ -141,6 +141,54 @@ class Rock implements InnerRock {
             drumChordFinal.add(drumChord);
 
             // Repeat similar pattern for the rest of the bars
+            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, CRASH));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, CRASH));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, CRASH));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChordFinal.add(drumChord);
         }
 
         // Create a MetronomeWithNoPitch instance to play the drum track

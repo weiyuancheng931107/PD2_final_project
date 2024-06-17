@@ -37,10 +37,15 @@ class MidiGenerator {
     public void playRhythm() throws InvalidMidiDataException {
         for (int j = 0; j < beatDurations.size(); j++) {
                 if (noteSequence != null) {
+                    if(noteSequence.get(j)!=-1){
                     track.add(createProgramChangeMessage(program,tick));//changed
                     track.add(new MidiEvent(createNoteOnMessage(noteSequence.get(j)), tick));
                     track.add(new MidiEvent(createNoteOffMessage(noteSequence.get(j)), tick + beatDurations.get(j)));
                     //track.add(createProgramChangeMessage(program));changed(marked)
+                    }
+                    else{
+                        //do nothing
+                    }
                 }
             tick += beatDurations.get(j);
         }

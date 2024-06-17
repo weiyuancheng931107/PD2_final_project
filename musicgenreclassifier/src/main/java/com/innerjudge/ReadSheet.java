@@ -12,7 +12,8 @@ public class ReadSheet {
         public void Read(){
             String currentDirectory = System.getProperty("user.dir");
             String filePath = currentDirectory + File.separator + "sheetmusic.txt"; // Replace with your txt file path
-
+            System.out.println(filePath);
+            System.out.println("C:\\Users\\weiyu\\OneDrive\\桌面\\PD2_final_project\\musicgenreclassifier\\sheetmusic.txt");
             try {
                 // Create Scanner object to read the file
                 Scanner scanner = new Scanner(new File(filePath));
@@ -42,16 +43,15 @@ public class ReadSheet {
 
                 // Close scanner
                 scanner.close();
-
+            
                 // Create Judge object and perform judgement
                 Judge judge = new Judge(noteSequence, noteDurations, 100);
                 Map<Integer, ArrayList<Integer>> chordMap = judge.judgement();
 
                 // Create MidiGenerator object and generate MIDI file
-                MidiGenerator midiGenerator = new MidiGenerator(bpm, 56, noteSequence, 2, 100, noteDurations, 3);
+                MidiGenerator midiGenerator = new MidiGenerator(bpm, 0, noteSequence, 2, 100, noteDurations, 3);
                 midiGenerator.playRhythm();
                 midiGenerator.saveToFile("output.mid");
-
                 // Create DefineStyle object and call midimerge method
                 DefineStyle defineStyle = new DefineStyle(style, bpm, chordMap,baramount);
                 defineStyle.midiMerge();
