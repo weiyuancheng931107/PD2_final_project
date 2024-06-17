@@ -40,7 +40,7 @@ This class provides functionality to merge multiple MIDI files into one. It incl
 This class reads musical notations from a file and converts them into a format that can be used by other classes in the application. It includes methods to parse musical notes and rhythms from textual representations.
 
 #### Drumsound.java
-This class contains programs of every pieces in the drum kit.
+This class contains programs of every piece in the drum kit.
 
 #### Funk.java
 This class is responsible for generating Funk rhythms. It includes methods for defining the specific patterns and time signatures characteristic of Funk music.
