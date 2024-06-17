@@ -164,6 +164,8 @@ private void drawNoteByType(Graphics2D g2d, int x, int y, String noteType)
 
 Draws notes based on the note type.
 
+- `noteType`: Type of a note such as whole, quarter rest.
+
 #### `public void drawSharp(Graphics2D g2d, int x, int y)`
 
 ```java
