@@ -105,6 +105,39 @@ explanin the method
 public MusicNotation()
 ```
 
+### Methods
+
+#### `paintComponent(Graphics g)`
+
+```java
+protected void paintComponent(Graphics g)
+```
+
+Perform custom painting in a `JComponent`, such as `JPanel`.
+
+#### `drawStaff(Graphics2D g2d)`
+
+```java
+private void drawStaff(Graphics2D g2d)
+```
+
+Draws sheet and treble clef notation.
+
+- `g2d`: java class which supports powerful painting functions.
+
+#### `addNotation(int x, int y, int width, int height)`
+
+```java
+private void addNotation(int x, int y, int width, int height)
+```
+
+Adds a image of treble clef notation to the sheet.
+
+- `x`: start x position of the image.
+- `y`: start y position of the image.
+- `width`: width of the image.
+- `height`: height of the image.
+
 ---
 
 # MusicNotations Class Documentation
@@ -123,7 +156,7 @@ public MusicNotations(MusicApp musicApp)
 
 ## Overview
 
-The `OneNote` class is used to store information of a note, like key, ptich, time, etc.
+The `OneNote` class is used to store information of a note, such as key, ptich, time, etc.
 
 ### Methods
 
