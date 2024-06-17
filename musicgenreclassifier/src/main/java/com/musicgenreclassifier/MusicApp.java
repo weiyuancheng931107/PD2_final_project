@@ -2,6 +2,8 @@ package com.musicgenreclassifier;
 
 import javax.swing.*;
 
+import org.netlib.util.doubleW;
+
 import com.innerjudge.*;
 
 import java.awt.*;
@@ -30,6 +32,7 @@ public class MusicApp extends JPanel {
     private int bar = 0;
     private int style = 7;
     private double oneBar = 0;
+    final double TOLERANCE = 0.0001;
 
     public MusicApp() {
         setLayout(new BorderLayout());
@@ -44,7 +47,7 @@ public class MusicApp extends JPanel {
 
         // Create and configure notation panel
         MusicNotation notationPanel = new MusicNotation();
-        notationPanel.setBounds(0, 0, 1500, 350);
+        notationPanel.setBounds(0, 0, 1700, 350);
         //notationPanel.setOpaque(false);
 
         // Add panels to layered pane
@@ -191,9 +194,9 @@ public class MusicApp extends JPanel {
             pianoPanel.enablePianoKeys(false);
         }
     }
-
+    
     public void checkFinished() {
-        if (bpm != 0 && style != 7 && total == 16) {
+        if (bpm != 0 && style != 7 && Math.abs(total - 16) < TOLERANCE) {
             finished.setEnabled(true);
         } else {
             finished.setEnabled(false);
@@ -302,5 +305,9 @@ public class MusicApp extends JPanel {
 
     public void setStyle(int style) {
         this.style = style;
+    }
+
+    public double getTolerance() {
+        return TOLERANCE;
     }
 }
