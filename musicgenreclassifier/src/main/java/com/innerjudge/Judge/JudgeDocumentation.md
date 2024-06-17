@@ -28,7 +28,7 @@ Merges MIDI files based on the selected music style.
 
 
 
-## Judge Class Documentation
+# Judge Class Documentation
 
 ## Overview
 
