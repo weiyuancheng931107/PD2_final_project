@@ -123,6 +123,82 @@ public MusicNotations(MusicApp musicApp)
 
 ## Overview
 
+The `OneNote` class is used to store information of a note, like key, ptich, time, etc.
+
+### Methods
+
+#### `add_Note(int key)`
+
+```java
+public void add_Note(int key)
+```
+
+explanin the method
+
+#### `get_Note()`
+
+```java
+public Integer get_Note()
+```
+
+explanin the method
+
+#### `add_time(String type)`
+
+```java
+public void add_time(String type)
+```
+
+explanin the method
+
+#### `get_type()`
+
+```java
+public String get_type()
+```
+
+explanin the method
+
+#### `add_Pitch(int pitch)`
+
+```java
+public void add_Pitch(int pitch)
+```
+
+explanin the method
+
+#### `get_Pitch()`
+
+```java
+public Integer get_Pitch()
+```
+
+explanin the method
+
+#### `get_time()`
+
+```java
+public Double get_time()
+```
+
+explanin the method
+
+#### `set_IsRest(boolean isRest)`
+
+```java
+public void set_IsRest(boolean isRest)
+```
+
+explanin the method
+
+#### get_IsRest()`
+
+```java
+public boolean get_IsRest()
+```
+
+explanin the method
+
 ---
 
 # PianoPanel Class Documentation
