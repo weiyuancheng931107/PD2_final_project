@@ -1,4 +1,4 @@
-package com.musicgenreclassifier;
+package com.MusicApp;
 
 import javax.swing.*;
 import com.innerjudge.ReadSheet;
