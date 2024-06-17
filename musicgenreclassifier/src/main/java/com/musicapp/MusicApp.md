@@ -105,6 +105,8 @@ explanin the method
 public MusicNotation()
 ```
 
+Initializes the notation panel with sheet and treble clef notation
+
 ### Methods
 
 #### `paintComponent(Graphics g)`
@@ -150,6 +152,43 @@ Adds a image of treble clef notation to the sheet.
 ```java
 public MusicNotations(MusicApp musicApp)
 ```
+
+- `musicApp`: a reference to `MusicApp` instance and can receive note information from there.
+
+### Methods
+
+#### `paintComponent(Graphics g)`
+
+```java
+@Override
+protected void paintComponent(Graphics g)
+```
+
+Draws the musical notation including notes and rests.
+
+#### `drawNoteByType(Graphics2D g2d, int x, int y, String noteType)`
+
+```java
+private void drawNoteByType(Graphics2D g2d, int x, int y, String noteType)
+```
+
+Draws notes based on the note type.
+
+#### `public void drawSharp(Graphics2D g2d, int x, int y)`
+
+```java
+public void drawSharp(Graphics2D g2d, int x, int y)
+```
+
+Draws a sharp sign.
+
+#### `editImage()`
+
+```java
+private void editImage()
+```
+
+Edits and resized images of rest notations.
 
 ---
 
