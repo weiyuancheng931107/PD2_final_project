@@ -1,0 +1,26 @@
+@startuml
+!define RECTANGLE class
+title Music Processing Workflow
+
+RECTANGLE UserInput {
+  :Input Notes;
+}
+RECTANGLE GenerateMidi {
+  :Generate initial MIDI file;
+}
+RECTANGLE JudgeChords {
+  :Judge and determine chords;
+}
+RECTANGLE GenerateAccompaniment {
+  :Generate accompaniment for different instruments;
+}
+RECTANGLE MergeMidi {
+  :Merge user input notes and accompaniment into one MIDI file;
+}
+
+UserInput --> GenerateMidi
+GenerateMidi --> JudgeChords
+JudgeChords --> GenerateAccompaniment
+GenerateAccompaniment --> MergeMidi
+
+@enduml
