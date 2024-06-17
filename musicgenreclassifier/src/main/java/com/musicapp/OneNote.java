@@ -1,4 +1,4 @@
-package com.MusicApp;
+package com.musicapp;
 
 public class OneNote {
     public double time = 0.0;
