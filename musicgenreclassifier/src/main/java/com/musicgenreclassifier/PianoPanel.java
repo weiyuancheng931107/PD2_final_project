@@ -109,12 +109,11 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             musicApp.setTotal(musicApp.getTotal() + 1 / localNote.get_time());
             System.out.println("index: " + i + " \\ total: " + musicApp.getTotal());
         }
-        final double TOLERANCE = 0.0001;
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
             OneNote localNote = musicApp.getList().get(i);
             musicApp.setOneBar(musicApp.getOneBar() + 1 / localNote.get_time());
             System.out.println(" hello" + Math.abs(musicApp.getOneBar() -4));
-            if (Math.abs(musicApp.getOneBar() -4) < TOLERANCE) {
+            if (Math.abs(musicApp.getOneBar() -4) < musicApp.getTolerance()) {
                 musicApp.setOneBar(0);
             } else if (musicApp.getOneBar() > 4) {
                 JOptionPane.showMessageDialog(this, "over one bar!", "WARNING!", JOptionPane.WARNING_MESSAGE);
@@ -123,7 +122,7 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             }
         }
         System.out.println(musicApp.getTotal());
-        if (musicApp.getTotal() == 16) {
+        if (Math.abs(musicApp.getTotal() - 16) < musicApp.getTolerance()) {
             musicApp.setBar(musicApp.getBar() + 4);
             Component[] components = musicApp.getLayeredPane().getComponentsInLayer(3);
             Component component = components[0];
@@ -133,7 +132,7 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             musicApp.setFirst(true);
             musicApp.setIndex(musicApp.getList().size());
         }
-        if (musicApp.getTotal() == 16 && musicApp.getBpm() != 0) {
+        if (Math.abs(musicApp.getTotal() - 16) < musicApp.getTolerance() && musicApp.getBpm() != 0) {
             musicApp.getFinishedButton().setEnabled(true);
         } else if (musicApp.getTotal() > 16) {
             musicApp.getList().remove(musicApp.getList().size() - 1);
@@ -162,3 +161,4 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         // Add code to play the note here
     }
 }
+
