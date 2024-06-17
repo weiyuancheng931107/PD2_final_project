@@ -269,7 +269,6 @@ public class MusicApp extends JPanel {
             updateNotationPanel();
             checkFinished();
             checkEnablePianoKeys();
-            //System.out.println("total: " + total);
             PianoPanel checkrest = new PianoPanel(this);
             checkrest.refreshRestNote();
         }
