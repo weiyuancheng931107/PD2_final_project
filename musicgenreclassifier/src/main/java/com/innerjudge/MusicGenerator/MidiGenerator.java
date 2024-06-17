@@ -29,7 +29,7 @@ public class MidiGenerator {
         this.track = sequence.createTrack();
         this.sequencer = MidiSystem.getSequencer();
         sequencer.open();
-        //track.add(createProgramChangeMessage(program)); //changed(marked)
+        
 
         this.program = program;
     }
@@ -38,10 +38,10 @@ public class MidiGenerator {
         for (int j = 0; j < beatDurations.size(); j++) {
                 if (noteSequence != null) {
                     if(noteSequence.get(j)!=-1){
-                    track.add(createProgramChangeMessage(program,tick));//changed
+                    track.add(createProgramChangeMessage(program,tick));
                     track.add(new MidiEvent(createNoteOnMessage(noteSequence.get(j)), tick));
                     track.add(new MidiEvent(createNoteOffMessage(noteSequence.get(j)), tick + beatDurations.get(j)));
-                    //track.add(createProgramChangeMessage(program));changed(marked)
+                    
                     }
                     else{
                         //do nothing
@@ -68,9 +68,9 @@ public class MidiGenerator {
         return noteOff;
     }
 
-    private MidiEvent createProgramChangeMessage(int program,int tick) throws InvalidMidiDataException { //changed
+    private MidiEvent createProgramChangeMessage(int program,int tick) throws InvalidMidiDataException { 
         ShortMessage message = new ShortMessage();
         message.setMessage(ShortMessage.PROGRAM_CHANGE, 0, program, 0);
-        return new MidiEvent(message, tick);//changed
+        return new MidiEvent(message, tick);
     }
 }
