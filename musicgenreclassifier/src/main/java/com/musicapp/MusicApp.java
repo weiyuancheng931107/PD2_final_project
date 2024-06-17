@@ -30,7 +30,6 @@ public class MusicApp extends JPanel {
     private int style = 7;
     private double oneBar = 0;
     final double TOLERANCE = 0.000001;
-    private boolean stop = false;
 
     private boolean isFinished = false;
 
@@ -240,22 +239,25 @@ public class MusicApp extends JPanel {
     }
 
     private void updateTotal() {
+        oneBar = 0;
+        for (int i = 0; i < list.size(); i++) {
+            OneNote localNote = list.get(i);
+            oneBar += 1 / localNote.get_time();
+            if (Math.abs(getOneBar() - 4) < TOLERANCE) {
+                oneBar = 0;
+            } else if (getOneBar() > 4) {
+                oneBar -= 1 / localNote.get_time();
+                int last = list.size() - 1;
+                JOptionPane.showMessageDialog(this, "over one bar!", "WARNING!", JOptionPane.WARNING_MESSAGE);
+                list.remove(last);
+                return;
+            }
+        }
+
         total = 0;
         for (int i = index; i < list.size(); i++) {
             OneNote note = list.get(i);
             total += 1 / note.get_time();
-        }
-        setOneBar(0);
-        for (int i = 0; i < list.size(); i++) {
-            OneNote localNote = list.get(i);
-            setOneBar(getOneBar() + 1 / localNote.get_time());
-            if (Math.abs(getOneBar() - 4) < TOLERANCE) {
-                setOneBar(0);
-            } else if (getOneBar() > 4) {
-                JOptionPane.showMessageDialog(this, "over one bar!", "WARNING!", JOptionPane.WARNING_MESSAGE);
-                getList().remove(getList().size() - 1);
-                stop = true;
-            }
         }
     }
 
@@ -266,17 +268,12 @@ public class MusicApp extends JPanel {
         list.add(restNote);
 
         updateTotal();
-        if(!stop) {
-            updateNotationPanel();
-            checkFinished();
-            checkEnablePianoKeys();
-            System.out.println("total: " + total);
-            PianoPanel checkrest = new PianoPanel(this);
-            checkrest.refreshRestNote();
-        }
-        else {
-            stop = false;
-        }
+        updateNotationPanel();
+        checkFinished();
+        checkEnablePianoKeys();
+        System.out.println("total: " + total);
+        PianoPanel checkrest = new PianoPanel(this);
+        checkrest.refreshRestNote();
     }
 
     public static void main(String[] args) {
