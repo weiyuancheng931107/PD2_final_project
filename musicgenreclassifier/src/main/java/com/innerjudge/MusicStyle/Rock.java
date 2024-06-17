@@ -166,11 +166,13 @@ public class Rock implements InnerRock {
         int lastBeat = 0;
 
         // Populate guitar chords and beats based on chordHashMap
-        for (Integer key : chordHashMap.keySet()) {
-            beatCount.add(key);
-            guitarChordTemp = chordHashMap.get(key);
-            guitarChord.add(guitarChordTemp);
-            lastBeat = key;
+        for (int key = 0 ; key<=Collections.max(chordHashMap.keySet());key++) {
+            if(chordHashMap.containsKey(key)){
+                beatCount.add(key);
+                guitarChordTemp = chordHashMap.get(key);
+                guitarChord.add(guitarChordTemp);
+                lastBeat = key;
+            }
         }
 
         // Calculate beats for each chord
@@ -290,11 +292,13 @@ public class Rock implements InnerRock {
         int lastBeat = 0;
 
         // Populate bass chords and beats based on chordHashMap
-        for (Integer key : chordHashMap.keySet()) {
-            beatCount.add(key);
-            bassChordTemp = chordHashMap.get(key);
-            bassChord.add(bassChordTemp);
-            lastBeat = key;
+        for (int key = 0 ; key<=Collections.max(chordHashMap.keySet());key++) {
+            if(chordHashMap.containsKey(key)){
+                beatCount.add(key);
+                bassChordTemp = chordHashMap.get(key);
+                bassChord.add(bassChordTemp);
+                lastBeat = key;
+            }
         }
 
         // Calculate beats for each chord
@@ -429,11 +433,13 @@ public class Rock implements InnerRock {
         int lastBeat = 0;
 
         // Populate piano chords and beats based on chordHashMap
-        for (Integer key : chordHashMap.keySet()) {
-            beatCount.add(key);
-            pianoChordTemp = chordHashMap.get(key);
-            pianoChord.add(pianoChordTemp);
-            lastBeat = key;
+        for (int key = 0 ; key<=Collections.max(chordHashMap.keySet());key++) {
+            if(chordHashMap.containsKey(key)){
+                beatCount.add(key);
+                pianoChordTemp = chordHashMap.get(key);
+                pianoChord.add(pianoChordTemp);
+                lastBeat = key;
+            }
         }
 
         // Calculate beats for each chord

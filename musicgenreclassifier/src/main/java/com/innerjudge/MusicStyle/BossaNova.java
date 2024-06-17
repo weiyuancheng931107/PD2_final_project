@@ -181,11 +181,13 @@ public class BossaNova implements InnerBossaNova {
         // Filter and group chords
         this.chordHashMap = groupAndFilter(this.chordHashMap);
         int lastBeat = 0;
-        for (Integer key : chordHashMap.keySet()) {
-            beatCount.add(key);
-            pianoChordTemp = chordHashMap.get(key);
-            pianoChord.add(pianoChordTemp);
-            lastBeat = key;
+        for (int key = 0 ; key<=Collections.max(chordHashMap.keySet());key++) {
+            if(chordHashMap.containsKey(key)){
+                beatCount.add(key);
+                pianoChordTemp = chordHashMap.get(key);
+                pianoChord.add(pianoChordTemp);
+                lastBeat = key;
+            }
         }
 
         // Calculate beats for each chord
@@ -369,11 +371,13 @@ public class BossaNova implements InnerBossaNova {
         this.chordHashMap = groupAndFilter(this.chordHashMap);
         int a = 0;
         int lastBeat = 0;
-        for (Integer key : chordHashMap.keySet()) {
-            beatCount.add(key);
-            bassChordTemp = chordHashMap.get(key);
-            bassChord.add(bassChordTemp);
-            lastBeat = key;
+        for (int key = 0 ; key<=Collections.max(chordHashMap.keySet());key++) {
+            if(chordHashMap.containsKey(key)){
+                beatCount.add(key);
+                bassChordTemp = chordHashMap.get(key);
+                bassChord.add(bassChordTemp);
+                lastBeat = key;
+            }
         }
 
         // Calculate beats for each chord
