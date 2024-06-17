@@ -2,9 +2,7 @@ package com.musicgenreclassifier;
 
 import javax.swing.*;
 
-import org.netlib.util.doubleW;
-
-import com.innerjudge.*;
+import com.innerjudge.ReadSheet;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 public class MusicApp extends JPanel {
     public static final String[] NOTES = {"C", "D", "E", "F", "G", "A", "B"};
     public static final String[] SHARPS = {"C#", "D#", "", "F#", "G#", "A#"};
-    
+
     private ArrayList<OneNote> list = new ArrayList<>();
     private OneNote note;
 
@@ -29,6 +27,7 @@ public class MusicApp extends JPanel {
     private double total = 0;
     private int index = 0;
     private JButton finished;
+    private JButton backward; // Declare backward button
     private int bar = 0;
     private int style = 7;
     private double oneBar = 0;
@@ -48,14 +47,12 @@ public class MusicApp extends JPanel {
         // Create and configure notation panel
         MusicNotation notationPanel = new MusicNotation();
         notationPanel.setBounds(0, 0, 1700, 350);
-        //notationPanel.setOpaque(false);
 
         // Add panels to layered pane
         layeredPane.add(notationPanel, Integer.valueOf(1));
         layeredPane.add(pianoPanel, Integer.valueOf(2));
 
         add(layeredPane);
-        //checkEnablePianoKeys();
 
         JPanel totalPanel = new JPanel();
         totalPanel.setLayout(new GridLayout(4, 1));
@@ -109,7 +106,7 @@ public class MusicApp extends JPanel {
         JPanel stylePanel = new JPanel();
         String[] styleList = {"rock", "jazz", "bossanova", "rnb", "soul", "funk", "reggae"};
         for (int i = 0; i < 7; i++) {
-            JButton button = new JButton(styleList[i] );
+            JButton button = new JButton(styleList[i]);
             button.setActionCommand(String.valueOf(i));
             button.addActionListener(new ActionListener() {
                 @Override
@@ -163,6 +160,15 @@ public class MusicApp extends JPanel {
         });
         pitchPanel.add(finished);
 
+        backward = new JButton("Backward");
+        backward.setEnabled(false);
+        backward.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                removeLastNote();
+            }
+        });
+        pitchPanel.add(backward); // Add the button to the appropriate panel, here pitchPanel
+
         JPanel bpm_panel = new JPanel();
         bpm_panel.setOpaque(false);
         JLabel bpmLabel = new JLabel("BPM:");
@@ -193,13 +199,58 @@ public class MusicApp extends JPanel {
         } else {
             pianoPanel.enablePianoKeys(false);
         }
+        backward.setEnabled(!list.isEmpty()); // Enable backward button if list is not empty
     }
-    
+
     public void checkFinished() {
         if (bpm != 0 && style != 7 && Math.abs(total - 16) < TOLERANCE) {
             finished.setEnabled(true);
         } else {
             finished.setEnabled(false);
+        }
+    }
+
+    private void removeLastNote() {
+        if (!list.isEmpty()) {
+            list.remove(list.size() - 1);
+            updateNotationPanel();
+            updateTotal();
+            checkFinished();
+            checkEnablePianoKeys();
+        }
+    }
+
+    private void updateNotationPanel() {
+        Component[] components = layeredPane.getComponentsInLayer(3);
+        if (components.length > 0) {
+            Component component = components[0];
+            layeredPane.remove(component);
+            layeredPane.revalidate();
+            layeredPane.repaint();
+        }
+        if (!list.isEmpty()) {
+            setFirst(false);
+        }
+        setNotationPanels(new MusicNotations(this));
+        getNotationPanels().setBounds(50, 0, 1700, 700);
+        getNotationPanels().setOpaque(false);
+        layeredPane.add(getNotationPanels(), Integer.valueOf(3));
+    }
+
+    private void updateTotal() {
+        total = 0;
+        for (OneNote note : list) {
+            total += 1 / note.get_time();
+        }
+        setOneBar(0);
+        for (int i = 0; i < list.size(); i++) {
+            OneNote localNote = list.get(i);
+            setOneBar(getOneBar() + 1 / localNote.get_time());
+            if (Math.abs(getOneBar() - 4) < TOLERANCE) {
+                setOneBar(0);
+            } else if (getOneBar() > 4) {
+                setOneBar(getOneBar() - 1 / localNote.get_time());
+            }
         }
     }
 
@@ -210,7 +261,6 @@ public class MusicApp extends JPanel {
 
         MusicApp musicApp = new MusicApp();
         frame.add(musicApp);
-
 
         frame.setVisible(true);
     }
