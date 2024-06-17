@@ -109,7 +109,7 @@ public class BossaNova implements InnerBossaNova {
      */
     public BossaNova(int bpm, int velocity, Map<Integer, ArrayList<Integer>> chordHashMap, int barAmount) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity = velocity;
+        this.velocity = 50;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>();
         pause.add(-1);
@@ -132,81 +132,77 @@ public class BossaNova implements InnerBossaNova {
         
         // Populate the drum chord and beat lists for each bar
         for (int j = 0; j < (barAmount - 1) / 16; j++) {
-            for (int i = 0; i < barAmount; i++) {
+            for (int i = 0; i < 32; i++) {
                 drumsBeat.add(2.0);
             }
 
+            //
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE, ACOUSTIC_BASS_DRUM));
+            //
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-
+            //
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM,PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE, ACOUSTIC_BASS_DRUM));
+            //
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_SNARE,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT,ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
         }
-
         // Create a MetronomeWithNoPitch instance to play the drum track
         MetronomeWithNoPitch drums = new MetronomeWithNoPitch(bpm, 59, drumChordFinal, 2, velocity, drumsBeat, 9);
         drums.playRhythm();
