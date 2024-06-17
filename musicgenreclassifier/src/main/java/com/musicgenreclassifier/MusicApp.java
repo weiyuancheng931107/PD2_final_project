@@ -1,9 +1,7 @@
 package com.musicgenreclassifier;
 
 import javax.swing.*;
-
 import com.innerjudge.ReadSheet;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -199,7 +197,7 @@ public class MusicApp extends JPanel {
         } else {
             pianoPanel.enablePianoKeys(false);
         }
-        backward.setEnabled(!list.isEmpty()); // Enable backward button if list is not empty
+        backward.setEnabled(!list.isEmpty() && bar < 4); // Enable backward button if list is not empty and bar count is less than 4
     }
 
     public void checkFinished() {
@@ -211,7 +209,7 @@ public class MusicApp extends JPanel {
     }
 
     private void removeLastNote() {
-        if (!list.isEmpty()) {
+        if (!list.isEmpty() && bar < 4) {
             list.remove(list.size() - 1);
             updateNotationPanel();
             updateTotal();
