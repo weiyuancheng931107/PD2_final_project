@@ -12,7 +12,7 @@ public class MusicNotation extends JPanel{
     public MusicNotation() {
         setLayout(null);
         String currentDirectory = System.getProperty("user.dir");
-        String imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\treble_clef_notation_removebg.png";
+        String imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\graphics\\treble_clef_notation_removebg.png";
 
         ImageIcon icon = new ImageIcon(imagePath);
         Image image = icon.getImage();
