@@ -53,7 +53,7 @@ public class Funk implements InnerFunk {
      */
     public Funk(int bpm, int velocity, Map<Integer, ArrayList<Integer>> chordHashMap, int barAmount) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity = velocity;
+        this.velocity = 50;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>(Collections.singletonList(-1));
         this.barAmount = barAmount * 4 + 1;
