@@ -79,7 +79,7 @@ public class MusicApp extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     selectedNoteType = e.getActionCommand();
-                    checkEnablePianoKeys();
+                    addRestNote();
                 }
             });
             pausePanel.add(button);
@@ -192,12 +192,13 @@ public class MusicApp extends JPanel {
     }
 
     public void checkEnablePianoKeys() {
-        if (pitch != 0 && selectedNoteType != null) {
+        boolean isRestSelected = selectedNoteType != null && selectedNoteType.contains("Rest");
+        if (pitch != 0 && selectedNoteType != null && !isRestSelected) {
             pianoPanel.enablePianoKeys(true);
         } else {
             pianoPanel.enablePianoKeys(false);
         }
-        backward.setEnabled(!list.isEmpty()  && Math.abs(total - 16) > TOLERANCE); // Enable backward button if list is not empty and bar count is less than 4
+        backward.setEnabled(!list.isEmpty() && Math.abs(total - 16) > TOLERANCE); // Enable backward button if list is not empty and bar count is less than 4
     }
 
     public void checkFinished() {
@@ -250,6 +251,18 @@ public class MusicApp extends JPanel {
                 setOneBar(getOneBar() - 1 / localNote.get_time());
             }
         }
+    }
+
+    private void addRestNote() {
+        OneNote restNote = new OneNote();
+        restNote.add_Note(-1);
+        restNote.add_time(selectedNoteType);
+        list.add(restNote);
+
+        updateTotal();
+        updateNotationPanel();
+        checkFinished();
+        checkEnablePianoKeys();
     }
 
     public static void main(String[] args) {
