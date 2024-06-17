@@ -39,7 +39,7 @@ public class DefineStyle {
         switch (style) {
             case 0:
                 // Rock style
-                Rock rock = new Rock(bpm, 100, chordMap, barAmount);
+                Rock rock = new Rock(bpm, 50, chordMap, barAmount);
                 rock.piano();
                 rock.drums();
                 rock.bass();
@@ -49,7 +49,7 @@ public class DefineStyle {
 
             case 1:
                 // Jazz style
-                Jazz jazz = new Jazz(bpm, 100, chordMap, barAmount);
+                Jazz jazz = new Jazz(bpm, 50, chordMap, barAmount);
                 jazz.piano();
                 jazz.drums();
                 jazz.bass();
@@ -67,7 +67,7 @@ public class DefineStyle {
 
             case 3:
                 // RnB style
-                RnB rnb = new RnB(bpm, 100, chordMap, barAmount);
+                RnB rnb = new RnB(bpm, 50, chordMap, barAmount);
                 rnb.piano();
                 rnb.drums();
                 rnb.bass();
@@ -77,7 +77,7 @@ public class DefineStyle {
 
             case 4:
                 // Soul style
-                Soul soul = new Soul(bpm, 100, chordMap, barAmount);
+                Soul soul = new Soul(bpm, 50, chordMap, barAmount);
                 soul.piano();
                 soul.drums();
                 soul.bass();
@@ -87,7 +87,7 @@ public class DefineStyle {
 
             case 5:
                 // Funk style
-                Funk funk = new Funk(bpm, 100, chordMap, barAmount);
+                Funk funk = new Funk(bpm, 50, chordMap, barAmount);
                 funk.piano();
                 funk.drums();
                 funk.bass();
@@ -97,7 +97,7 @@ public class DefineStyle {
 
             case 6:
                 // Reggae style
-                Reggae reggae = new Reggae(bpm, 100, chordMap, barAmount);
+                Reggae reggae = new Reggae(bpm, 50, chordMap, barAmount);
                 reggae.piano();
                 reggae.drums();
                 reggae.bass();
