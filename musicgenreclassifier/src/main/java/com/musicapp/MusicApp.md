@@ -3,7 +3,7 @@
 
 ## Overview
 
-The `MusicApp` class is responsible for generate a GUI(Graphical User Interface) for user to notate a sheet
+The `MusicApp` class is responsible for generate a GUI(Graphical User Interface) for user to notate a sheet.
 
 ### Constructor
 
@@ -99,7 +99,7 @@ explanin the method
 
 ## Overview
 
-The `MusicNotation` class draws four lines of sheet with treble clef notation
+The `MusicNotation` class draws four lines of sheet with treble clef notation.
 
 ### Constructor
 
@@ -107,7 +107,7 @@ The `MusicNotation` class draws four lines of sheet with treble clef notation
 public MusicNotation()
 ```
 
-Initializes the notation panel with sheet and treble clef notation
+Initializes the notation panel with sheet and treble clef notation.
 
 ### Methods
 
@@ -149,7 +149,7 @@ Adds a image of treble clef notation to the sheet.
 
 ## Overview
 
-The `MusicNotations` class draws notes and rests when they are added or deleted
+The `MusicNotations` class draws notes and rests when they are added or deleted.
 
 ### Constructor
 
