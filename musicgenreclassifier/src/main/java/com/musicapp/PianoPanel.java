@@ -18,15 +18,6 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         this.musicApp = musicApp;
         setLayout(null);
 
-        int keyWidth = 60;
-        int keyHeight = 200;
-        int offsetX = 10;
-        int offsetY = 50; // Adjust this value to move the piano keyboard down
-
-        int blackKeyWidth = 40;
-        int blackKeyHeight = 120;
-        int blackKeyOffset = keyWidth - (blackKeyWidth / 2);
-
         final int WHITE_KEY_WIDTH = 60;
         final int WHITE_KEY_HEIGHT = 200;
         final int OFFSET_X = 50;
@@ -68,7 +59,6 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             blackKey.setEnabled(false); // Initially disabled
             blackKeys.add(blackKey);
             add(blackKey, Integer.valueOf(2)); // Ensure black keys are on a higher layer
-            
         }
     }
 
@@ -92,7 +82,6 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         int key = Integer.parseInt(command);
 
         note.add_Note(key);
-    
         
         if (musicApp.getSelectedNoteType().contains("Rest")) {
             note.add_Note(-1);
@@ -112,8 +101,8 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
             OneNote localNote = musicApp.getList().get(i);
             musicApp.setOneBar(musicApp.getOneBar() + 1 / localNote.get_time());
-            System.out.println(" hello" + Math.abs(musicApp.getOneBar() -4));
-            if (Math.abs(musicApp.getOneBar() -4) < musicApp.getTolerance()) {
+            System.out.println(" hello" + Math.abs(musicApp.getOneBar() - 4));
+            if (Math.abs(musicApp.getOneBar() - 4) < musicApp.getTolerance()) {
                 musicApp.setOneBar(0);
             } else if (musicApp.getOneBar() > 4) {
                 JOptionPane.showMessageDialog(this, "over one bar!", "WARNING!", JOptionPane.WARNING_MESSAGE);
@@ -121,14 +110,9 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
                 return;
             }
         }
-        System.out.println(musicApp.getTotal());
         if (Math.abs(musicApp.getTotal() - 16) < musicApp.getTolerance()) {
             musicApp.setBar(musicApp.getBar() + 4);
-            Component[] components = musicApp.getLayeredPane().getComponentsInLayer(3);
-            Component component = components[0];
-            musicApp.getLayeredPane().remove(component);
-            musicApp.getLayeredPane().revalidate();
-            musicApp.getLayeredPane().repaint();
+            refreshNotationPanel();
             musicApp.setFirst(true);
             musicApp.setIndex(musicApp.getList().size());
         }
@@ -139,11 +123,7 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             return;
         }
         if (!musicApp.isFirst()) {
-            Component[] components = musicApp.getLayeredPane().getComponentsInLayer(3);
-            Component component = components[0];
-            musicApp.getLayeredPane().remove(component);
-            musicApp.getLayeredPane().revalidate();
-            musicApp.getLayeredPane().repaint();
+            refreshNotationPanel();
         }
         if (musicApp.getTotal() < 16) {
             musicApp.setFirst(false);
@@ -160,5 +140,22 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         System.out.println("Current Notes: " + note.get_Note() + " " + note.get_type() + " " + note.get_Pitch());
         // Add code to play the note here
     }
-}
 
+    private void refreshNotationPanel() {
+        Component[] components = musicApp.getLayeredPane().getComponentsInLayer(3);
+        if (components.length > 0) {
+            Component component = components[0];
+            musicApp.getLayeredPane().remove(component);
+            musicApp.getLayeredPane().revalidate();
+            musicApp.getLayeredPane().repaint();
+        }
+    }
+    public void refreshRestNote(){
+        if (Math.abs(musicApp.getTotal() - 16) < musicApp.getTolerance()) {
+            musicApp.setBar(musicApp.getBar() + 4);
+            refreshNotationPanel();
+            musicApp.setFirst(true);
+            musicApp.setIndex(musicApp.getList().size());
+        }
+    }
+}

@@ -20,7 +20,6 @@ public class MusicNotations extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println("LET\'S TRY");
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 

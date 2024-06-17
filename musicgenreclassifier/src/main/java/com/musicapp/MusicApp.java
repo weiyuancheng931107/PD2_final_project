@@ -157,7 +157,7 @@ public class MusicApp extends JPanel {
             }
         });
         pitchPanel.add(finished);
-
+        System.out.println(total);
         backward = new JButton("Backward");
         backward.setEnabled(false);
         backward.addActionListener(new ActionListener() {
@@ -263,6 +263,8 @@ public class MusicApp extends JPanel {
         updateNotationPanel();
         checkFinished();
         checkEnablePianoKeys();
+        PianoPanel checkrest = new PianoPanel(this);
+        checkrest.refreshRestNote();
     }
 
     public static void main(String[] args) {
