@@ -39,7 +39,7 @@ public class MusicNotation extends JPanel{
         final int X_END = getWidth() - 50;
         final int Y_GAP = 10;
 
-        for (int line = 0; line < 1; line++) {
+        for (int line = 0; line < 3; line++) {
             addNotation(X_START -20, yStart - 20, newWidth, newHeight);
 
             for (int i = 0; i < 5; i++) {
