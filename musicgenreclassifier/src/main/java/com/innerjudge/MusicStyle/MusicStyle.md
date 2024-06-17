@@ -658,7 +658,7 @@ Sorts the inner lists of a list of lists in descending order.
 
 # Drumsound Class Documentation
 
-This class contains programs of every pieces in the drum kit.
+This class contains programs of every piece in the drum kit.
 
 ---
 
