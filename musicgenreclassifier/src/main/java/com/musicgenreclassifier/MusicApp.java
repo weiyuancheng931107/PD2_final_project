@@ -197,7 +197,7 @@ public class MusicApp extends JPanel {
         } else {
             pianoPanel.enablePianoKeys(false);
         }
-        backward.setEnabled(!list.isEmpty() && bar < 4); // Enable backward button if list is not empty and bar count is less than 4
+        backward.setEnabled(!list.isEmpty()  && Math.abs(total - 16) > TOLERANCE); // Enable backward button if list is not empty and bar count is less than 4
     }
 
     public void checkFinished() {
@@ -209,7 +209,7 @@ public class MusicApp extends JPanel {
     }
 
     private void removeLastNote() {
-        if (!list.isEmpty() && bar < 4) {
+        if (!list.isEmpty() && Math.abs(total - 16) > TOLERANCE) {
             list.remove(list.size() - 1);
             updateNotationPanel();
             updateTotal();
