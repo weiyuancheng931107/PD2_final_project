@@ -109,7 +109,7 @@ public class MusicApp extends JPanel {
         JPanel stylePanel = new JPanel();
         String[] styleList = {"rock", "jazz", "bossanova", "rnb", "soul", "funk", "reggae"};
         for (int i = 0; i < 7; i++) {
-            JButton button = new JButton(styleList[i] + i);
+            JButton button = new JButton(styleList[i] );
             button.setActionCommand(String.valueOf(i));
             button.addActionListener(new ActionListener() {
                 @Override
