@@ -101,7 +101,6 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
             OneNote localNote = musicApp.getList().get(i);
             musicApp.setOneBar(musicApp.getOneBar() + 1 / localNote.get_time());
-            System.out.println(" hello" + Math.abs(musicApp.getOneBar() - 4));
             if (Math.abs(musicApp.getOneBar() - 4) < musicApp.getTolerance()) {
                 musicApp.setOneBar(0);
             } else if (musicApp.getOneBar() > 4) {
@@ -137,7 +136,6 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         musicApp.checkEnablePianoKeys();
         musicApp.checkFinished();
 
-        System.out.println("Current Notes: " + note.get_Note() + " " + note.get_type() + " " + note.get_Pitch());
         // Add code to play the note here
     }
 
