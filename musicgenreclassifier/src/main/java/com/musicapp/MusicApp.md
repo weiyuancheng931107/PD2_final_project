@@ -99,6 +99,8 @@ explanin the method
 
 ## Overview
 
+The `MusicNotation` class draws four lines of sheet with treble clef notation
+
 ### Constructor
 
 ```java
@@ -146,6 +148,8 @@ Adds a image of treble clef notation to the sheet.
 # MusicNotations Class Documentation
 
 ## Overview
+
+The `MusicNotations` class draws notes and rests when they are added or deleted
 
 ### Constructor
 
