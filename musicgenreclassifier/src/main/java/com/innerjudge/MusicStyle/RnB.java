@@ -51,7 +51,7 @@ public class RnB implements InnerRnB {
      */
     public RnB(int bpm, int velocity, Map<Integer, ArrayList<Integer>> chordHashMap, int barAmount) throws InvalidMidiDataException, MidiUnavailableException {
         this.bpm = bpm;
-        this.velocity = velocity;
+        this.velocity = 50;
         this.chordHashMap = chordHashMap;
         this.pause = new ArrayList<>(Collections.singletonList(-1));
         this.barAmount = barAmount * 4 + 1;
@@ -118,65 +118,33 @@ public class RnB implements InnerRnB {
         ArrayList<Integer> drumChord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumChordFinal = new ArrayList<>();
         ArrayList<Double> drumsBeat = new ArrayList<>();
-
         // Populate the drum chord and beat lists for each bar
-        for (int j = 0; j < (barAmount - 1) / 16; j++) {
+        for (int j = 0; j < (barAmount - 1)/16; j++) {
             for (int i = 0; i < 64; i++) {
                 drumsBeat.add(4.0);
             }
 
             // Populate drum chords for each beat
-            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
-            drumChordFinal.add(drumChord);
-            // Repeat similar patterns for the rest of the drum beats
+            for(int k = 0;k<8;k++){
+                drumChord = new ArrayList<>(Arrays.asList(ACOUSTIC_BASS_DRUM, PEDAL_HI_HAT));
+                drumChordFinal.add(drumChord);
+                drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+                drumChordFinal.add(drumChord);
+                drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+                drumChordFinal.add(drumChord);
+                drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+                drumChordFinal.add(drumChord);
+                drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_SNARE));
+                drumChordFinal.add(drumChord);
+                drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+                drumChordFinal.add(drumChord);
+                drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT, ACOUSTIC_BASS_DRUM));
+                drumChordFinal.add(drumChord);
+                drumChord = new ArrayList<>(Arrays.asList(PEDAL_HI_HAT));
+                drumChordFinal.add(drumChord);
+                // Repeat similar patterns for the rest of the drum beats
+            }
         }
-
         // Create a MetronomeWithNoPitch instance to play the drum track
         MetronomeWithNoPitch drums = new MetronomeWithNoPitch(bpm, 59, drumChordFinal, 2, velocity, drumsBeat, 9);
         drums.playRhythm();
