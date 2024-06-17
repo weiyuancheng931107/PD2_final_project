@@ -11,6 +11,8 @@ The `MusicApp` class is responsible for generate a GUI(Graphical User Interface)
 public MusicApp()
 ```
 
+Creates the interface and generates several button panels.
+
 ### Methods
 
 #### `checkEnablePianoKeys()`
@@ -19,39 +21,55 @@ public MusicApp()
 public void checkEnablePianoKeys()
 ```
 
-explanin the method
-
-#### `formRest()`
-
-```java
-private void formRest()
-```
-
-explanin the method
-
-#### `formNote()`
-
-```java
-public void formNote()
-```
-
-explanin the method
-
-#### `checkLengthAndSoOn()`
-
-```java
-private void checkLengthAndSoOn()
-```
-
-explanin the method
+Checks the keyboard is enabled or not.
 
 #### `checkFinished()`
 
 ```java
-private void checkFinished()
+public void checkFinished()
 ```
 
-explanin the method
+Checks whether the sheet exceeds four bars and can terminate the interface.
+
+#### `removeLastNote()`
+
+```java
+private void removeLastNote()
+```
+
+Removes last note so it can go backward.
+
+#### `updateNotationPanel()`
+
+```java
+private void updateNotationPanel()
+```
+
+Repaints the sheet when exceeding four bars.
+
+#### `updateTotal()`
+
+```java
+private void updateTotal()
+```
+
+Updates total note time in four bars.
+
+#### `addRestNote()`
+
+```java
+private void addRestNote()
+```
+
+paints rest to the sheet.
+
+#### `addRestNote()`
+
+```java
+private void addRestNote()
+```
+
+paints rest to the sheet.
 
 #### `main(String[] args)`
 
@@ -59,39 +77,7 @@ explanin the method
 public static void main(String[] args)
 ```
 
-explanin the method
-
-#### `get_CurrentNote()`
-
-```java
-public OneNote get_CurrentNote()
-```
-
-explanin the method
-
-#### `getNoteList()`
-
-```java
-public ArrayList<OneNote> getNoteList()
-```
-
-explanin the method
-
-#### `isOneBar()`
-
-```java
-public boolean isOneBar()
-```
-
-explanin the method
-
-#### `getIndex()`
-
-```java
-public int getIndex()
-```
-
-explanin the method
+Creates a frame and execute the program.
 
 ---
 
@@ -290,7 +276,7 @@ The `PianoPanel` class generates a keyboard for user to input the note key.
 public PianoPanel(MusicApp musicApp)
 ```
 
-- `musicApp`: a reference to `MusicApp` instance and pass key information to there.
+- `musicApp`: a reference to class `MusicApp` instance and pass key information to there.
 
 ### Methods
 
