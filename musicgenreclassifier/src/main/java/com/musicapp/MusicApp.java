@@ -1,4 +1,4 @@
-package com.MusicApp;
+package com.musicapp;
 
 import javax.swing.*;
 import com.innerjudge.ReadSheet;
