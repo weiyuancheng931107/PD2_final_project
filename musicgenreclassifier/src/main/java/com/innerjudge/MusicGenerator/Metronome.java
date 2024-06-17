@@ -100,7 +100,6 @@ public class Metronome {
 
     public static MidiEvent createProgramChangeMessage(int tick) throws InvalidMidiDataException {
         ShortMessage message = new ShortMessage();
-        // Set to pipe organ sound (program number 19 in General MIDI)
         message.setMessage(ShortMessage.PROGRAM_CHANGE, 0, program, 0);
         return new MidiEvent(message, tick);
     }
@@ -108,7 +107,7 @@ public class Metronome {
     public void writeToFile(String filename) throws IOException {
         File outputFile = new File(filename + ".mid");
         MidiSystem.write(sequence, 1, outputFile);
-        // Ensure to close the sequencer when it's no longer needed
+        // close the sequencer when it's no longer needed
         sequencer.close();
     }
 
