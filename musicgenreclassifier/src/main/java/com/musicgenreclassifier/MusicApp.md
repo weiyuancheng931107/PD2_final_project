@@ -133,7 +133,7 @@ The `OneNote` class is used to store information of a note, like key, ptich, tim
 public void add_Note(int key)
 ```
 
-explanin the method
+Sets the note key.
 
 #### `get_Note()`
 
@@ -141,7 +141,7 @@ explanin the method
 public Integer get_Note()
 ```
 
-explanin the method
+Returns the note key.
 
 #### `add_time(String type)`
 
@@ -149,31 +149,7 @@ explanin the method
 public void add_time(String type)
 ```
 
-explanin the method
-
-#### `get_type()`
-
-```java
-public String get_type()
-```
-
-explanin the method
-
-#### `add_Pitch(int pitch)`
-
-```java
-public void add_Pitch(int pitch)
-```
-
-explanin the method
-
-#### `get_Pitch()`
-
-```java
-public Integer get_Pitch()
-```
-
-explanin the method
+Sets the note type and trnsforms to the note time.
 
 #### `get_time()`
 
@@ -181,7 +157,31 @@ explanin the method
 public Double get_time()
 ```
 
-explanin the method
+Returns the note time.
+
+#### `get_type()`
+
+```java
+public String get_type()
+```
+
+Returns the note type.
+
+#### `add_Pitch(int pitch)`
+
+```java
+public void add_Pitch(int pitch)
+```
+
+Sets the note pitch.
+
+#### `get_Pitch()`
+
+```java
+public Integer get_Pitch()
+```
+
+Returns the note pitch.
 
 #### `set_IsRest(boolean isRest)`
 
@@ -189,7 +189,7 @@ explanin the method
 public void set_IsRest(boolean isRest)
 ```
 
-explanin the method
+Sets whether the code is a rest.
 
 #### get_IsRest()`
 
@@ -197,7 +197,7 @@ explanin the method
 public boolean get_IsRest()
 ```
 
-explanin the method
+Returns whether the code is a rest.
 
 ---
 
