@@ -26,6 +26,8 @@ public void midiMerge() throws InvalidMidiDataException, MidiUnavailableExceptio
 
 Merges MIDI files based on the selected music style.
 
+
+
 ## Judge Class Documentation
 
 ## Overview
