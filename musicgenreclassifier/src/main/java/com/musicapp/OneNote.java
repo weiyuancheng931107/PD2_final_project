@@ -1,4 +1,4 @@
-package com.musicgenreclassifier;
+package com.MusicApp;
 
 public class OneNote {
     public double time = 0.0;
