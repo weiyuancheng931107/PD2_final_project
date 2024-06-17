@@ -3,7 +3,7 @@
 
 ## Overview
 
-The `Metronome` class is responsible for creating a sequence of MIDI events and process with MIDI file writting task.
+The `Metronome` class is responsible for creating a sequence of MIDI events and processing MIDI file writting task.
 
 ### Constructor
 
@@ -115,7 +115,7 @@ Returns the track.
 
 ## Overview
 
-The `MetronomeWithNoPitch` class is responsible for creating a sequence of MIDI events to play a metronome beat without specifying pitch.
+The `MetronomeWithNoPitch` class is responsible for creating a sequence of MIDI events but without specifying pitch.
 
 ### Constructor
 
