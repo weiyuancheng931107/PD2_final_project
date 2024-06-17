@@ -336,7 +336,7 @@ public class MusicNotations extends JPanel {
 
     private void editImage() {
         String currentDirectory = System.getProperty("user.dir");
-        String imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\rest_quarter_removebg.png";
+        String imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\graphics\\rest_quarter_removebg.png";
 
         ImageIcon icon = new ImageIcon(imagePath);
         Image image = icon.getImage();
@@ -345,7 +345,7 @@ public class MusicNotations extends JPanel {
         Image resizedImage = image.getScaledInstance(widths[0], heights[0], Image.SCALE_SMOOTH);
         restIcons[0] = new ImageIcon(resizedImage);
 
-        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\rest_eighth_removebg.png";
+        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\graphics\\rest_eighth_removebg.png";
 
         icon = new ImageIcon(imagePath);
         image = icon.getImage();
@@ -354,7 +354,7 @@ public class MusicNotations extends JPanel {
         resizedImage = image.getScaledInstance(widths[1], heights[1], Image.SCALE_SMOOTH);
         restIcons[1] = new ImageIcon(resizedImage);
         
-        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\rest_sixteenth_removebg.png";
+        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\graphics\\rest_sixteenth_removebg.png";
 
         icon = new ImageIcon(imagePath);
         image = icon.getImage();
@@ -363,7 +363,7 @@ public class MusicNotations extends JPanel {
         resizedImage = image.getScaledInstance(widths[2], heights[2], Image.SCALE_SMOOTH);
         restIcons[2] = new ImageIcon(resizedImage);
         
-        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\musicgenreclassifier\\rest_thirtysecond_removebg.png";
+        imagePath = currentDirectory + File.separator + "\\musicgenreclassifier\\src\\main\\java\\com\\graphics\\rest_thirtysecond_removebg.png";
 
         icon = new ImageIcon(imagePath);
         image = icon.getImage();
