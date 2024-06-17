@@ -90,3 +90,6 @@ We use Semantic Versioning for versioning. For the [versions](https://semver.org
 
 ## Authors
 F74121050 鄭爲元 [gmail](weiyuan.cheng@gmail.com)
+F74122187 張瓅云 [gmail](christinechang931023@gmail.com)
+F74122014 黃禹璇 [gmail](ankeng40426@gmail.com)
+
