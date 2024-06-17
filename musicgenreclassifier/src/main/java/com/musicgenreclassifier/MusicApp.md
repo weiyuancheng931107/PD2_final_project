@@ -11,18 +11,6 @@ someWord
 public MusicApp()
 ```
 
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-- `name`: explanation
-
 ### Methods
 
 #### `checkEnablePianoKeys()`
@@ -111,11 +99,23 @@ explanin the method
 
 ## Overview
 
+### Constructor
+
+```java
+public MusicNotation()
+```
+
 ---
 
 # MusicNotations Class Documentation
 
 ## Overview
+
+### Constructor
+
+```java
+public MusicNotations(MusicApp musicApp)
+```
 
 ---
 
@@ -128,3 +128,9 @@ explanin the method
 # PianoPanel Class Documentation
 
 ## Overview
+
+### Constructor
+
+```java
+public PianoPanel(MusicApp musicApp)
+```
