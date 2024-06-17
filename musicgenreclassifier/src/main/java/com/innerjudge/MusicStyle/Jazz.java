@@ -20,10 +20,7 @@ interface InnerJazz {
  */
 public class Jazz implements InnerJazz {
 
-    // Constants for MIDI drum instrument codes
-    public static final int KICK_DRUM = 36; // Bass drum
-    public static final int RIDE = 42;
-    public static final int CRASH = 51;
+
 
     // Chord hash map for storing chord progressions
     private Map<Integer, ArrayList<Integer>> chordHashMap;
@@ -53,57 +50,10 @@ public class Jazz implements InnerJazz {
         this.bpm = bpm;
         this.velocity = 50;
         this.chordHashMap = chordHashMap;
-        this.pause = new ArrayList<>(Collections.singletonList(-1));
+        this.pause = new ArrayList<>(Arrays.asList(-1));
         this.barAmount = barAmount * 4 + 1;
     }
 
-    // Additional MIDI drum instrument codes
-    public static final int ACOUSTIC_BASS_DRUM = 35;
-    public static final int BASS_DRUM = 36;
-    public static final int SIDE_STICK = 37;
-    public static final int ACOUSTIC_SNARE = 38;
-    public static final int HAND_CLAP = 39;
-    public static final int ELECTRIC_SNARE = 40;
-    public static final int LOW_FLOOR_TOM = 41;
-    public static final int CLOSED_HI_HAT = 42;
-    public static final int HIGH_FLOOR_TOM = 43;
-    public static final int LOW_TOM = 45;
-    public static final int OPEN_HI_HAT = 46;
-    public static final int LOW_MID_TOM = 47;
-    public static final int HI_MID_TOM = 48;
-    public static final int CRASH_CYMBAL_1 = 49;
-    public static final int HIGH_TOM = 50;
-    public static final int RIDE_CYMBAL_1 = 51;
-    public static final int CHINESE_CYMBAL = 52;
-    public static final int RIDE_BELL = 53;
-    public static final int TAMBOURINE = 54;
-    public static final int SPLASH_CYMBAL = 55;
-    public static final int COWBELL = 56;
-    public static final int CRASH_CYMBAL_2 = 57;
-    public static final int VIBRASLAP = 58;
-    public static final int RIDE_CYMBAL_2 = 59;
-    public static final int HI_BONGO = 60;
-    public static final int LOW_BONGO = 61;
-    public static final int MUTE_HI_CONGA = 62;
-    public static final int OPEN_HI_CONGA = 63;
-    public static final int LOW_CONGA = 64;
-    public static final int HIGH_TIMBALE = 65;
-    public static final int LOW_TIMBALE = 66;
-    public static final int HIGH_AGOGO = 67;
-    public static final int LOW_AGOGO = 68;
-    public static final int CABASA = 69;
-    public static final int MARACAS = 70;
-    public static final int SHORT_WHISTLE = 71;
-    public static final int LONG_WHISTLE = 72;
-    public static final int SHORT_GUIRO = 73;
-    public static final int LONG_GUIRO = 74;
-    public static final int CLAVES = 75;
-    public static final int HI_WOOD_BLOCK = 76;
-    public static final int LOW_WOOD_BLOCK = 77;
-    public static final int MUTE_CUICA = 78;
-    public static final int OPEN_CUICA = 79;
-    public static final int MUTE_TRIANGLE = 80;
-    public static final int OPEN_TRIANGLE = 81;
 
     /**
      * Method to generate the drum track for the Jazz rhythm.
@@ -113,7 +63,7 @@ public class Jazz implements InnerJazz {
      */
     @Override
     public void drums() throws InvalidMidiDataException, MidiUnavailableException, IOException {
-        ArrayList<Integer> drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM));
+        ArrayList<Integer> drumChord = new ArrayList<>();
         ArrayList<ArrayList<Integer>> drumChordFinal = new ArrayList<>();
         ArrayList<Double> drumsBeat = new ArrayList<>();
 
@@ -122,62 +72,62 @@ public class Jazz implements InnerJazz {
             Collections.addAll(drumsBeat, 1.0, 1.5, 3.0, 1.0, 1.5, 3.0, 1.5, 3.0, 1.5, 3.0, 1.5, 3.0, 1.5, 3.0, 1.0, 1.5, 3.0, 1.0, 1.5, 3.0, 1.0, 1.5, 3.0, 1.0, 1.5, 3.0);
 
             // Populate drum chords for each beat
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM, ACOUSTIC_SNARE, CLOSED_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM, Drumsound.ACOUSTIC_SNARE, Drumsound.CLOSED_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(RIDE_CYMBAL_2));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM, ACOUSTIC_SNARE, CLOSED_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM, Drumsound.ACOUSTIC_SNARE, Drumsound.CLOSED_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(RIDE_CYMBAL_2));
-            drumChordFinal.add(drumChord);
-
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(ACOUSTIC_SNARE));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM, CLOSED_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_SNARE));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(ACOUSTIC_SNARE));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM, CLOSED_HI_HAT));
-            drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(RIDE_CYMBAL_2));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2));
             drumChordFinal.add(drumChord);
 
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM, ACOUSTIC_SNARE, CLOSED_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.ACOUSTIC_SNARE));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(RIDE_CYMBAL_2));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM, Drumsound.CLOSED_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_SNARE));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM, ACOUSTIC_SNARE, CLOSED_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(RIDE_CYMBAL_2));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.ACOUSTIC_SNARE));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM, Drumsound.CLOSED_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2));
             drumChordFinal.add(drumChord);
 
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM, ACOUSTIC_SNARE, CLOSED_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM, Drumsound.ACOUSTIC_SNARE, Drumsound.CLOSED_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(RIDE_CYMBAL_2));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Arrays.asList(RIDE_CYMBAL_2, ACOUSTIC_BASS_DRUM, ACOUSTIC_SNARE, CLOSED_HI_HAT));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM, Drumsound.ACOUSTIC_SNARE, Drumsound.CLOSED_HI_HAT));
             drumChordFinal.add(drumChord);
-            drumChord = new ArrayList<>(Collections.singletonList(CRASH));
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2));
+            drumChordFinal.add(drumChord);
+
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM, Drumsound.ACOUSTIC_SNARE, Drumsound.CLOSED_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.RIDE_CYMBAL_2, Drumsound.ACOUSTIC_BASS_DRUM, Drumsound.ACOUSTIC_SNARE, Drumsound.CLOSED_HI_HAT));
+            drumChordFinal.add(drumChord);
+            drumChord = new ArrayList<>(Arrays.asList(Drumsound.CRASH));
             drumChordFinal.add(drumChord);
         }
-
         // Create a MetronomeWithNoPitch instance to play the drum track
         MetronomeWithNoPitch drums = new MetronomeWithNoPitch(bpm, 59, drumChordFinal, 2, velocity, drumsBeat, 9);
         drums.playRhythm();
