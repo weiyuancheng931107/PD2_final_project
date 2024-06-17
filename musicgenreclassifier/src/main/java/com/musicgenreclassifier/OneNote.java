@@ -83,6 +83,9 @@ public class OneNote {
                 break;
         }
     }
+    public Double get_time() {
+        return time;
+    }
     public String get_type() {
         return type;
     }
@@ -91,9 +94,6 @@ public class OneNote {
     }
     public Integer get_Pitch() {
         return pitch;
-    }
-    public Double get_time() {
-        return time;
     }
 
     public void set_IsRest(boolean isRest) {
