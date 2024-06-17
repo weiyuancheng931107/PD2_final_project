@@ -96,8 +96,8 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
             OneNote localNote = musicApp.getList().get(i);
             musicApp.setTotal(musicApp.getTotal() + 1 / localNote.get_time());
-            System.out.println("index: " + i + " \\ total: " + musicApp.getTotal());
         }
+        System.out.println("total: " + musicApp.getTotal());
         for (int i = musicApp.getIndex(); i < musicApp.getList().size(); i++) {
             OneNote localNote = musicApp.getList().get(i);
             musicApp.setOneBar(musicApp.getOneBar() + 1 / localNote.get_time());
@@ -152,10 +152,13 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
     }
     public void refreshRestNote(){
         if (Math.abs(musicApp.getTotal() - 16) < musicApp.getTolerance()) {
+        System.out.println("freshed");
             musicApp.setBar(musicApp.getBar() + 4);
             refreshNotationPanel();
             musicApp.setFirst(true);
             musicApp.setIndex(musicApp.getList().size());
+            musicApp.setTotal(0);
+            musicApp.setIsFinished(true);
         }
     }
 }

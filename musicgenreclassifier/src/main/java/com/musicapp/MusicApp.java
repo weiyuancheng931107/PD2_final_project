@@ -13,7 +13,7 @@ public class MusicApp extends JPanel {
     public static final String[] SHARPS = {"C#", "D#", "", "F#", "G#", "A#"};
 
     private ArrayList<OneNote> list = new ArrayList<>();
-    private OneNote note;
+    //private OneNote note;
 
     private JLayeredPane layeredPane = new JLayeredPane();
     private PianoPanel pianoPanel;
@@ -30,6 +30,8 @@ public class MusicApp extends JPanel {
     private int style = 7;
     private double oneBar = 0;
     final double TOLERANCE = 0.000001;
+
+    private boolean isFinished = false;
 
     public MusicApp() {
         setLayout(new BorderLayout());
@@ -202,7 +204,7 @@ public class MusicApp extends JPanel {
     }
 
     public void checkFinished() {
-        if (bpm != 0 && style != 7 && Math.abs(total - 16) < TOLERANCE) {
+        if (bpm != 0 && style != 7 && isFinished) {
             finished.setEnabled(true);
         } else {
             finished.setEnabled(false);
@@ -238,7 +240,8 @@ public class MusicApp extends JPanel {
 
     private void updateTotal() {
         total = 0;
-        for (OneNote note : list) {
+        for (int i = index; i < list.size(); i++) {
+            OneNote note = list.get(i);
             total += 1 / note.get_time();
         }
         setOneBar(0);
@@ -263,6 +266,7 @@ public class MusicApp extends JPanel {
         updateNotationPanel();
         checkFinished();
         checkEnablePianoKeys();
+        System.out.println("total: " + total);
         PianoPanel checkrest = new PianoPanel(this);
         checkrest.refreshRestNote();
     }
@@ -372,5 +376,13 @@ public class MusicApp extends JPanel {
 
     public double getTolerance() {
         return TOLERANCE;
+    }
+
+    public void setIsFinished(boolean isFinished) {
+        this.isFinished = isFinished;
+    }
+    
+    public boolean isFinished() {
+        return isFinished;
     }
 }
