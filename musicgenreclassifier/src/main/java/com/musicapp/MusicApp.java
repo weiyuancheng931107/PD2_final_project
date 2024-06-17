@@ -30,6 +30,7 @@ public class MusicApp extends JPanel {
     private int style = 7;
     private double oneBar = 0;
     final double TOLERANCE = 0.000001;
+    private boolean stop = false;
 
     private boolean isFinished = false;
 
@@ -251,7 +252,9 @@ public class MusicApp extends JPanel {
             if (Math.abs(getOneBar() - 4) < TOLERANCE) {
                 setOneBar(0);
             } else if (getOneBar() > 4) {
-                setOneBar(getOneBar() - 1 / localNote.get_time());
+                JOptionPane.showMessageDialog(this, "over one bar!", "WARNING!", JOptionPane.WARNING_MESSAGE);
+                getList().remove(getList().size() - 1);
+                stop = true;
             }
         }
     }
@@ -263,12 +266,17 @@ public class MusicApp extends JPanel {
         list.add(restNote);
 
         updateTotal();
-        updateNotationPanel();
-        checkFinished();
-        checkEnablePianoKeys();
-        System.out.println("total: " + total);
-        PianoPanel checkrest = new PianoPanel(this);
-        checkrest.refreshRestNote();
+        if(!stop) {
+            updateNotationPanel();
+            checkFinished();
+            checkEnablePianoKeys();
+            System.out.println("total: " + total);
+            PianoPanel checkrest = new PianoPanel(this);
+            checkrest.refreshRestNote();
+        }
+        else {
+            stop = false;
+        }
     }
 
     public static void main(String[] args) {
