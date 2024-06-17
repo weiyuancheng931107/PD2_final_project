@@ -29,7 +29,7 @@ public class MusicApp extends JPanel {
     private int bar = 0;
     private int style = 7;
     private double oneBar = 0;
-    final double TOLERANCE = 0.0001;
+    final double TOLERANCE = 0.000001;
 
     public MusicApp() {
         setLayout(new BorderLayout());
