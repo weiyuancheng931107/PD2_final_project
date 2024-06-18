@@ -208,6 +208,9 @@ public class MusicApp extends JPanel {
             finished.setEnabled(true);
         } else {
             finished.setEnabled(false);
+            System.out.println(bpm);
+            System.out.println(style);
+            System.out.println(isFinished);
         }
     }
 
@@ -263,14 +266,16 @@ public class MusicApp extends JPanel {
         restNote.add_Note(-1);
         restNote.add_time(selectedNoteType);
         list.add(restNote);
+        finished.setEnabled(false);
+        setIsFinished(false);
 
         updateTotal();
         if(!stop) {
             updateNotationPanel();
-            checkFinished();
             checkEnablePianoKeys();
             PianoPanel checkrest = new PianoPanel(this);
             checkrest.refreshRestNote();
+            checkFinished();
         }
         else {
             stop = false;
