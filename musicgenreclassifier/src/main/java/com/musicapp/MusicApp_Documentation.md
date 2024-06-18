@@ -292,7 +292,7 @@ Enables or disenables the keyboard.
 
 - `enabled`: A boolean variable determining whether the keyboard is enabled.
 
-- #### `actionPerformed(ActionEvent e)`
+#### `actionPerformed(ActionEvent e)`
 
 ```java
 @Override
