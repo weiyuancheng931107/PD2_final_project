@@ -87,6 +87,7 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             note.add_Note(-1);
         }
         musicApp.getFinishedButton().setEnabled(false);
+        musicApp.setIsFinished(false);
         note.add_time(musicApp.getSelectedNoteType());
         note.add_Pitch(musicApp.getPitch());
         //repaint();
@@ -113,6 +114,7 @@ public class PianoPanel extends JLayeredPane implements ActionListener {
             musicApp.setBar(musicApp.getBar() + 4);
             refreshNotationPanel();
             musicApp.setFirst(true);
+            musicApp.setIsFinished(true);
             musicApp.setIndex(musicApp.getList().size());
         }
         if (Math.abs(musicApp.getTotal() - 16) < musicApp.getTolerance() && musicApp.getBpm() != 0) {
